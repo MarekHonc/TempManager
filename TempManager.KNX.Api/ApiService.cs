@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Net;
+using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 
@@ -66,7 +67,9 @@ namespace TempManager.KNX.Api
 			Func<string, ApiValue[]> parseResponse = (json) =>
 			{
 				var data = JsonConvert.DeserializeObject<Dictionary<string, ApiValue[]>>(json);
-				return data[variable.Name];
+				var filteredCollection = data[variable.Name].Where(d => !string.IsNullOrEmpty(d.Name)).ToArray();
+
+				return filteredCollection;
 			};
 
 			// Stáhnu výsledek a zkontroluji, zda api něco vrátilo.
@@ -88,7 +91,7 @@ namespace TempManager.KNX.Api
 			{
 				// Header
 				var authorization = new AuthenticationHeaderValue(
-					"Basic", Base64Encode(this.apiSettings.UserName + ":" + this.apiSettings.Password)
+					"Basic", Base64Encode($"{this.apiSettings.UserName}:{this.apiSettings.Password}")
 				);
 
 				// Výchozí nastavení.
@@ -106,6 +109,10 @@ namespace TempManager.KNX.Api
 				{
 					return default(T);
 				}
+
+				// Cokoli jiného než 200 vracím výchozí hodnotu.
+				if (!response.IsSuccessStatusCode)
+					return default(T);
 
 				// Přečtu odpověď jako string.
 				var jsonResult = await response.Content.ReadAsStringAsync();
@@ -125,13 +132,5 @@ namespace TempManager.KNX.Api
 		}
 
 		#endregion
-
-		/// <summary>
-		/// Vrací instanci služby pro připojení k API.
-		/// </summary>
-		public IApiService GetService(IApiSettings settings)
-		{
-			return new ApiService(settings);
-		}
 	}
 }
