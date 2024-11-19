@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempManager.Web", "TempManager.Web\TempManager.Web.csproj", "{ED10863A-9F97-4467-B1B6-A794CF9F394D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempManager.KNX.Api", "TempManager.KNX.Api\TempManager.KNX.Api.csproj", "{B5A2D947-629A-424E-8873-8C7AF24ECB2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempManager.BL", "TempManager.BL\TempManager.BL.csproj", "{823D778E-BB6A-437D-A5F7-988371756493}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestProjects", "TestProjects", "{99E026E9-7307-40F5-A2EA-F40D9D3418C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED10863A-9F97-4467-B1B6-A794CF9F394D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED10863A-9F97-4467-B1B6-A794CF9F394D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED10863A-9F97-4467-B1B6-A794CF9F394D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED10863A-9F97-4467-B1B6-A794CF9F394D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5A2D947-629A-424E-8873-8C7AF24ECB2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5A2D947-629A-424E-8873-8C7AF24ECB2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5A2D947-629A-424E-8873-8C7AF24ECB2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5A2D947-629A-424E-8873-8C7AF24ECB2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{823D778E-BB6A-437D-A5F7-988371756493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823D778E-BB6A-437D-A5F7-988371756493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823D778E-BB6A-437D-A5F7-988371756493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823D778E-BB6A-437D-A5F7-988371756493}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52510EEC-E7E3-46B4-B4EC-37E56B144721}
+	EndGlobalSection
+EndGlobal
