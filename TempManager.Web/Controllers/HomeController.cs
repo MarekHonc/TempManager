@@ -1,32 +1,63 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using TempManager.BL.Services;
+using TempManager.Common.Enums;
 using TempManager.Web.Models;
 
 namespace TempManager.Web.Controllers
 {
-	public class HomeController : Controller
+	/// <summary>
+	/// Hlavní controller aplikace.
+	/// </summary>
+	public class HomeController : BaseController
 	{
-		private readonly ILogger<HomeController> _logger;
-
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(IFloorService floorService) : base(floorService)
 		{
-			_logger = logger;
 		}
 
-		public IActionResult Index()
+		/// <summary>
+		/// Vrací úvodní stránku aplikace - s posledním zobrazeným podlažím.
+		/// </summary>
+		[Route("/")]
+		public async Task<IActionResult> Index()
 		{
-			return View();
+			return await GetView();
 		}
 
-		public IActionResult Privacy()
+		/// <summary>
+		/// Vrací stránku pro zobrazení konkrétního podlaží.
+		/// </summary>
+		/// <param name="friendlyId"></param>
+		/// <returns></returns>
+		[Route("/Floor/{friendlyId}")]
+		public async Task<IActionResult> Floor(string friendlyId)
 		{
-			return View();
+			// Vytáhnu podlaží.
+			var floor = await this.floorService.GetByFriendlyId(friendlyId);
+			if (floor == null)
+				return NotFound($"Floor {friendlyId} does not exist!");
+
+			// Uložím jako poslední zobrazené.
+			await this.floorService.SaveLastSelectedFloor(floor.Id);
+
+			// A vrátím konkrétní view.
+			return await GetView();
 		}
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
+		/// <summary>
+		/// Vrací konkrétní zobrazení pro aplikaci.
+		/// </summary>
+		private async Task<IActionResult> GetView()
 		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+			var model = await FetchModel(WebLocation.Floor, new MainViewModel());
+
+			// Pokud nemám ani jedno podlaží, apka není inicializovaná.
+			if (model.Floors.Length == 0)
+				return View("NotInitialized");
+
+			// Inicializace modelu.
+			model.Init();
+
+			return View("Index", model);
 		}
 	}
 }

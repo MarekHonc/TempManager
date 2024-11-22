@@ -1,8 +1,26 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using TempManager.Common.Enums
+@using TempManager.Web.Localization
+@model MainViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (Model.IsOnline)
+{
+	ViewData["Title"] = Model.SelectedFloor.Name;
+
+	switch (Model.FloorViewType)
+	{
+		case FloorViewType.Map:
+			await Html.RenderPartialAsync("../Floor/Map", Model);
+			break;
+		case FloorViewType.List:
+			await Html.RenderPartialAsync("../Floor/List", Model);
+			break;
+		default:
+			throw new Exception($"View type {Model.FloorViewType} is not supported!");
+	}
+}
+else
+{
+	ViewData["Title"] = Resources.Offline_Title;
+
+	await Html.RenderPartialAsync("Offilne", Model);
+}

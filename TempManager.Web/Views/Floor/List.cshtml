@@ -1,0 +1,17 @@
+﻿@model MainViewModel
+
+@await Html.PartialAsync("_Loader")
+
+<div class="container">
+	Toto je list
+</div>
+
+<script type="text/javascript">
+	$.ajax({
+		url: "@Url.Action("GetRooms", "Floor", new { friendlyId = Model.SelectedFloor.FriendlyId })",
+		method: "GET",
+		success: function (data) {
+			$("#loader").fadeOut();
+		}
+	})
+</script>

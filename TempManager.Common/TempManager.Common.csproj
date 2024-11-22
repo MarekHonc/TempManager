@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TempManager.Common\TempManager.Common.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,0 +1,36 @@
+﻿@using TempManager.Web.Localization
+@using TempManager.Common.Enums
+@model BaseViewModel
+
+<div class="navbar-light" id="nav-button">
+	<button class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" href="#main-nav" role="button">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+</div>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="main-nav">
+	<div class="offcanvas-header flex-row-reverse">
+		<button type="button" class="btn btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="@Resources.Close"></button>
+	</div>
+	<div class="offcanvas-body">
+		<div class="list-group list-group-flush">
+			@foreach (var floor in Model.Floors)
+			{
+				var isSelected = Model.WebLocation == WebLocation.Floor && floor.FriendlyId == Model.SelectedFloor.FriendlyId;
+
+				<a href="@Url.Action("Floor", "Home", new { floor.FriendlyId })"
+				   class="list-group-item list-group-item-action @(isSelected ? "active" : string.Empty)" @(isSelected ? "aria-current=\"true\"" : string.Empty)>
+					@floor.Name
+				</a>
+			}
+
+			@{
+				var isFeedbackSelected = Model.WebLocation == WebLocation.FeedBackForm;
+			}
+
+			<a href="@Url.Action("Index", "Feedback")"
+			   class="list-group-item list-group-item-action @(isFeedbackSelected ? "active" : string.Empty)" @(isFeedbackSelected ? "aria-current=\"true\"" : string.Empty)>
+				@Resources.Feedback
+			</a>
+		</div>
+	</div>
+</div>

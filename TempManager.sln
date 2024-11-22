@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempManager.Web", "TempMana
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempManager.KNX.Api", "TempManager.KNX.Api\TempManager.KNX.Api.csproj", "{B5A2D947-629A-424E-8873-8C7AF24ECB2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempManager.BL", "TempManager.BL\TempManager.BL.csproj", "{823D778E-BB6A-437D-A5F7-988371756493}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempManager.BL", "TempManager.BL\TempManager.BL.csproj", "{823D778E-BB6A-437D-A5F7-988371756493}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestProjects", "TestProjects", "{99E026E9-7307-40F5-A2EA-F40D9D3418C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempManager.ApiConsoleTest", "TestProjects\TempManager.ApiConsoleTest\TempManager.ApiConsoleTest.csproj", "{456881F2-4D9B-44A8-83CD-9C70A57D6C4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempManager.ApiConsoleTest", "TestProjects\TempManager.ApiConsoleTest\TempManager.ApiConsoleTest.csproj", "{456881F2-4D9B-44A8-83CD-9C70A57D6C4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempManager.Common", "TempManager.Common\TempManager.Common.csproj", "{9611ED16-1C8A-4198-8A58-8DEA1A20798D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{456881F2-4D9B-44A8-83CD-9C70A57D6C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{456881F2-4D9B-44A8-83CD-9C70A57D6C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{456881F2-4D9B-44A8-83CD-9C70A57D6C4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9611ED16-1C8A-4198-8A58-8DEA1A20798D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9611ED16-1C8A-4198-8A58-8DEA1A20798D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9611ED16-1C8A-4198-8A58-8DEA1A20798D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9611ED16-1C8A-4198-8A58-8DEA1A20798D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

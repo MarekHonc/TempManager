@@ -1,22 +1,52 @@
 html {
-  font-size: 14px;
+	font-size: 14px;
+}
+
+#nav-button {
+	position: fixed;
+	top: 15px;
+	left: 15px;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+.spinner-wrapper {
+	background-color: #fff;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.spinner-border {
+	width: 60px;
+	height: 60px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+	html {
+		font-size: 16px;
+	}
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+	box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+	position: relative;
+	min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+	margin-bottom: 60px;
 }

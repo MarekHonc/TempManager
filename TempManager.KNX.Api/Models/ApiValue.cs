@@ -38,6 +38,16 @@ namespace TempManager.KNX.Api
 		}
 
 		/// <summary>
+		/// Vrací hodnotu CO2 v místnosti.
+		/// </summary>
+		[JsonProperty("co2")]
+		public double CO2
+		{
+			get;
+			internal set;
+		}
+
+		/// <summary>
 		/// Vrací nastavenou teplotu.
 		/// </summary>
 		[JsonProperty("tempW")]

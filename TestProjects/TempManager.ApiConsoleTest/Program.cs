@@ -25,7 +25,7 @@ namespace TempManager.ApiConsoleTest
 
 				foreach (var value in values)
 				{
-					Console.WriteLine($"Name: {value.Name}, Temp: {value.Temp}, RH: {value.Rh}, Desired Temp: {value.DesiredTemperature}, Valve Open: {value.ValveOpen}");
+					Console.WriteLine($"Name: {value.Name}, Temp: {value.Temp}, RH: {value.Rh} CO2: {value.CO2}, Desired Temp: {value.DesiredTemperature}, Valve Open: {value.ValveOpen}");
 				}
 			}
 		}

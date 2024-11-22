@@ -1,0 +1,31 @@
+﻿@using TempManager.Web.Localization
+@model BaseViewModel
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@Resources.NotInitialized_Title</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+	<h3 class="text-center mt-5">@Resources.NotInitialized_Title</h3>
+	<h5 class="text-center">@Resources.NotInitialized_Description</h5>
+	<div class="text-center mt-5">
+		<div class="page-loader">
+			<span class="spinner-border text-primary" role="status"></span>
+		</div>
+	</div>
+</body>
+
+<script>
+	window.setInterval(function () {
+		window.location.reload();
+	}, 10_000);
+</script>

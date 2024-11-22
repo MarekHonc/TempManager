@@ -1,3 +1,6 @@
+using TempManager.BL.Services;
+using TempManager.Web.HostedServices;
+
 namespace TempManager.Web
 {
 	public class Program
@@ -8,6 +11,9 @@ namespace TempManager.Web
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+
+			// Zaregistruji služby.
+			RegisterServices(builder);
 
 			var app = builder.Build();
 
@@ -31,6 +37,19 @@ namespace TempManager.Web
 				pattern: "{controller=Home}/{action=Index}/{id?}");
 
 			app.Run();
+		}
+
+		/// <summary>
+		/// Zaregistruje služby aplikace do DI kontejneru.
+		/// </summary>
+		private static void RegisterServices(WebApplicationBuilder builder)
+		{
+			// Služby pro weby -> zapisují a ètou z lokální storage.
+			builder.Services.AddScoped<IFloorService, FloorTestService>();
+			builder.Services.AddScoped<IRoomService, RoomTestService>();
+
+			// Background task, který synchronizuje lokální storage s/do KNX.
+			builder.Services.AddHostedService<ValueSyncServiceWrapper>();
 		}
 	}
 }
