@@ -106,6 +106,15 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Žádné místnosti nejsou k dispozici..
+        /// </summary>
+        public static string NoRooms {
+            get {
+                return ResourceManager.GetString("NoRooms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aktuálně probíhá inicializace, stránka se za chvíli obnoví a načte..
         /// </summary>
         public static string NotInitialized_Description {
@@ -124,7 +133,7 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applikace nemá aktuální data pro zobrazení, stránka se za chvíli obnoví a načte..
+        ///   Looks up a localized string similar to Aplikace nemá aktuální data pro zobrazení, stránka se za chvíli obnoví a načte..
         /// </summary>
         public static string Offline_Description {
             get {

@@ -18,34 +18,40 @@
 			</div>
 			<input data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="form-control" type="search" placeholder="@Resources.Search" aria-label="@Resources.Search">
 		</div>
-		
-		<table class="table">
-			<thead>
-				<tr>
-					<th>@Resources.Room</th>
-					<th>@Resources.Temperature</th>
-					<th>@Resources.DesiredTempereture</th>
-					<th>@Resources.CO2</th>
-					<th>@Resources.Rh</th>
-					<th></th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<!-- ko foreach: filteredRooms -->
-				<tr>
-					<th data-bind="text: name"></th>
-					<th data-bind="text: temperature"></th>
-					<th><input data-bind="value: desiredTemperature, enabled: hasRightToEdit" type="number" class="form-control"/></th>
-					<th data-bind="text: co2"></th>
-					<th data-bind="text: rh"></th>
-					<th><span class="form-check"><input type="checkbox" data-bind="checked: valveOpen" class="form-check-input" disabled="disabled"/></span></th>
-					<th><span class="form-check"><input type="checkbox" data-bind="checked: isFavorite" class="form-check-input"/></span></th>
-				</tr>
-				<!-- /ko -->
-			</tbody>
-		</table>
 	</div>
+	<!-- ko if: filteredRooms().length == 0 -->
+	<div class="row">
+		<p>@Resources.NoRooms</p>
+	</div>
+	<!-- /ko-->
+	<!-- ko if: filteredRooms().length > 0 -->
+	<table class="table">
+		<thead>
+		<tr>
+			<th>@Resources.Room</th>
+			<th>@Resources.Temperature</th>
+			<th>@Resources.DesiredTempereture</th>
+			<th>@Resources.CO2</th>
+			<th>@Resources.Rh</th>
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+			<!-- ko foreach: filteredRooms -->
+			<tr>
+				<th data-bind="text: name"></th>
+				<th data-bind="text: temperature"></th>
+				<th><input data-bind="value: desiredTemperature, enabled: hasRightToEdit" type="number" class="form-control"/></th>
+				<th data-bind="text: co2"></th>
+				<th data-bind="text: rh"></th>
+				<th><span class="form-check"><input type="checkbox" data-bind="checked: valveOpen" class="form-check-input" disabled="disabled"/></span></th>
+				<th><span class="form-check"><input type="checkbox" data-bind="checked: isFavorite" class="form-check-input"/></span></th>
+			</tr>
+			<!-- /ko -->
+		</tbody>
+	</table>
+	<!-- /ko -->
 </div>
 <script type="text/javascript">
 	var model = new appModel({

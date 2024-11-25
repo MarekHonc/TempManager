@@ -1,4 +1,7 @@
 using TempManager.BL.Services;
+using TempManager.BL.Services.Implementations;
+using TempManager.KNX.Api;
+using TempManager.Web.Code;
 using TempManager.Web.HostedServices;
 
 namespace TempManager.Web
@@ -48,9 +51,12 @@ namespace TempManager.Web
 		/// </summary>
 		private static void RegisterServices(WebApplicationBuilder builder)
 		{
+			// Napojení na API -> je to služba, co ète z konfigu, staèí singleton.
+			builder.Services.AddSingleton<IApiSettings, ApiSettings>();
+
 			// Služby pro weby -> zapisují a ètou z lokální storage.
-			builder.Services.AddScoped<IFloorService, FloorTestService>();
-			builder.Services.AddScoped<IRoomService, RoomTestService>();
+			builder.Services.AddScoped<IFloorService, DirectApiFloorService>();
+			builder.Services.AddScoped<IRoomService, DirectApiRoomService>();
 
 			// Background task, který synchronizuje lokální storage s/do KNX.
 			builder.Services.AddHostedService<ValueSyncServiceWrapper>();

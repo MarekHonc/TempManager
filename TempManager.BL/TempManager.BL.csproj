@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TempManager.Common\TempManager.Common.csproj" />
+    <ProjectReference Include="..\TempManager.KNX.Api\TempManager.KNX.Api.csproj" />
   </ItemGroup>
 
 </Project>
