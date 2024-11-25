@@ -1,17 +1,56 @@
-﻿@model MainViewModel
+﻿@using TempManager.Web.Localization
+@model MainViewModel
 
-@await Html.PartialAsync("_Loader")
+<div id="list-app" class="container mt-5">
+	@await Html.PartialAsync("_Loader")
 
-<div class="container">
-	Toto je list
+
+	<div class="row">
+		<h3 class="col-8">
+			@Model.SelectedFloor.Name
+		</h3>
+		<div class="col-4">
+			<div class="form-check">
+				<input class="form-check-input" data-bind="checked: onlyFavorites" type="checkbox" id="only-favorites">
+				<label class="form-check-label" for="only-favorites">
+					@Resources.OnlyFavorites
+				</label>
+			</div>
+			<input data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="form-control" type="search" placeholder="@Resources.Search" aria-label="@Resources.Search">
+		</div>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>@Resources.Room</th>
+					<th>@Resources.Temperature</th>
+					<th>@Resources.DesiredTempereture</th>
+					<th>@Resources.CO2</th>
+					<th>@Resources.Rh</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- ko foreach: filteredRooms -->
+				<tr>
+					<th data-bind="text: name"></th>
+					<th data-bind="text: temperature"></th>
+					<th><input data-bind="value: desiredTemperature, enabled: hasRightToEdit" type="number" class="form-control"/></th>
+					<th data-bind="text: co2"></th>
+					<th data-bind="text: rh"></th>
+					<th><span class="form-check"><input type="checkbox" data-bind="checked: valveOpen" class="form-check-input" disabled="disabled"/></span></th>
+					<th><span class="form-check"><input type="checkbox" data-bind="checked: isFavorite" class="form-check-input"/></span></th>
+				</tr>
+				<!-- /ko -->
+			</tbody>
+		</table>
+	</div>
 </div>
-
 <script type="text/javascript">
-	$.ajax({
-		url: "@Url.Action("GetRooms", "Floor", new { friendlyId = Model.SelectedFloor.FriendlyId })",
-		method: "GET",
-		success: function (data) {
-			$("#loader").fadeOut();
-		}
-	})
+	var model = new appModel({
+		roomsUrl:  "@Url.Action("GetRooms", "Floor", new { friendlyId = Model.SelectedFloor.FriendlyId })"
+	});
+
+	ko.applyBindings(model, document.getElementById("list-app"));
 </script>

@@ -70,6 +70,24 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CO2.
+        /// </summary>
+        public static string CO2 {
+            get {
+                return ResourceManager.GetString("CO2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nastavení teploty.
+        /// </summary>
+        public static string DesiredTempereture {
+            get {
+                return ResourceManager.GetString("DesiredTempereture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zpětná vazba.
         /// </summary>
         public static string Feedback {
@@ -120,6 +138,51 @@ namespace TempManager.Web.Localization {
         public static string Offline_Title {
             get {
                 return ResourceManager.GetString("Offline_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pouze oblíbené.
+        /// </summary>
+        public static string OnlyFavorites {
+            get {
+                return ResourceManager.GetString("OnlyFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rh.
+        /// </summary>
+        public static string Rh {
+            get {
+                return ResourceManager.GetString("Rh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Místnost.
+        /// </summary>
+        public static string Room {
+            get {
+                return ResourceManager.GetString("Room", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hledat.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teplota.
+        /// </summary>
+        public static string Temperature {
+            get {
+                return ResourceManager.GetString("Temperature", resourceCulture);
             }
         }
     }

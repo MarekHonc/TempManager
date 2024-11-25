@@ -2,6 +2,18 @@
 @using TempManager.Web.Localization
 @model MainViewModel
 
+@section Scripts
+{
+	<script src="~/lib/knockout/knockout-latest.min.js"></script>
+	<script src="~/lib/underscore.js/underscore.min.js"></script>
+	<script src="~/js/observable.dictionary.js"></script>
+	<script src="~/js/knockout.custom.js"></script>
+
+	<script src="~/js/models/room.model.js"></script>
+	<script src="~/js/models/app.model.js"></script>
+}
+
+
 @if (Model.IsOnline)
 {
 	ViewData["Title"] = Model.SelectedFloor.Name;

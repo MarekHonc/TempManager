@@ -12,6 +12,10 @@ namespace TempManager.Web
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 
+			// Konfigurace MVC.
+			builder.Services.AddControllersWithViews();
+			builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
 			// Zaregistruji služby.
 			RegisterServices(builder);
 
@@ -27,7 +31,7 @@ namespace TempManager.Web
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
-
+			
 			app.UseRouting();
 
 			app.UseAuthorization();

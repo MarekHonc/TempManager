@@ -120,6 +120,12 @@
   <data name="Close" xml:space="preserve">
     <value>Zavřít</value>
   </data>
+  <data name="CO2" xml:space="preserve">
+    <value>CO2</value>
+  </data>
+  <data name="DesiredTempereture" xml:space="preserve">
+    <value>Nastavení teploty</value>
+  </data>
   <data name="Feedback" xml:space="preserve">
     <value>Zpětná vazba</value>
   </data>
@@ -137,5 +143,20 @@
   </data>
   <data name="Offline_Title" xml:space="preserve">
     <value>Aplikace je offilne</value>
+  </data>
+  <data name="OnlyFavorites" xml:space="preserve">
+    <value>Pouze oblíbené</value>
+  </data>
+  <data name="Rh" xml:space="preserve">
+    <value>Rh</value>
+  </data>
+  <data name="Room" xml:space="preserve">
+    <value>Místnost</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Hledat</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>Teplota</value>
   </data>
 </root>

@@ -1,0 +1,48 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+	"libraries": [
+		{
+			"provider": "cdnjs",
+			"library": "knockout@3.5.1",
+			"destination": "wwwroot/lib/knockout/",
+			"files": [
+				"knockout-latest.js",
+				"knockout-latest.min.js"
+			]
+		},
+		{
+			"provider": "cdnjs",
+			"library": "jquery@3.7.1",
+			"destination": "wwwroot/lib/jquery/",
+			"files": [
+				"jquery.min.js",
+				"jquery.js"
+			]
+		},
+		{
+			"provider": "cdnjs",
+			"library": "bootstrap@5.1.0",
+			"destination": "wwwroot/lib/bootstrap/",
+			"files": [
+				"js/bootstrap.bundle.min.js",
+				"js/bootstrap.bundle.js",
+				"css/bootstrap-grid.css",
+				"css/bootstrap-reboot.css",
+				"css/bootstrap-utilities.css",
+				"css/bootstrap.css",
+				"css/bootstrap.min.css"
+			]
+		},
+		{
+			"provider": "cdnjs",
+			"library": "underscore.js@1.13.7",
+			"destination": "wwwroot/lib/underscore.js/",
+			"files": [
+				"underscore-min.js",
+				"underscore.js",
+				"underscore.min.js"
+			]
+		}
+	]
+}
