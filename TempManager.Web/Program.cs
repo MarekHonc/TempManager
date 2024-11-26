@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using TempManager.BL.Services;
 using TempManager.BL.Services.Implementations;
+using TempManager.DL;
 using TempManager.KNX.Api;
 using TempManager.Web.Code;
 using TempManager.Web.HostedServices;
@@ -51,6 +53,10 @@ namespace TempManager.Web
 		/// </summary>
 		private static void RegisterServices(WebApplicationBuilder builder)
 		{
+			// Pøipojení k databázi
+			builder.Services.AddDbContextPool<TempManagerContext>(opt =>
+				opt.UseNpgsql(builder.Configuration.GetConnectionString("TempManagerContext")));
+
 			// Napojení na API -> je to služba, co ète z konfigu, staèí singleton.
 			builder.Services.AddSingleton<IApiSettings, ApiSettings>();
 

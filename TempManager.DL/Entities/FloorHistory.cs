@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Entities.JsonTypes;
+using TempManager.DL.Interfaces;
 
 namespace TempManager.DL.Entities
 {
@@ -9,7 +10,7 @@ namespace TempManager.DL.Entities
 	/// Historii eviduji po podlaží, využívám možnosti ukládat jako jsonb do postgre,
 	/// kdybych ukládal po místnostech, tak by dat byl zbytečně moc a databáze by se rychle zvětšovala.
 	/// </summary>
-	public class FloorHistory : EntityBase
+	public class FloorHistory : EntityBase, IEntity
 	{
 		/// <summary>
 		/// Vrací nebo nastavuje id podlaží.
@@ -33,7 +34,7 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Vrací nebo nastavuje všechny naměřené hodnoty.
 		/// </summary>
-		[Column(TypeName = "JSONB")]
+		[Column(TypeName = "jsonb")]
 		public RoomValue[] RoomValues
 		{
 			get;

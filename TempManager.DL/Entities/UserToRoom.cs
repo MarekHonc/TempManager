@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using TempManager.DL.Interfaces;
 
 namespace TempManager.DL.Entities
 {
@@ -7,7 +8,7 @@ namespace TempManager.DL.Entities
 	/// Propojení uživatele s místností.
 	/// </summary>
 	[PrimaryKey(nameof(UserId), nameof(RoomId))]
-	public class UserToRoom
+	public class UserToRoom : IEntity
 	{
 		/// <summary>
 		/// Vrací nebo nastavuje identifikátor uživatele.

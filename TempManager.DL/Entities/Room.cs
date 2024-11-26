@@ -1,19 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TempManager.DL.Entities.Base;
+using TempManager.DL.Interfaces;
 
 namespace TempManager.DL.Entities
 {
 	/// <summary>
 	/// Entita reprezentující místnost.
 	/// </summary>
-	public class Room : EntityBase
+	public class Room : EntityBase, IEntity
 	{
 		/// <summary>
 		/// Vrací nebo nastavuje id místnosti v externím systému.
 		/// </summary>
 		[StringLength(30)]
-		[Column(TypeName = "VARCHAR")]
+		[Column(TypeName = "varchar(30)")]
 		public string ExternalId
 		{
 			get;
@@ -24,7 +25,7 @@ namespace TempManager.DL.Entities
 		/// Vrací nebo nastavuje název místnosti.
 		/// </summary>
 		[StringLength(50)]
-		[Column(TypeName = "VARCHAR")]
+		[Column(TypeName = "varchar(50)")]
 		public string Name
 		{
 			get;

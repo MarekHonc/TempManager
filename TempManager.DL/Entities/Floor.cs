@@ -1,19 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TempManager.DL.Entities.Base;
+using TempManager.DL.Interfaces;
 
 namespace TempManager.DL.Entities
 {
 	/// <summary>
 	/// Entita reprezentující podlaží.
 	/// </summary>
-	public class Floor : EntityBase
+	public class Floor : EntityBase, IEntity
 	{
 		/// <summary>
 		/// Vrací nebo nastavuje id podlaží v externím systému.
 		/// </summary>
 		[StringLength(30)]
-		[Column(TypeName = "VARCHAR")]
+		[Column(TypeName = "varchar(30)")]
 		public string ExternalId
 		{
 			get;
@@ -24,7 +25,7 @@ namespace TempManager.DL.Entities
 		/// Vrací nebo nastavuje interní název podlaží.
 		/// </summary>
 		[StringLength(30)]
-		[Column(TypeName = "VARCHAR")]
+		[Column(TypeName = "varchar(30)")]
 		public string FriendlyId
 		{
 			get;
@@ -35,7 +36,7 @@ namespace TempManager.DL.Entities
 		/// Vrací název podlaží.
 		/// </summary>
 		[StringLength(50)]
-		[Column(TypeName = "VARCHAR")]
+		[Column(TypeName = "varchar(50)")]
 		public string Name
 		{
 			get;
@@ -46,7 +47,7 @@ namespace TempManager.DL.Entities
 		/// Vrací název šablony, která se má zobrazit při zobrazení typu "mapa".
 		/// </summary>
 		[StringLength(30)]
-		[Column(TypeName = "VARCHAR")]
+		[Column(TypeName = "varchar(30)")]
 		public string MapViewName
 		{
 			get;

@@ -25,23 +25,13 @@ namespace TempManager.BL.Services
 				throw new Exception("Direct connection - api must be up!");
 
 			var apiFloors = await this.apiService.GetVariables();
+			var id = 0;
 
 			foreach (var apiFloor in apiFloors.OrderBy(f => f.Name))
 			{
 				floors.AddOrUpdate(apiFloor.Name, s =>
 				{
-					int id = -1;
-
-					if (apiFloor.Name.Contains("NP"))
-					{
-						id = int.Parse(Regex.Match(apiFloor.Name, @"\d+").Value);
-					}
-					else if (apiFloor.Name.Contains("TEST"))
-					{
-						id = 0;
-					}
-
-					return new Floor(id, apiFloor.Name, apiFloor.Name, "Floor" + id);
+					return new Floor(id++, apiFloor.Name, apiFloor.Name, "Floor" + id);
 				}, (s, floor) => floor);
 			}
 
