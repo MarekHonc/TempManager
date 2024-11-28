@@ -8,8 +8,13 @@ namespace TempManager.DL.Entities
 	/// <summary>
 	/// Entita reprezentující místnost.
 	/// </summary>
-	public class Room : EntityBase, IEntity
+	public class Room : EntityBase, IExternalId
 	{
+		protected Room()
+		{
+			this.UsersToRoom = new List<UserToRoom>();
+		}
+
 		/// <summary>
 		/// Vrací nebo nastavuje id místnosti v externím systému.
 		/// </summary>
@@ -54,10 +59,30 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Vrací nebo nastavuje všechny uživatele, kteří jsou provázáni s touto místností.
 		/// </summary>
-		public virtual ICollection<UserToRoom> UsersToRoom
+		public ICollection<UserToRoom> UsersToRoom
 		{
 			get;
 			set;
+		}
+
+		/// <summary>
+		/// Vytvoří novou entitu místnosti.
+		/// </summary>
+		public static async Task<Room> Create(IExternalIdRepository<Room> repository, Floor floor, string externalId, bool ignoreExternalIdCheck = false)
+		{
+			if (!ignoreExternalIdCheck && await repository.GetByExternalId(externalId) != null)
+				throw new ArgumentException($"Floor with external id: '{externalId}' already exists!");
+
+			// Vytvořím místnost.
+			var room = new Room()
+			{
+				ExternalId = externalId,
+				Name = externalId,
+				Floor = floor
+			};
+
+			// Vracím novou místnost.
+			return room;
 		}
 	}
 }

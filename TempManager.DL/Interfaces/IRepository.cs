@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Interface pro repozitáře.
 	/// </summary>
-	public interface IRepository<T> where T : IEntity
+	public interface IRepository<T> : IQueryExecutor<T> where T : class, IEntity
 	{
 		/// <summary>
 		/// Vrátí záznam podle jeho id.

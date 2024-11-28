@@ -8,8 +8,13 @@ namespace TempManager.DL.Entities
 	/// <summary>
 	/// Entita reprezentující podlaží.
 	/// </summary>
-	public class Floor : EntityBase, IEntity
+	public class Floor : EntityBase, IExternalId
 	{
+		protected Floor()
+		{
+			this.Rooms = new HashSet<Room>();
+		}
+
 		/// <summary>
 		/// Vrací nebo nastavuje id podlaží v externím systému.
 		/// </summary>
@@ -18,7 +23,7 @@ namespace TempManager.DL.Entities
 		public string ExternalId
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -29,7 +34,7 @@ namespace TempManager.DL.Entities
 		public string FriendlyId
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -40,7 +45,7 @@ namespace TempManager.DL.Entities
 		public string Name
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -48,19 +53,39 @@ namespace TempManager.DL.Entities
 		/// </summary>
 		[StringLength(30)]
 		[Column(TypeName = "varchar(30)")]
-		public string MapViewName
+		public string? MapViewName
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
 		/// Vrací nebo nastavuje seznam místností v podlaží.
 		/// </summary>
-		public virtual ICollection<Room> Rooms
+		public ICollection<Room> Rooms
 		{
 			get;
-			set;
+			protected set;
+		}
+
+		/// <summary>
+		/// Vytvoří novou entitu podlaží.
+		/// </summary>
+		public static async Task<Floor> Create(IExternalIdRepository<Floor> repository, string externalId, bool ignoreExternalIdCheck = false)
+		{
+			if (!ignoreExternalIdCheck && await repository.GetByExternalId(externalId) != null)
+				throw new ArgumentException($"Floor with external id: '{externalId}' already exists!");
+
+			// Vrátí nové podlaží.
+			var floor = new Floor()
+			{
+				ExternalId = externalId,
+				FriendlyId = externalId,
+				Name = externalId,
+			};
+
+			// Vracím nové podlaží.
+			return floor;
 		}
 	}
 }

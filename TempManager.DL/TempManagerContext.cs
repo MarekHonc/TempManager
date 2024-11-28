@@ -65,19 +65,28 @@ namespace TempManager.DL
 		/// <summary>
 		/// Vytvoří vazby v databázi.
 		/// </summary>
-		protected override void OnModelCreating(ModelBuilder builder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			builder.Entity<Floor>()
+			// TODO: Rzházet aby se definovalo na entitách -> možná zkusit static metodu na interface?
+
+			modelBuilder.Entity<Floor>()
 				.HasIndex(f => f.ExternalId)
 				.IsUnique();
 
-			builder.Entity<Floor>()
+			modelBuilder.Entity<Floor>()
 				.HasIndex(f => f.FriendlyId)
 				.IsUnique();
 
-			builder.Entity<Room>()
+			modelBuilder.Entity<Room>()
 				.HasIndex(r => r.ExternalId)
 				.IsUnique();
+
+			modelBuilder.Entity<FloorHistory>()
+				.HasIndex(nameof(FloorHistory.Date), nameof(FloorHistory.FloorId))
+				.IsUnique();
+
+			modelBuilder.Entity<FloorHistory>()
+				.OwnsMany(fh => fh.RoomValues, builder => { builder.ToJson(); });
 		}
 	}
 }

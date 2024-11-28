@@ -2,18 +2,22 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TempManager.DL;
+using TempManager.DL.Entities.JsonTypes;
 
 #nullable disable
 
 namespace TempManager.DL.Migrations
 {
     [DbContext(typeof(TempManagerContext))]
-    partial class TempManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20241128215510_AddHistoryUniqueIndexFloorMapViewNameNullable")]
+    partial class AddHistoryUniqueIndexFloorMapViewNameNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,11 +72,15 @@ namespace TempManager.DL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("FloorId")
                         .HasColumnType("integer");
+
+                    b.Property<RoomValue[]>("RoomValues")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
 
                     b.HasKey("Id");
 
@@ -169,47 +177,7 @@ namespace TempManager.DL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsMany("TempManager.DL.Entities.JsonTypes.RoomValue", "RoomValues", b1 =>
-                        {
-                            b1.Property<int>("FloorHistoryId")
-                                .HasColumnType("integer");
-
-                            b1.Property<int>("__synthesizedOrdinal")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer");
-
-                            b1.Property<double>("CO2")
-                                .HasColumnType("double precision");
-
-                            b1.Property<double>("DesiredTemperature")
-                                .HasColumnType("double precision");
-
-                            b1.Property<string>("ExternalRoomId")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<double>("Rh")
-                                .HasColumnType("double precision");
-
-                            b1.Property<double>("Temperature")
-                                .HasColumnType("double precision");
-
-                            b1.Property<bool>("ValveOpen")
-                                .HasColumnType("boolean");
-
-                            b1.HasKey("FloorHistoryId", "__synthesizedOrdinal");
-
-                            b1.ToTable("FloorHistories");
-
-                            b1.ToJson("RoomValues");
-
-                            b1.WithOwner()
-                                .HasForeignKey("FloorHistoryId");
-                        });
-
                     b.Navigation("Floor");
-
-                    b.Navigation("RoomValues");
                 });
 
             modelBuilder.Entity("TempManager.DL.Entities.Room", b =>

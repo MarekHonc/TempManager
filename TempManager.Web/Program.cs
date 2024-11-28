@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using TempManager.BL.Services;
 using TempManager.BL.Services.Implementations;
+using TempManager.BL.SyncService;
 using TempManager.DL;
+using TempManager.DL.Repositories;
 using TempManager.KNX.Api;
 using TempManager.Web.Code;
 using TempManager.Web.HostedServices;
@@ -57,6 +59,9 @@ namespace TempManager.Web
 			builder.Services.AddDbContextPool<TempManagerContext>(opt =>
 				opt.UseNpgsql(builder.Configuration.GetConnectionString("TempManagerContext")));
 
+			// Pøidám i repositories factory.
+			builder.Services.AddScoped<RepositoriesFactory>();
+
 			// Napojení na API -> je to služba, co ète z konfigu, staèí singleton.
 			builder.Services.AddSingleton<IApiSettings, ApiSettings>();
 
@@ -66,6 +71,7 @@ namespace TempManager.Web
 
 			// Background task, který synchronizuje lokální storage s/do KNX.
 			builder.Services.AddHostedService<ValueSyncServiceWrapper>();
+			builder.Services.AddScoped<ValueSyncService>();
 		}
 	}
 }

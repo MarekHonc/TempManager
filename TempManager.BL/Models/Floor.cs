@@ -5,7 +5,15 @@
 	/// </summary>
 	public class Floor
 	{
-		public Floor(int id, string friendlyId, string name, string mapViewName)
+		internal Floor(DL.Entities.Floor floor)
+		{
+			this.Id = floor.Id;
+			this.FriendlyId = floor.FriendlyId;
+			this.Name = floor.Name;
+			this.MapViewName = floor.MapViewName;
+		}
+
+		internal Floor(int id, string friendlyId, string name, string mapViewName)
 		{
 			this.Id = id;
 			this.FriendlyId = friendlyId;
@@ -40,7 +48,7 @@
 		/// <summary>
 		/// Vrací název šablony, která se má zobrazit při zobrazení typu "mapa".
 		/// </summary>
-		public string MapViewName
+		public string? MapViewName
 		{
 			get;
 		}

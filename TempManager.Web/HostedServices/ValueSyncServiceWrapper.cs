@@ -1,4 +1,5 @@
-﻿using TempManager.BL.SyncService;
+﻿using TempManager.BL.Models;
+using TempManager.BL.SyncService;
 
 namespace TempManager.Web.HostedServices
 {
@@ -8,11 +9,13 @@ namespace TempManager.Web.HostedServices
 	public class ValueSyncServiceWrapper : IHostedService, IDisposable
 	{
 		private readonly ILogger<ValueSyncServiceWrapper> logger;
+		private readonly IServiceProvider serviceProvider;
 		private Timer? timer = null;
 
-		public ValueSyncServiceWrapper(ILogger<ValueSyncServiceWrapper> logger)
+		public ValueSyncServiceWrapper(IServiceProvider serviceProvider, ILogger<ValueSyncServiceWrapper> logger)
 		{
 			this.logger = logger;
+			this.serviceProvider = serviceProvider;
 		}
 
 		/// <summary>
@@ -48,13 +51,35 @@ namespace TempManager.Web.HostedServices
 		/// <summary>
 		/// Provede synchronizaci a všechny data pošle na klienty přes web sockety.
 		/// </summary>
-		/// <param name="state"></param>
-		private void Sync(object? state)
+		private async void Sync(object? state)
 		{
-			this.logger.LogInformation($"Sync started");
+			this.logger.LogInformation("Sync started");
 
-			// TODO sync
-			// TODO rozeslat na web sockety.
+			Dictionary<Floor, Room[]> latestValues;
+
+			// Službu používám v usingu.
+			using (var scope = this.serviceProvider.CreateScope())
+			{
+				// Získání závislostí.
+				var syncService = scope.ServiceProvider.GetService<ValueSyncService>();
+
+				// 1. synchronizuji podlaží.
+				var floors = await syncService.SyncFloors();
+				this.logger.LogInformation($"{floors.Length} floors synced.");
+
+				// 2. synchronizuji naměřené teploty.
+				latestValues = await syncService.SyncRooms();
+			}
+
+			// A všechny natažené hodnoty projedu.
+			foreach (var value in latestValues)
+			{
+				// Lognu i počet natažených místností.
+				this.logger.LogInformation($"Floor {value.Key.FriendlyId}: {value.Value.Length} rooms synced.");
+
+				// A pošlu na web sockety.
+				// TODO rozeslat na web sockety.
+			}
 		}
 
 		#endregion

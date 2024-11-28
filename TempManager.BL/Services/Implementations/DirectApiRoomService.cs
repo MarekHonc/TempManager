@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using TempManager.BL.Models;
 using TempManager.KNX.Api;
 

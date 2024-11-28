@@ -9,7 +9,7 @@ namespace TempManager.DL.Repositories
 	/// <typeparam name="T">Tabulka, se kterou se pracuje.</typeparam>
 	public class BaseRepository<T> : IRepository<T> where T : class, IEntity
 	{
-		private readonly TempManagerContext context;
+		protected readonly TempManagerContext context;
 
 		public BaseRepository(TempManagerContext context)
 		{
@@ -35,9 +35,9 @@ namespace TempManager.DL.Repositories
 		}
 
 		/// <inheritdoc cref="AddRange"/>
-		public async Task AddRange(IEnumerator<T> entities)
+		public Task AddRange(IEnumerator<T> entities)
 		{
-			await this.context.AddRangeAsync(entities);
+			return this.context.AddRangeAsync(entities);
 		}
 
 		/// <inheritdoc cref="Remove"/>
@@ -45,6 +45,30 @@ namespace TempManager.DL.Repositories
 		{
 			this.context.Remove(entity);
 			return Task.CompletedTask;
+		}
+
+		/// <inheritdoc cref="Count"/>
+		public Task<int> Count(IQueryObjectBase<T> query)
+		{
+			return query.Count(this.context);
+		}
+
+		/// <inheritdoc cref="IsAny"/>
+		public Task<bool> IsAny(IQueryObjectBase<T> query)
+		{
+			return query.IsAny(this.context);
+		}
+
+		/// <inheritdoc cref="Fetch"/>
+		public Task<IReadOnlyCollection<T>> Fetch(IQueryObjectBase<T> query)
+		{
+			return query.Fetch(this.context);
+		}
+
+		/// <inheritdoc cref="FetchOne"/>
+		public Task<T?> FetchOne(IQueryObjectBase<T> query)
+		{
+			return query.FetchOne(this.context);
 		}
 	}
 }

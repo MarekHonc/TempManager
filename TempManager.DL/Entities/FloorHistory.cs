@@ -12,6 +12,10 @@ namespace TempManager.DL.Entities
 	/// </summary>
 	public class FloorHistory : EntityBase, IEntity
 	{
+		protected FloorHistory()
+		{
+		}
+
 		/// <summary>
 		/// Vrací nebo nastavuje id podlaží.
 		/// </summary>
@@ -25,7 +29,7 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Vrací nebo nastavuje datum a čas, ze kterého hodnoty pochází.
 		/// </summary>
-		public DateTime Date
+		public DateTimeOffset Date
 		{
 			get;
 			set;
@@ -35,7 +39,7 @@ namespace TempManager.DL.Entities
 		/// Vrací nebo nastavuje všechny naměřené hodnoty.
 		/// </summary>
 		[Column(TypeName = "jsonb")]
-		public RoomValue[] RoomValues
+		public ICollection<RoomValue> RoomValues
 		{
 			get;
 			set;
@@ -48,6 +52,19 @@ namespace TempManager.DL.Entities
 		{
 			get;
 			set;
+		}
+
+		/// <summary>
+		/// Vytvoří nový záznam o místnosti.
+		/// </summary>
+		public static FloorHistory Create(Floor floor, DateTimeOffset date, RoomValue[] values)
+		{
+			return new FloorHistory()
+			{
+				Floor = floor,
+				Date = date,
+				RoomValues = values
+			};
 		}
 	}
 }

@@ -5,10 +5,24 @@
 	/// </summary>
 	public class RoomValue
 	{
+		internal RoomValue()
+		{
+		}
+
+		public RoomValue(string externalRoomId, double temperature, double rh, double co2, double desiredTemperature, bool valveOpen)
+		{
+			this.ExternalRoomId = externalRoomId;
+			this.Temperature = temperature;
+			this.Rh = rh;
+			this.CO2 = co2;
+			this.DesiredTemperature = desiredTemperature;
+			this.ValveOpen = valveOpen;
+		}
+
 		/// <summary>
-		/// Vrací nebo nastuvje id místnosti.
+		/// Vrací nebo nastavuje externí místnosti.
 		/// </summary>
-		public int RoomId
+		public string ExternalRoomId
 		{
 			get;
 			set;

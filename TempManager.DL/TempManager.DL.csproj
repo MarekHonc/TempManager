@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\TempManager.Common\TempManager.Common.csproj" />
   </ItemGroup>
 
 </Project>

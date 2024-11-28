@@ -1,4 +1,5 @@
-﻿using TempManager.DL.Entities;
+﻿using TempManager.Common;
+using TempManager.DL.Entities;
 using TempManager.DL.Interfaces;
 
 namespace TempManager.DL.Repositories
@@ -14,9 +15,9 @@ namespace TempManager.DL.Repositories
 		{
 			this.context = context;
 
-			this.FloorRepository = new BaseRepository<Floor>(this.context);
+			this.FloorRepository = new ExternalIdBaseRepository<Floor>(this.context);
 			this.FloorHistoryRepository = new BaseRepository<FloorHistory>(this.context);
-			this.RoomRepository = new BaseRepository<Room>(this.context);
+			this.RoomRepository = new ExternalIdBaseRepository<Room>(this.context);
 			this.UserRepository = new BaseRepository<User>(this.context);
 			this.UserToRoomRepository = new BaseRepository<UserToRoom>(this.context);
 		}
@@ -26,7 +27,7 @@ namespace TempManager.DL.Repositories
 		/// <summary>
 		/// Vrací repozitář pro práci s podlažími.
 		/// </summary>
-		public IRepository<Floor> FloorRepository
+		public IExternalIdRepository<Floor> FloorRepository
 		{
 			get;
 		}
@@ -42,7 +43,7 @@ namespace TempManager.DL.Repositories
 		/// <summary>
 		/// Vrací repozitář pro práci s místnostmi.
 		/// </summary>
-		public IRepository<Room> RoomRepository
+		public IExternalIdRepository<Room> RoomRepository
 		{
 			get;
 		}
@@ -66,11 +67,22 @@ namespace TempManager.DL.Repositories
 		#endregion
 
 		/// <summary>
+		/// Tato metoda vypne automatickou detekci změn na entitách, takže je možné je změnit všechny velmi rychle a až potom se všechny změny nadetekují najednou.
+		/// Použití pomocí using(BulkChange()){...}
+		/// </summary>
+		public IDisposable BulkChange()
+		{
+			var temp = this.context.ChangeTracker.AutoDetectChangesEnabled;
+			this.context.ChangeTracker.AutoDetectChangesEnabled = false;
+			return new SimpleDisposable(() => this.context.ChangeTracker.AutoDetectChangesEnabled = temp);
+		}
+
+		/// <summary>
 		/// Uloží změny do databáze.
 		/// </summary>
-		public async Task<int> SaveChanges()
+		public Task<int> SaveChanges()
 		{
-			return await this.context.SaveChangesAsync();
+			return this.context.SaveChangesAsync();
 		}
 	}
 }
