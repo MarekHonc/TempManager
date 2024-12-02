@@ -16,5 +16,10 @@ namespace TempManager.BL.Services
 		/// Nastaví teplotu v dané místnosti.
 		/// </summary>
 		Task<bool> SetTemperature(int roomId);
+
+		/// <summary>
+		/// Uloží místnost do oblíbených.
+		/// </summary>
+		Task<bool> SetFavorite(int roomId, bool isFavorite);
 	}
 }

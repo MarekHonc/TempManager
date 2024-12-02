@@ -2,7 +2,7 @@
 using TempManager.BL.Models;
 using TempManager.KNX.Api;
 
-namespace TempManager.BL.Services.Implementations
+namespace TempManager.BL.Services.Implementations.Direct
 {
 	/// <summary>
 	/// Implementace napojená přímo na API.
@@ -15,19 +15,19 @@ namespace TempManager.BL.Services.Implementations
 		public DirectApiRoomService(IFloorService floorService, IApiSettings apiSettings)
 		{
 			this.floorService = floorService;
-			this.apiService = ApiServiceFactory.GetService(apiSettings);
+			apiService = ApiServiceFactory.GetService(apiSettings);
 		}
 
 		public async Task<Room[]> GetRooms(int floorId)
 		{
-			if (!await this.apiService.Ping())
+			if (!await apiService.Ping())
 				throw new Exception("Direct connection - api must be up!");
 
 			var floors = await floorService.GetFloors();
 			var floor = floors.Single(f => f.Id == floorId);
 
 			var result = new List<Room>();
-			var apiRooms = await this.apiService.GetValues(new ApiVariable() { Name = floor.FriendlyId });
+			var apiRooms = await apiService.GetValues(new ApiVariable() { Name = floor.FriendlyId });
 			foreach (var room in apiRooms)
 			{
 				var r = new Room(
@@ -49,6 +49,11 @@ namespace TempManager.BL.Services.Implementations
 		}
 
 		public Task<bool> SetTemperature(int roomId)
+		{
+			return Task.FromResult(true);
+		}
+
+		public Task<bool> SetFavorite(int roomId, bool isFavorite)
 		{
 			return Task.FromResult(true);
 		}

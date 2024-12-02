@@ -1,4 +1,5 @@
 ﻿using TempManager.DL.Entities;
+using TempManager.DL.Entities.JsonTypes;
 
 namespace TempManager.BL.Models
 {
@@ -95,7 +96,7 @@ namespace TempManager.BL.Models
 		/// <summary>
 		/// Vrací dto pro místnost, která rovnou nese všechny potřebné informace (tj. hodnoty, oprávnění, ...).
 		/// </summary>
-		internal static Room Create(DL.Entities.Room room, DL.Entities.JsonTypes.RoomValue roomValue, bool isAdmin, UserToRoom? userToRoom)
+		internal static Room Create(DL.Entities.Room room, RoomValue roomValue, bool isAdmin, UserToRoom? userToRoom)
 		{
 			// Rychlá kontrola, že data jsou spolu svázané.
 			if (room.ExternalId != roomValue.ExternalRoomId)
@@ -111,6 +112,25 @@ namespace TempManager.BL.Models
 				room.Name,
 				isAdmin || userToRoom?.HasRightToEdit == true,
 				userToRoom?.IsFavorite == true,
+				roomValue.Temperature,
+				roomValue.Rh,
+				roomValue.CO2,
+				roomValue.DesiredTemperature,
+				roomValue.ValveOpen
+			);
+		}
+
+		/// <summary>
+		/// Vrací dto pro místnost, která rovnou nese všechny potřebné informace (tj. hodnoty, oprávnění, ...).
+		/// </summary>
+		internal static Room Create(RoomValue roomValue)
+		{
+			// Vracím novou instanci objektu.
+			return new Room(
+				id: 0,
+				roomValue.ExternalRoomId,
+				hasRightToEdit: false,
+				isFavorite: false,
 				roomValue.Temperature,
 				roomValue.Rh,
 				roomValue.CO2,

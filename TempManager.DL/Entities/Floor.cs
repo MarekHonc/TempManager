@@ -60,6 +60,15 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Vrací nebo nastavuje, zda-li je podlaží skryté.
+		/// </summary>
+		public bool IsHidden
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje seznam místností v podlaží.
 		/// </summary>
 		public ICollection<Room> Rooms
@@ -82,6 +91,7 @@ namespace TempManager.DL.Entities
 				ExternalId = externalId,
 				FriendlyId = externalId,
 				Name = externalId,
+				IsHidden = false
 			};
 
 			// Vracím nové podlaží.

@@ -5,7 +5,8 @@
 function appModel(initData) {
 	let self = this;
 
-	if (!initData.roomsUrl) throw "Missing roomsUrl"
+	if (!initData.roomsUrl) throw "Missing roomsUrl";
+	if (!initData.saveFavoriteUrl) throw "Missing saveFavoriteUrl";
 
 	/**
 	 * Příznak, zda-li probíhá načítání.
@@ -54,7 +55,7 @@ function appModel(initData) {
 
 	let loadData = function (data) {
 		data.forEach(function (room) {
-			self.rooms.set(room.name, new roomModel(room));
+			self.rooms.set(room.name, new roomModel(room, initData));
 		});
 	}
 

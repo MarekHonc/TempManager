@@ -1,6 +1,6 @@
 ﻿using TempManager.BL.Models;
 
-namespace TempManager.BL.Services
+namespace TempManager.BL.Services.Implementations.Test
 {
 	/// <summary>
 	/// Testovací služba pro práci s místnostmi.
@@ -35,6 +35,11 @@ namespace TempManager.BL.Services
 		}
 
 		public Task<bool> SetTemperature(int roomId)
+		{
+			return Task.FromResult(true);
+		}
+
+		public Task<bool> SetFavorite(int roomId, bool isFavorite)
 		{
 			return Task.FromResult(true);
 		}

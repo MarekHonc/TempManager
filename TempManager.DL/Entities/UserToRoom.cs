@@ -65,5 +65,18 @@ namespace TempManager.DL.Entities
 			get;
 			set;
 		}
+
+		/// <summary>
+		/// Vytvoří entitu vhodnou k uložení.
+		/// </summary>
+		public static UserToRoom Create(int userId, int roomId, bool isFavorite)
+		{
+			return new UserToRoom()
+			{
+				UserId = userId,
+				RoomId = roomId,
+				IsFavorite = isFavorite
+			};
+		}
 	}
 }

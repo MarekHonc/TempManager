@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using TempManager.BL.Models;
 using TempManager.KNX.Api;
 
-namespace TempManager.BL.Services
+namespace TempManager.BL.Services.Implementations.Direct
 {
 	/// <summary>
 	/// Implementace napojená přímo na API.
@@ -16,15 +16,15 @@ namespace TempManager.BL.Services
 
 		public DirectApiFloorService(IApiSettings settings)
 		{
-			this.apiService = ApiServiceFactory.GetService(settings);
+			apiService = ApiServiceFactory.GetService(settings);
 		}
 
 		public async Task<Floor[]> GetFloors()
 		{
-			if (!await this.apiService.Ping())
+			if (!await apiService.Ping())
 				throw new Exception("Direct connection - api must be up!");
 
-			var apiFloors = await this.apiService.GetVariables();
+			var apiFloors = await apiService.GetVariables();
 			var id = 0;
 
 			foreach (var apiFloor in apiFloors.OrderBy(f => f.Name))

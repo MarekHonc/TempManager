@@ -55,7 +55,8 @@
 </div>
 <script type="text/javascript">
 	var model = new appModel({
-		roomsUrl:  "@Url.Action("GetRooms", "Floor", new { friendlyId = Model.SelectedFloor.FriendlyId })"
+		roomsUrl: "@Url.Action("GetRooms", "Floor", new { friendlyId = Model.SelectedFloor.FriendlyId })",
+		saveFavoriteUrl: "@Url.Action("SaveToFavorite", "Floor")"
 	});
 
 	ko.applyBindings(model, document.getElementById("list-app"));

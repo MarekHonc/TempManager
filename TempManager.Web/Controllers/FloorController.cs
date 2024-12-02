@@ -30,5 +30,15 @@ namespace TempManager.Web.Controllers
 			var rooms = await this.roomService.GetRooms(floor.Id);
 			return Json(rooms);
 		}
+
+		/// <summary>
+		/// Uloží místnost do oblíbených.
+		/// </summary>
+		[Route("Rooms/SaveToFavorite")]
+		public async Task<IActionResult> SaveToFavorite(int roomId, bool isFavorite)
+		{
+			var result = await this.roomService.SetFavorite(roomId, isFavorite);
+			return Json(result);
+		}
 	}
 }

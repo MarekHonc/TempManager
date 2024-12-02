@@ -1,7 +1,7 @@
 ﻿/**
  * View model reprezentující místnost.
  */
-function roomModel(room) {
+function roomModel(room, initData) {
 	let self = this;
 
 	/**
@@ -23,6 +23,16 @@ function roomModel(room) {
 	 * Uložení v oblíbených.
 	 */
 	self.isFavorite = ko.observable(room.isFavorite);
+	self.isFavorite.subscribe(function (newValue) {
+		$.ajax({
+			method: "POST",
+			url: initData.saveFavoriteUrl,
+			data: {
+				roomId: self.id(),
+				isFavorite: newValue
+			}
+		});
+	});
 
 	/**
 	 * Aktuální templota.
@@ -38,7 +48,7 @@ function roomModel(room) {
 	 * Hodnota CO2.
 	 */
 	self.co2 = ko.observable(room.cO2);
-	
+
 	/**
 	 * Nastavená teplota.
 	 */

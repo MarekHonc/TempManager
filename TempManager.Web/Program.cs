@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using TempManager.BL.Services;
-using TempManager.BL.Services.Implementations;
 using TempManager.BL.SyncService;
 using TempManager.DL;
 using TempManager.DL.Repositories;
@@ -66,8 +65,9 @@ namespace TempManager.Web
 			builder.Services.AddSingleton<IApiSettings, ApiSettings>();
 
 			// Služby pro weby -> zapisují a ètou z lokální storage.
-			builder.Services.AddScoped<IFloorService, DirectApiFloorService>();
-			builder.Services.AddScoped<IRoomService, DirectApiRoomService>();
+			builder.Services.AddScoped<IUserService, UserTestService>();
+			builder.Services.AddScoped<IFloorService, FloorService>();
+			builder.Services.AddScoped<IRoomService, RoomService>();
 
 			// Background task, který synchronizuje lokální storage s/do KNX.
 			builder.Services.AddHostedService<ValueSyncServiceWrapper>();
