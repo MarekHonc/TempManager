@@ -1,0 +1,19 @@
+﻿.toggle-visibility {
+	cursor: pointer;
+
+	h3::before {
+		width: 45px;
+		display: inline-block;
+		font-weight: bold;
+		transform: scaleX(1.5);
+		text-align: center;
+	}
+
+	&.down h3::before {
+		content: "\22C1";
+	}
+
+	&.up h3::before {
+		content: "\22C0";
+	}
+}

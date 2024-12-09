@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Services;
-using TempManager.Common.Enums;
+using TempManager.Common;
 using TempManager.Web.Models;
 
 namespace TempManager.Web.Controllers
@@ -11,10 +11,12 @@ namespace TempManager.Web.Controllers
 	public class BaseController : Controller
 	{
 		protected IFloorService floorService;
+		protected IUserService userService;
 
-		public BaseController(IFloorService floorService)
+		public BaseController(IFloorService floorService, IUserService userService)
 		{
 			this.floorService = floorService;
+			this.userService = userService;
 		}
 
 		/// <summary>
@@ -25,6 +27,9 @@ namespace TempManager.Web.Controllers
 			// Naplním podlaží.
 			model.Floors = await this.floorService.GetFloors();
 			model.SelectedFloor = await this.floorService.GetLastSelectedFloor();
+
+			// Naplním uživatele
+			model.CurrentUser = await this.userService.GetCurrentUser();
 
 			// Naplním, kde se uživatel na webu nachází.
 			model.WebLocation = webLocation;

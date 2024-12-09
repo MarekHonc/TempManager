@@ -1,0 +1,61 @@
+﻿@using TempManager.Web.Areas.Admin.Localization
+@using TempManager.Web.Code
+@model TempManager.Web.Areas.Admin.Models.RoomEditorViewModel
+
+@{
+	ViewData["Title"] = string.Format(AdminResources.RoomTitle, Model.Name);
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+{
+	<script src="~/js/models/auto.comlete.model.js"></script>
+}
+
+<div class="row d-flex justify-content-center">
+	<div class="col-md-6">
+		<h1>@Model.Name</h1>
+
+		<hr />
+
+		<form asp-action="Edit" asp-controller="AdminRoom" asp-area="Admin" method="POST">
+			<div class="text-danger">
+				@Html.ValidationSummary(excludePropertyErrors: false)
+			</div>
+			<input type="hidden" asp-for="Id" />
+			<div class="form-group mb-3">
+				@Html.LabelFor(m => m.Name, new { @class = "control-label" })
+				@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+			</div>
+			<div id="autocomplete-app" class="mb-3">
+				<label class="control-label" for="auto-complete">@AdminResources.Users</label>
+				<input id="auto-complete" class="form-control" placeholder="@AdminResources.SearchUsers" />
+
+				<!-- ko foreach: data.items -->
+				<input type="hidden" data-bind="value: key, attr: { name: '@(Html.NameFor(m => m.AuthorizedUsers))[-1].Key'.replace('-1', $index()) }" />
+				<input type="hidden" data-bind="value: value, attr: { name: '@(Html.NameFor(m => m.AuthorizedUsers))[-1].Value'.replace('-1', $index()) }" />
+
+				<div class="row mt-1">
+					<p data-bind="text: value"></p>
+				</div>
+				<!-- /ko -->
+			</div>
+			<div class="form-group float-end">
+				@Html.ActionLink(AdminResources.Back, "Index", "AdminRoom", null, new { @class = "m-2" })
+				<input type="submit" value="@AdminResources.Save" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="auto-complete-holder"></div>
+
+<script type="text/javascript">
+	let model = new autoCompleteViewModel({
+		values: @Html.Raw(Model.AuthorizedUsers.ToJson()),
+		autoComplete: "#auto-complete",
+		autoCompleteHolder: "#auto-complete-holder",
+		autoCompleteUrl: "@Url.Action("AutoCompleteUser", "AdminRoom")"
+	});
+	ko.applyBindings(model, document.getElementById("autocomplete-app"));
+</script>

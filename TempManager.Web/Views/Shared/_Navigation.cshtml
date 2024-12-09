@@ -1,5 +1,5 @@
 ﻿@using TempManager.Web.Localization
-@using TempManager.Common.Enums
+@using TempManager.Common
 @model BaseViewModel
 
 <div class="navbar-light" id="nav-button">
@@ -31,6 +31,14 @@
 			   class="list-group-item list-group-item-action @(isFeedbackSelected ? "active" : string.Empty)" @(isFeedbackSelected ? "aria-current=\"true\"" : string.Empty)>
 				@Resources.Feedback
 			</a>
+
+			@if (Model.CurrentUser.IsAdmin)
+			{
+				<a href="@Url.Action("Index", "AdminFloor", new { area = "Admin" })"
+				   class="list-group-item list-group-item-action">
+					@Resources.Admin
+				</a>
+			}
 		</div>
 	</div>
 </div>

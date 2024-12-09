@@ -1,4 +1,4 @@
-﻿using TempManager.Common.Enums;
+﻿using TempManager.Common;
 
 namespace TempManager.Web.Models
 {

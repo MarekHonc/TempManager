@@ -19,7 +19,7 @@ namespace TempManager.BL.Services
 		public async Task<User> GetCurrentUser()
 		{
 			var users = await repositoriesFactory.UserRepository.FetchAll();
-			return new User(users.First());
+			return new User(users.OrderBy(u => u.Id).First());
 		}
 	}
 }

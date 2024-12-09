@@ -1,4 +1,4 @@
-﻿namespace TempManager.Common.Enums
+﻿namespace TempManager.Common
 {
 	/// <summary>
 	/// Enum reprezentující záložku, na které se uživatel pohybuje.
@@ -13,6 +13,11 @@
 		/// <summary>
 		/// Zobrazení feedback formuláře.
 		/// </summary>
-		FeedBackForm
+		FeedBackForm,
+
+		/// <summary>
+		/// Zobrazení administrace.
+		/// </summary>
+		Admin
 	}
 }

@@ -17,7 +17,7 @@ namespace TempManager.DL.Entities
 		public string UserName
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -26,7 +26,7 @@ namespace TempManager.DL.Entities
 		public bool IsAdmin
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -36,7 +36,7 @@ namespace TempManager.DL.Entities
 		public int? SelectedFloorId
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -45,7 +45,15 @@ namespace TempManager.DL.Entities
 		public Floor? SelectedFloor
 		{
 			get;
-			set;
+			protected set;
+		}
+
+		/// <summary>
+		/// Nastaví vybrané podlaží.
+		/// </summary>
+		public void SetSelectedFloor(Floor floor)
+		{
+			this.SelectedFloorId = floor.Id;
 		}
 
 		/// <summary>
@@ -54,7 +62,7 @@ namespace TempManager.DL.Entities
 		public virtual ICollection<UserToRoom> UserToRooms
 		{
 			get;
-			set;
+			protected set;
 		}
 	}
 }

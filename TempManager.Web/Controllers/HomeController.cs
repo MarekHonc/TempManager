@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Services;
-using TempManager.Common.Enums;
+using TempManager.Common;
 using TempManager.Web.Models;
 
 namespace TempManager.Web.Controllers
@@ -10,7 +10,8 @@ namespace TempManager.Web.Controllers
 	/// </summary>
 	public class HomeController : BaseController
 	{
-		public HomeController(IFloorService floorService) : base(floorService)
+		public HomeController(IFloorService floorService, IUserService userService)
+			: base(floorService, userService)
 		{
 		}
 

@@ -1,0 +1,60 @@
+﻿@using TempManager.Web.Areas.Admin.Localization
+@model TempManager.Web.Areas.Admin.Models.AdminListViewModel<TempManager.DL.Entities.Room>
+
+@{
+	ViewData["Title"] = AdminResources.Rooms;
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@AdminResources.Rooms</h1>
+
+@foreach (var group in Model.Items.GroupBy(i => i.FloorId))
+{
+	<div class="alert alert-light toggle-visibility up">
+		<h3>@group.First().Floor.Name</h3>
+	</div>
+	<div class="rooms" style="display: none">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>@AdminResources.Name</th>
+					<th>@AdminResources.ExternalId</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in group)
+				{
+					<tr>
+						<td>@item.Name</td>
+						<td>@item.ExternalId</td>
+						<td>
+							@Html.ActionLink(AdminResources.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".toggle-visibility").click(function () {
+			const $toggle = $(this);
+
+			if ($toggle.hasClass("down")) {
+				$toggle.removeClass("down");
+				$toggle.addClass("up");
+
+				$toggle.next(".rooms").first().slideUp();
+			}
+			else {
+				$toggle.addClass("down");
+				$toggle.removeClass("up");
+
+				$toggle.next(".rooms").first().slideDown();
+			}
+		})
+	});
+</script>

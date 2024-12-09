@@ -1,5 +1,5 @@
 ﻿using TempManager.BL.Models;
-using TempManager.Common.Enums;
+using TempManager.Common;
 
 namespace TempManager.Web.Models
 {
@@ -20,7 +20,7 @@ namespace TempManager.Web.Models
 		/// <summary>
 		/// Vrací aktuálně vybrané patro, pokud nějaké je.
 		/// </summary>
-		public Floor SelectedFloor
+		public Floor? SelectedFloor
 		{
 			get;
 			set;
@@ -29,7 +29,16 @@ namespace TempManager.Web.Models
 		/// <summary>
 		/// Vrací všechny definované podlaží.
 		/// </summary>
-		public Floor[] Floors
+		public Floor[]? Floors
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Vrací aktuálně přihlášeného užiatele.
+		/// </summary>
+		public User? CurrentUser
 		{
 			get;
 			set;

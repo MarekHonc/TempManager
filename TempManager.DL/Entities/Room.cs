@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Interfaces;
 
@@ -10,9 +11,16 @@ namespace TempManager.DL.Entities
 	/// </summary>
 	public class Room : EntityBase, IExternalId
 	{
+		private ICollection<UserToRoom> usersToRoom;
+		private Floor floor;
+
 		protected Room()
 		{
-			this.UsersToRoom = new List<UserToRoom>();
+		}
+
+		protected Room(ILazyLoader lazyLoader)
+		{
+			this.LazyLoader = lazyLoader;
 		}
 
 		/// <summary>
@@ -23,7 +31,7 @@ namespace TempManager.DL.Entities
 		public string ExternalId
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -34,7 +42,7 @@ namespace TempManager.DL.Entities
 		public string Name
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -44,7 +52,7 @@ namespace TempManager.DL.Entities
 		public int FloorId
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -52,18 +60,34 @@ namespace TempManager.DL.Entities
 		/// </summary>
 		public Floor Floor
 		{
-			get;
-			set;
+			get => this.LazyLoader.Load(this, ref this.floor);
+			protected set => this.floor = value;
 		}
 
 		/// <summary>
 		/// Vrací nebo nastavuje všechny uživatele, kteří jsou provázáni s touto místností.
 		/// </summary>
-		public ICollection<UserToRoom> UsersToRoom
+		public virtual ICollection<UserToRoom> UsersToRoom
+		{
+			get => this.LazyLoader.Load(this, ref this.usersToRoom);
+			protected set => this.usersToRoom = value;
+		}
+
+		/// <summary>
+		/// Vrací lazy loader pro dodatečné načítání entit.
+		/// </summary>
+		private ILazyLoader LazyLoader
 		{
 			get;
-			set;
 		}
+
+		/// <summary>
+		/// Nastaví název místnosti.
+		/// </summary>
+		public void SetName(string name)
+		{
+			this.Name = name;
+	}
 
 		/// <summary>
 		/// Vytvoří novou entitu místnosti.

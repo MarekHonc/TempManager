@@ -23,7 +23,7 @@ namespace TempManager.DL.Entities
 		public int FloorId
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -32,7 +32,7 @@ namespace TempManager.DL.Entities
 		public DateTimeOffset Date
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -42,7 +42,7 @@ namespace TempManager.DL.Entities
 		public ICollection<RoomValue> RoomValues
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace TempManager.DL.Entities
 		public Floor Floor
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>

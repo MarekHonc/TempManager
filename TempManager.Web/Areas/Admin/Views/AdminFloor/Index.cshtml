@@ -1,0 +1,54 @@
+﻿@using TempManager.Web.Areas.Admin.Localization
+@model TempManager.Web.Areas.Admin.Models.AdminListViewModel<TempManager.DL.Entities.Floor>
+
+@{
+	ViewData["Title"] = AdminResources.Floors;
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@AdminResources.Floors</h1>
+
+<hr />
+
+<table class="table">
+	<thead>
+		<tr>
+			<th></th>
+			<th>@AdminResources.Name</th>
+			<th>@AdminResources.FriendlyId</th>
+			<th>@AdminResources.ExternalId</th>
+			<th>@AdminResources.MapViewName</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Items)
+		{
+			<tr>
+				<td>@Html.CheckBoxFor(m => item.IsHidden, new { @class = "hidden", data_floor=item.Id })</td>
+				<td>@item.Name</td>
+				<td>@item.FriendlyId</td>
+				<td>@item.ExternalId</td>
+				<td>@item.MapViewName</td>
+				<td>
+					@Html.ActionLink(AdminResources.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning"})
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".hidden").on("change", function() {
+			$.ajax({
+				method: "POST",
+				url: "@Url.Action("SetVisible", "AdminFloor")",
+				data: {
+					floorId: $(this).attr("data-floor"),
+					isVisible: !$(this).prop("checked")
+				}
+			});
+		});
+	});
+</script>

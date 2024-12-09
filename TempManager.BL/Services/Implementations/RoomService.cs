@@ -89,11 +89,11 @@ namespace TempManager.BL.Services
 			// Existuje -> nastavím
 			if (userToRoom != null)
 			{
-				userToRoom.IsFavorite = isFavorite;
+				userToRoom.SetFavorite(isFavorite);
 			}
 			else
 			{
-				userToRoom = DL.Entities.UserToRoom.Create(user.Id, roomId, isFavorite);
+				userToRoom = DL.Entities.UserToRoom.Create(user.Id, roomId, isFavorite, hasRight: false);
 				await this.repositoriesFactory.UserToRoomRepository.Add(userToRoom);
 			}
 

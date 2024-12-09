@@ -1,4 +1,4 @@
-﻿namespace TempManager.Common.Enums
+﻿namespace TempManager.Common
 {
 	/// <summary>
 	/// Typ zobrazení podlaží.

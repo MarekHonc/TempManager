@@ -54,7 +54,8 @@ namespace TempManager.BL.Services
 			var user = await this.userService.GetCurrentUser();
 			var dbUser = await this.repositoriesFactory.UserRepository.FetchById(user.Id);
 
-			dbUser!.SelectedFloor = floor;
+			dbUser!.SetSelectedFloor(floor);
+
 			await this.repositoriesFactory.SaveChanges();
 
 			return true;

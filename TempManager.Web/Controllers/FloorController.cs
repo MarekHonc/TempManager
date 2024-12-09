@@ -10,7 +10,8 @@ namespace TempManager.Web.Controllers
 	{
 		private readonly IRoomService roomService;
 
-		public FloorController(IFloorService floorService, IRoomService roomService) : base(floorService)
+		public FloorController(IFloorService floorService, IUserService userService, IRoomService roomService)
+			: base(floorService, userService)
 		{
 			this.roomService = roomService;
 		}

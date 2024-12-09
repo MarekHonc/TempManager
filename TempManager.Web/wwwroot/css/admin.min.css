@@ -1,0 +1,1 @@
+﻿.toggle-visibility{cursor:pointer;}.toggle-visibility h3::before{width:45px;display:inline-block;font-weight:bold;transform:scaleX(1.5);text-align:center;}.toggle-visibility.down h3::before{content:"⋁";}.toggle-visibility.up h3::before{content:"⋀";}

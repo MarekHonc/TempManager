@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using TempManager.DL.Interfaces;
 
 namespace TempManager.DL.Entities
@@ -10,6 +11,18 @@ namespace TempManager.DL.Entities
 	[PrimaryKey(nameof(UserId), nameof(RoomId))]
 	public class UserToRoom : IEntity
 	{
+		private Room room;
+		private User user;
+
+		protected UserToRoom()
+		{
+		}
+
+		protected UserToRoom(ILazyLoader lazyLoader)
+		{
+			this.LazyLoader = lazyLoader;
+		}
+
 		/// <summary>
 		/// Vrací nebo nastavuje identifikátor uživatele.
 		/// </summary>
@@ -17,7 +30,7 @@ namespace TempManager.DL.Entities
 		public int UserId
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -27,7 +40,7 @@ namespace TempManager.DL.Entities
 		public int RoomId
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -36,7 +49,7 @@ namespace TempManager.DL.Entities
 		public bool HasRightToEdit
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -45,7 +58,7 @@ namespace TempManager.DL.Entities
 		public bool IsFavorite
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -53,8 +66,8 @@ namespace TempManager.DL.Entities
 		/// </summary>
 		public User User
 		{
-			get;
-			set;
+			get => this.LazyLoader.Load(this, ref this.user);
+			set => this.user = value;
 		}
 
 		/// <summary>
@@ -62,20 +75,45 @@ namespace TempManager.DL.Entities
 		/// </summary>
 		public Room Room
 		{
+			get => this.LazyLoader.Load(this, ref this.room);
+			set => this.room = value;
+		}
+
+		/// <summary>
+		/// Vrací Lazy loader pro dodatečné načítání entit.
+		/// </summary>
+		private ILazyLoader LazyLoader
+		{
 			get;
-			set;
+		}
+
+		/// <summary>
+		/// Nastaví, zda-li má uživatel místnost uloženou v oblíbených.
+		/// </summary>
+		public void SetFavorite(bool isFavorite)
+		{
+			this.IsFavorite = isFavorite;
+		}
+
+		/// <summary>
+		/// Nastaví, zda-li má uživatel místnost právo editovat.
+		/// </summary>
+		public void SetHasRight(bool hasRight)
+		{
+			this.HasRightToEdit = hasRight;
 		}
 
 		/// <summary>
 		/// Vytvoří entitu vhodnou k uložení.
 		/// </summary>
-		public static UserToRoom Create(int userId, int roomId, bool isFavorite)
+		public static UserToRoom Create(int userId, int roomId, bool isFavorite, bool hasRight)
 		{
 			return new UserToRoom()
 			{
 				UserId = userId,
 				RoomId = roomId,
-				IsFavorite = isFavorite
+				IsFavorite = isFavorite,
+				HasRightToEdit = hasRight
 			};
 		}
 	}

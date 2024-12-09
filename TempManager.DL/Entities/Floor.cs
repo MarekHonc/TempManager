@@ -65,7 +65,7 @@ namespace TempManager.DL.Entities
 		public bool IsHidden
 		{
 			get;
-			set;
+			protected set;
 		}
 
 		/// <summary>
@@ -75,6 +75,25 @@ namespace TempManager.DL.Entities
 		{
 			get;
 			protected set;
+		}
+
+		/// <summary>
+		/// Updatuje hodnoty podlaží.
+		/// </summary>
+		public void Update(string friendlyId, string name, string? mapViewName, bool isVisible)
+		{
+			this.FriendlyId = friendlyId;
+			this.Name = name;
+			this.MapViewName = mapViewName;
+			SetIsVisible(isVisible);
+		}
+
+		/// <summary>
+		/// Updatuje viditelnost podlaží.
+		/// </summary>
+		public void SetIsVisible(bool isVisible)
+		{
+			this.IsHidden = !isVisible;
 		}
 
 		/// <summary>
