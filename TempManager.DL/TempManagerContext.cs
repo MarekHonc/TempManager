@@ -67,7 +67,7 @@ namespace TempManager.DL
 		/// </summary>
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			// TODO: Rzházet aby se definovalo na entitách -> možná zkusit static metodu na interface?
+			// TODO: Rozházet aby se definovalo na entitách -> možná zkusit static metodu na interface?
 
 			modelBuilder.Entity<Floor>()
 				.HasIndex(f => f.ExternalId)
@@ -87,6 +87,17 @@ namespace TempManager.DL
 
 			modelBuilder.Entity<FloorHistory>()
 				.OwnsMany(fh => fh.RoomValues, builder => { builder.ToJson(); });
+		}
+
+		/// <summary>
+		/// Aplikuje všechny potřebné migrace, aby databáze byla aktuální.
+		/// </summary>
+		public void ApplyMigrations()
+		{
+			if (this.Database.GetPendingMigrations().Any())
+			{
+				this.Database.Migrate();
+			}
 		}
 	}
 }

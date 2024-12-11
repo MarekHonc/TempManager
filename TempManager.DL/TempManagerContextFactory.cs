@@ -11,7 +11,7 @@ namespace TempManager.DL
 		public TempManagerContext CreateDbContext(string[] args)
 		{
 			var optionsBuilder = new DbContextOptionsBuilder<TempManagerContext>();
-			optionsBuilder.UseNpgsql("Host=localhost;Database=temp.manager;Username=postgres;Password=root");
+			optionsBuilder.UseNpgsql("Host=db;Database=temp.manager;Username=postgres;Password=example");
 			var context = new TempManagerContext(optionsBuilder.Options);
 
 			return context;

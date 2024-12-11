@@ -69,11 +69,14 @@ namespace TempManager.BL.SyncService
 		/// <summary>
 		/// Zesynchronizuje naměřené hodnoty v místnostech z API do aplikace.
 		/// </summary>
-		/// <returns></returns>
 		public async Task<Dictionary<Floor, Room[]>> SyncRooms()
 		{
 			var result = new Dictionary<Floor, Room[]>();
 			var syncTime = DateTimeOffset.UtcNow;
+
+			// Api je offline -> neřeším nic.
+			if (!await this.apiService.Ping())
+				return result;
 
 			// Pro každé patro co je v cahce.
 			foreach (var floor in this.floorCahce)

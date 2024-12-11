@@ -54,6 +54,7 @@ namespace TempManager.Web
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
 
+			app.EnsureLatestDatabase();
 			app.Run();
 		}
 
