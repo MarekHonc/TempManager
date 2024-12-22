@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Services;
 using TempManager.Common;
 using TempManager.Web.Models;
@@ -8,6 +9,7 @@ namespace TempManager.Web.Controllers
 	/// <summary>
 	/// Bázový kontroler pro aplikaci.
 	/// </summary>
+	[Authorize]
 	public class BaseController : Controller
 	{
 		protected IFloorService floorService;

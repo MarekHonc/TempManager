@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TempManager.BL\TempManager.BL.csproj" />
+    <ProjectReference Include="..\TempManager.Shibboleth\TempManager.Shibboleth.csproj" />
   </ItemGroup>
 
   <ItemGroup>

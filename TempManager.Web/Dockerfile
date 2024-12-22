@@ -14,6 +14,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["TempManager.Web/TempManager.Web.csproj", "TempManager.Web/"]
 COPY ["TempManager.BL/TempManager.BL.csproj", "TempManager.BL/"]
+COPY ["TempManager.Shibboleth/TempManager.Shibboleth.csproj", "TempManager.Shibboleth/"]
 COPY ["TempManager.Common/TempManager.Common.csproj", "TempManager.Common/"]
 COPY ["TempManager.DL/TempManager.DL.csproj", "TempManager.DL/"]
 COPY ["TempManager.KNX.Api/TempManager.KNX.Api.csproj", "TempManager.KNX.Api/"]

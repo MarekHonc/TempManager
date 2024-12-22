@@ -23,7 +23,10 @@ namespace TempManager.Web
 			builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 			// Zaregistruji služby.
-			RegisterServices(builder);
+			builder.RegisterServices();
+
+			// Registrace Shibba.
+			builder.AddShibboleth();
 
 			var app = builder.Build();
 
@@ -56,31 +59,6 @@ namespace TempManager.Web
 
 			app.EnsureLatestDatabase();
 			app.Run();
-		}
-
-		/// <summary>
-		/// Zaregistruje služby aplikace do DI kontejneru.
-		/// </summary>
-		private static void RegisterServices(WebApplicationBuilder builder)
-		{
-			// Pøipojení k databázi
-			builder.Services.AddDbContextPool<TempManagerContext>(opt =>
-				opt.UseNpgsql(builder.Configuration.GetConnectionString("TempManagerContext")));
-
-			// Pøidám i repositories factory.
-			builder.Services.AddScoped<RepositoriesFactory>();
-
-			// Napojení na API -> je to služba, co ète z konfigu, staèí singleton.
-			builder.Services.AddSingleton<IApiSettings, ApiSettings>();
-
-			// Služby pro weby -> zapisují a ètou z lokální storage.
-			builder.Services.AddScoped<IUserService, UserTestService>();
-			builder.Services.AddScoped<IFloorService, FloorService>();
-			builder.Services.AddScoped<IRoomService, RoomService>();
-
-			// Background task, který synchronizuje lokální storage s/do KNX.
-			builder.Services.AddHostedService<ValueSyncServiceWrapper>();
-			builder.Services.AddScoped<ValueSyncService>();
 		}
 	}
 }
