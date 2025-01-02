@@ -12,7 +12,7 @@ namespace TempManager.BL.SyncService
 		private readonly RepositoriesFactory repositoriesFactory;
 		private readonly IApiService apiService;
 
-		private Dictionary<string, DL.Entities.Floor> floorCahce;
+		private Dictionary<string, DL.Entities.Floor> floorCache;
 
 		public ValueSyncService(RepositoriesFactory repositoriesFactory, IApiSettings settings)
 		{
@@ -30,7 +30,7 @@ namespace TempManager.BL.SyncService
 				return Array.Empty<Floor>();
 
 			// Stáhnu existující hodnoty z DB + nové hodnoty z API.
-			this.floorCahce = await this.repositoriesFactory.FloorRepository.GetExternalIdLookUp();
+			this.floorCache = await this.repositoriesFactory.FloorRepository.GetExternalIdLookUp();
 			var variables = await this.apiService.GetVariables();
 
 			// Vrací vše, co získám z API.
@@ -42,7 +42,7 @@ namespace TempManager.BL.SyncService
 				foreach (var variable in variables)
 				{
 					// Pokud patro neexistuje, tak ho vytvořím.
-					if (!this.floorCahce.TryGetValue(variable.Name, out DL.Entities.Floor floor))
+					if (!this.floorCache.TryGetValue(variable.Name, out DL.Entities.Floor floor))
 					{
 						floor = await DL.Entities.Floor.Create(
 							repositoriesFactory.FloorRepository,
@@ -79,7 +79,7 @@ namespace TempManager.BL.SyncService
 				return result;
 
 			// Pro každé patro co je v cahce.
-			foreach (var floor in this.floorCahce)
+			foreach (var floor in this.floorCache)
 			{
 				Room[] rooms;
 

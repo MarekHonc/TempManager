@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Interfaces;
+using TempManager.DL.Queries;
 
 namespace TempManager.DL.Entities
 {
@@ -10,11 +11,45 @@ namespace TempManager.DL.Entities
 	/// </summary>
 	public class User : EntityBase, IEntity
 	{
+		protected User()
+		{
+		}
+
 		/// <summary>
 		/// Vrací nebo nastavuje název uživatele.
 		/// </summary>
 		[Required]
 		public string UserName
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
+		/// Vrací nebo nastavuje křestní jméno.
+		/// </summary>
+		[Required]
+		public string FirstName
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
+		/// Vrací nebo nastavuje příjmení.
+		/// </summary>
+		[Required]
+		public string LastName
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
+		/// Vrací nebo nastavuje unikátní identifikátor uživatele.
+		/// </summary>
+		[Required]
+		public string Uid
 		{
 			get;
 			protected set;
@@ -63,6 +98,27 @@ namespace TempManager.DL.Entities
 		{
 			get;
 			protected set;
+		}
+
+		/// <summary>
+		/// Vrací uživatele vhodného k uložení do databáze.
+		/// </summary>
+		public static async Task<User> Create(IRepository<User> repository, string uid, string userName, string firstName, string lastName)
+		{
+			// Kouknu, jestli uživatel existuje.
+			var existingUser = await repository.FetchOne(new UserByUidQuery(uid));
+			if (existingUser != null)
+				throw new ArgumentException($"Uid {uid} already exists!", nameof(uid));
+
+			var user = new User()
+			{
+				Uid = uid,
+				UserName = userName,
+				FirstName = firstName,
+				LastName = lastName
+			};
+
+			return user;
 		}
 	}
 }

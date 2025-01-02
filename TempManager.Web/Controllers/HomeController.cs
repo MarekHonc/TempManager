@@ -27,8 +27,6 @@ namespace TempManager.Web.Controllers
 		/// <summary>
 		/// Vrací stránku pro zobrazení konkrétního podlaží.
 		/// </summary>
-		/// <param name="friendlyId"></param>
-		/// <returns></returns>
 		[Route("/Floor/{friendlyId}")]
 		public async Task<IActionResult> Floor(string friendlyId)
 		{

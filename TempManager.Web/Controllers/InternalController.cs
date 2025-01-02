@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using TempManager.BL.Services;
 using TempManager.Shibboleth;
 
 namespace TempManager.Web.Controllers
@@ -8,12 +7,8 @@ namespace TempManager.Web.Controllers
 	/// <summary>
 	/// Interní kontroler pro testovací akce.
 	/// </summary>
-	public class InternalController : BaseController
-	{
-		public InternalController(IFloorService floorService, IUserService userService) : base(floorService, userService)
-		{
-		}
-
+	public class InternalController : Controller
+	{ 
 		public IActionResult TestShibboleth()
 		{
 			var ident = (ClaimsIdentity)HttpContext.User.Identity;
@@ -25,6 +20,7 @@ namespace TempManager.Web.Controllers
 				"eppn: " + ident.FindFirst(ShibbolethClaimsType.EPPN)?.Value,
 				"uid: " + ident.FindFirst(ShibbolethClaimsType.UID).Value,
 				"mail: " + ident.FindFirst(ShibbolethClaimsType.EMAIL).Value,
+				// TODO: Todle je array
 				"eduPersonScopedAffiliation: " + ident.FindFirst(ShibbolethClaimsType.AFFILIATION).Value,
 			};
 

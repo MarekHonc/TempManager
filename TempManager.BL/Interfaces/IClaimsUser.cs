@@ -1,28 +1,10 @@
-﻿namespace TempManager.BL.Models
+﻿namespace TempManager.BL.Interfaces
 {
 	/// <summary>
-	/// Model uživatele aplikace.
+	/// Interface reprezentující model vytvoření z claimů.
 	/// </summary>
-	public class User
+	public interface IClaimsUser
 	{
-		public User(DL.Entities.User user)
-		{
-			this.Id = user.Id;
-			this.UserName = user.UserName;
-			this.FirstName = user.FirstName;
-			this.LastName = user.LastName;
-			this.Uid = user.Uid;
-			this.IsAdmin = user.IsAdmin;
-		}
-
-		/// <summary>
-		/// Vrací identifikátor uživatele.
-		/// </summary>
-		public int Id
-		{
-			get;
-		}
-
 		/// <summary>
 		/// Vrací název aktuálního uživatele.
 		/// </summary>
@@ -56,9 +38,9 @@
 		}
 
 		/// <summary>
-		/// Vrací zda-li je uživatel admin.
+		/// Vrací affiliace aktuálně přihlášeného uživatele.
 		/// </summary>
-		public bool IsAdmin
+		public string[] Affiliations
 		{
 			get;
 		}

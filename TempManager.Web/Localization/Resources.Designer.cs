@@ -124,6 +124,24 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pro zobrazení této stránky nemáte dostatečná oprávnění.
+        /// </summary>
+        public static string NotAuthorized_Description {
+            get {
+                return ResourceManager.GetString("NotAuthorized_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nedostatečné oprávnění.
+        /// </summary>
+        public static string NotAuthorized_Title {
+            get {
+                return ResourceManager.GetString("NotAuthorized_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aktuálně probíhá inicializace, stránka se za chvíli obnoví a načte..
         /// </summary>
         public static string NotInitialized_Description {
@@ -151,7 +169,7 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aplikace je offilne.
+        ///   Looks up a localized string similar to Aplikace je offline.
         /// </summary>
         public static string Offline_Title {
             get {

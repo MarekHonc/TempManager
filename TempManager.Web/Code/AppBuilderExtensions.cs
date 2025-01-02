@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TempManager.BL.Interfaces;
 using TempManager.BL.Services;
 using TempManager.BL.SyncService;
 using TempManager.DL;
@@ -6,6 +7,7 @@ using TempManager.DL.Repositories;
 using TempManager.KNX.Api;
 using TempManager.Shibboleth;
 using TempManager.Web.HostedServices;
+using TempManager.Web.Models;
 
 namespace TempManager.Web.Code
 {
@@ -19,6 +21,9 @@ namespace TempManager.Web.Code
 		/// </summary>
 		public static void RegisterServices(this WebApplicationBuilder builder)
 		{
+			// Služby (např. přihlašovací služba) potřebuje mít aktuální httpcontext.
+			builder.Services.AddHttpContextAccessor();
+
 			// Připojení k databázi
 			builder.Services.AddDbContextPool<TempManagerContext>(opt =>
 				opt.UseNpgsql(builder.Configuration.GetConnectionString("TempManagerContext")));
@@ -28,9 +33,11 @@ namespace TempManager.Web.Code
 
 			// Napojení na API -> je to služba, co čte z konfigu, stačí singleton.
 			builder.Services.AddSingleton<IApiSettings, ApiSettings>();
+			builder.Services.AddSingleton<ShibbolethAuthorizeSettings>();
 
 			// Služby pro weby -> zapisují a čtou z lokální storage.
-			builder.Services.AddScoped<IUserService, UserTestService>();
+			builder.Services.AddScoped<IClaimsUser, ClaimsUser>();
+			builder.Services.AddScoped<IUserService, UserService>();
 			builder.Services.AddScoped<IFloorService, FloorService>();
 			builder.Services.AddScoped<IRoomService, RoomService>();
 
@@ -70,7 +77,7 @@ namespace TempManager.Web.Code
 					new ShibbolethAttributeValue("uid", "uid123"),
 					new ShibbolethAttributeValue("givenName", "Marek"),
 					new ShibbolethAttributeValue("sn", "Honc"),
-					new ShibbolethAttributeValue("mail", "marek.honc@tul.cz"),
+					new ShibbolethAttributeValue("mail", "mareka.honc@tul.cz"),
 					new ShibbolethAttributeValue("eduPersonScopedAffiliation", "employees@tul.cz")
 				};
 				options.Events = new ShibbolethEvents

@@ -81,6 +81,10 @@ namespace TempManager.DL
 				.HasIndex(r => r.ExternalId)
 				.IsUnique();
 
+			modelBuilder.Entity<User>()
+				.HasIndex(u => u.Uid)
+				.IsUnique();
+
 			modelBuilder.Entity<FloorHistory>()
 				.HasIndex(nameof(FloorHistory.Date), nameof(FloorHistory.FloorId))
 				.IsUnique();

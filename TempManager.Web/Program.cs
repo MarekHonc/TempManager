@@ -1,11 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using TempManager.BL.Services;
-using TempManager.BL.SyncService;
-using TempManager.DL;
-using TempManager.DL.Repositories;
-using TempManager.KNX.Api;
 using TempManager.Web.Code;
-using TempManager.Web.HostedServices;
 
 namespace TempManager.Web
 {
@@ -14,9 +7,6 @@ namespace TempManager.Web
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
-
-			// Add services to the container.
-			builder.Services.AddControllersWithViews();
 
 			// Konfigurace MVC.
 			builder.Services.AddControllersWithViews();

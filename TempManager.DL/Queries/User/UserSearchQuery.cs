@@ -17,7 +17,11 @@ namespace TempManager.DL.Queries
 		protected override IQueryable<User> CreateQuery(TempManagerContext dbContext)
 		{
 			return dbContext.Users.Where(u =>
-				u.UserName.Contains(this.search) &&
+				(
+					u.UserName.Contains(this.search) ||
+					u.FirstName.Contains(this.search) ||
+					u.LastName.Contains(this.search)
+				) &&
 				!u.IsAdmin
 			);
 		}

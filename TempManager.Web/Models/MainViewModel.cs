@@ -30,7 +30,7 @@ namespace TempManager.Web.Models
 		/// </summary>
 		public void Init()
 		{
-			// TODO reálná kontrola.
+			// TODO: reálná kontrola.
 			this.IsOnline = true;
 
 			// TODO: reálné poslední zobrazení.
