@@ -19,6 +19,8 @@ services:
     build:
       context: .
       dockerfile: TempManager.Web/Dockerfile
+    environment:
+      - "ConnectionStrings__TempManagerContext=Host=db;Database=temp.manager;Username=postgres;Password=example"
     networks:
       - tempmanager-nat
         # ipv4_address: "192.168.80.12"
