@@ -34,7 +34,7 @@ namespace TempManager.BL.Services
 			return Task.FromResult(true);
 		}
 
-		public Task<Floor?> GetByFriendlyId(string floorId)
+		public Task<Floor> GetByFriendlyId(string floorId)
 		{
 			return Task.FromResult(this.floors.FirstOrDefault(f => f.FriendlyId == floorId));
 		}

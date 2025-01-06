@@ -62,7 +62,7 @@ namespace TempManager.Web.Areas.Admin.Models
 		/// </summary>
 		[Display(Name = "MapViewName", ResourceType = typeof(AdminResources))]
 		[StringLength(30, ErrorMessageResourceName = "StringLength", ErrorMessageResourceType = typeof(AdminResources))]
-		public string? MapViewName
+		public string MapViewName
 		{
 			get;
 			set;

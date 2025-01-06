@@ -77,7 +77,7 @@ namespace TempManager.Web.Code
 					new ShibbolethAttributeValue("uid", "uid123"),
 					new ShibbolethAttributeValue("givenName", "Marek"),
 					new ShibbolethAttributeValue("sn", "Honc"),
-					new ShibbolethAttributeValue("mail", "mareka.honc@tul.cz"),
+					new ShibbolethAttributeValue("mail", "marek.honc@tul.cz"),
 					new ShibbolethAttributeValue("eduPersonScopedAffiliation", "employees@tul.cz")
 				};
 				options.Events = new ShibbolethEvents

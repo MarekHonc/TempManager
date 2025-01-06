@@ -44,7 +44,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Vrací hodnotu z atributů na základě názvu.
 		/// </summary>
-		protected static string? GetValue(ShibbolethAttributeValueCollection userData, string attributeName)
+		protected static string GetValue(ShibbolethAttributeValueCollection userData, string attributeName)
 		{
 			if (!userData.ContainsAttribute(attributeName))
 				return null;

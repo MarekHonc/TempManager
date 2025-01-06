@@ -85,7 +85,7 @@ namespace TempManager.KNX.Api
 		/// <summary>
 		/// Provede GET request na určitý endpoint.
 		/// </summary>
-		private async Task<T?> GetResponse<T>(string endPoint, Func<string, T> parseResponse)
+		private async Task<T> GetResponse<T>(string endPoint, Func<string, T> parseResponse)
 		{
 			using (var httpClient = new HttpClient())
 			{

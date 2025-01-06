@@ -39,7 +39,6 @@
 			"library": "underscore.js@1.13.7",
 			"destination": "wwwroot/lib/underscore.js/",
 			"files": [
-				"underscore-min.js",
 				"underscore.js",
 				"underscore.min.js"
 			]

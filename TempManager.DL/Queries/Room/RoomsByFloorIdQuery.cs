@@ -14,7 +14,6 @@ namespace TempManager.DL.Queries
 			this.floorId = floorId;
 		}
 
-
 		protected override IQueryable<Room> CreateQuery(TempManagerContext dbContext)
 		{
 			return dbContext.Rooms.Where(r => r.FloorId == this.floorId);

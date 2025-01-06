@@ -16,7 +16,7 @@ namespace TempManager.Shibboleth
 	/// </summary>
 	public class ShibbolethHandler : AuthenticationHandler<ShibbolethOptions>, IAuthenticationRequestHandler, IAuthenticationSignInHandler
 	{
-		private Task<HandleRequestResult>? extractShibbolethDataTask;
+		private Task<HandleRequestResult> extractShibbolethDataTask;
 		private const string AuthSchemeKey = ".AuthScheme";
 
 		/// <summary>
@@ -30,7 +30,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// The authentication scheme used by default for signin.
 		/// </summary>
-		protected string? SignInScheme => Options.SignInScheme;
+		protected string SignInScheme => Options.SignInScheme;
 
 		/// <summary>
 		/// Zpracování eventů od Shibba.
@@ -68,9 +68,9 @@ namespace TempManager.Shibboleth
 			if (!await ShouldHandleRequestAsync())
 				return false;
 
-			AuthenticationTicket? ticket = null;
-			Exception? exception = null;
-			AuthenticationProperties? properties = null;
+			AuthenticationTicket ticket = null;
+			Exception exception = null;
+			AuthenticationProperties properties = null;
 			try
 			{
 				// RemoteAuthenticationHandler
@@ -195,7 +195,7 @@ namespace TempManager.Shibboleth
 		/// </summary>
 		private async Task<HandleRequestResult> ExamineForShibbolethSession()
 		{
-			IShibbolethProcessor? shibbolethProcessor;
+			IShibbolethProcessor shibbolethProcessor;
 			IShibbolethAttributeCollection shibbolethAttributes = Options.ShibbolethAttributes;
 
 			// Manuální výběr procesoru hodnot - typicky pro debug.
@@ -231,7 +231,7 @@ namespace TempManager.Shibboleth
 			IQueryCollection query = Request.Query;
 
 			StringValues state = query["state"];
-			AuthenticationProperties? properties = Options.StateDataFormat.Unprotect(state);
+			AuthenticationProperties properties = Options.StateDataFormat.Unprotect(state);
 			properties ??= new AuthenticationProperties();
 
 			return HandleRequestResult.Success(await CreateTicketAsync(identity, properties, userData));
@@ -261,9 +261,9 @@ namespace TempManager.Shibboleth
 					}
 
 					// Schéma může být sdílený.
-					AuthenticationTicket? ticket = result.Ticket;
+					AuthenticationTicket ticket = result.Ticket;
 					if (ticket != null && ticket.Principal != null && ticket.Properties != null &&
-					    ticket.Properties.Items.TryGetValue(AuthSchemeKey, out string? authenticatedScheme) &&
+					    ticket.Properties.Items.TryGetValue(AuthSchemeKey, out string authenticatedScheme) &&
 						string.Equals(Scheme.Name, authenticatedScheme, StringComparison.Ordinal))
 					{
 						return AuthenticateResult.Success(new AuthenticationTicket(ticket.Principal,
@@ -356,7 +356,7 @@ namespace TempManager.Shibboleth
 		}
 
 		/// <inheritdoc cref="SignInAsync"/>
-		public virtual Task SignInAsync(ClaimsPrincipal user, AuthenticationProperties? properties)
+		public virtual Task SignInAsync(ClaimsPrincipal user, AuthenticationProperties properties)
 		{
 			// forward the sign-in if this is a challenge
 			if (Options.UseChallenge)
@@ -367,7 +367,7 @@ namespace TempManager.Shibboleth
 		}
 
 		/// <inheritdoc cref="SignOutAsync"/>
-		public Task SignOutAsync(AuthenticationProperties? properties)
+		public Task SignOutAsync(AuthenticationProperties properties)
 		{
 			if (Options.UseChallenge)
 				return Context.SignOutAsync(Options.SignInScheme, properties);

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Entities.JsonTypes;
 using TempManager.DL.Interfaces;
@@ -65,6 +66,19 @@ namespace TempManager.DL.Entities
 				Date = date,
 				RoomValues = values
 			};
+		}
+
+		/// <summary>
+		/// Nastaví dodatečné bindingy v tabulce.
+		/// </summary>
+		public static void CreateBindings(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<FloorHistory>()
+				.HasIndex(nameof(FloorHistory.Date), nameof(FloorHistory.FloorId))
+				.IsUnique();
+
+			modelBuilder.Entity<FloorHistory>()
+				.OwnsMany(fh => fh.RoomValues, builder => { builder.ToJson(); });
 		}
 	}
 }

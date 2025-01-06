@@ -16,7 +16,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Vrací nebo nastavuje processor hodnoty.
 		/// </summary>
-		public IShibbolethProcessor? Processor
+		public IShibbolethProcessor Processor
 		{
 			get;
 			set;

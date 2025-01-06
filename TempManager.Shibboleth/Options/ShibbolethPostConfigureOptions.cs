@@ -24,7 +24,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Dokončí konfiguraci <see cref="ShibbolethOptions"/>.
 		/// </summary>
-		public void PostConfigure(string? name, ShibbolethOptions options)
+		public void PostConfigure(string name, ShibbolethOptions options)
 		{
 			ArgumentNullException.ThrowIfNull(name);
 			

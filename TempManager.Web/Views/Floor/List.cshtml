@@ -4,7 +4,6 @@
 <div id="list-app" class="container mt-5">
 	@await Html.PartialAsync("_Loader")
 
-
 	<div class="row">
 		<h3 class="col-8">
 			@Model.SelectedFloor.Name
@@ -56,7 +55,8 @@
 <script type="text/javascript">
 	var model = new appModel({
 		roomsUrl: "@Url.Action("GetRooms", "Floor", new { friendlyId = Model.SelectedFloor.FriendlyId })",
-		saveFavoriteUrl: "@Url.Action("SaveToFavorite", "Floor")"
+		saveFavoriteUrl: "@Url.Action("SaveToFavorite", "Floor")",
+		setTemperatureUrl: "@Url.Action("SetTemperature", "Floor")"
 	});
 
 	ko.applyBindings(model, document.getElementById("list-app"));

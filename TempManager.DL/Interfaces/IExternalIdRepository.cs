@@ -8,7 +8,7 @@
 		/// <summary>
 		/// Vrací entitu na základě jejího externího id.
 		/// </summary>
-		Task<T?> GetByExternalId(string externalId);
+		Task<T> GetByExternalId(string externalId);
 
 		/// <summary>
 		/// Vrací slovník všech získaných entit, roztříděných podle externího id.

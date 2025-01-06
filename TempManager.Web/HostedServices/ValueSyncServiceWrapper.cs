@@ -10,7 +10,7 @@ namespace TempManager.Web.HostedServices
 	{
 		private readonly ILogger<ValueSyncServiceWrapper> logger;
 		private readonly IServiceProvider serviceProvider;
-		private Timer? timer = null;
+		private Timer timer = null;
 
 		public ValueSyncServiceWrapper(IServiceProvider serviceProvider, ILogger<ValueSyncServiceWrapper> logger)
 		{
@@ -51,7 +51,7 @@ namespace TempManager.Web.HostedServices
 		/// <summary>
 		/// Provede synchronizaci a všechny data pošle na klienty přes web sockety.
 		/// </summary>
-		private async void Sync(object? state)
+		private async void Sync(object state)
 		{
 			this.logger.LogInformation("Sync started");
 
@@ -78,7 +78,7 @@ namespace TempManager.Web.HostedServices
 				this.logger.LogInformation($"Floor {value.Key.FriendlyId}: {value.Value.Length} rooms synced.");
 
 				// A pošlu na web sockety.
-				// TODO rozeslat na web sockety.
+				// TODO: rozeslat na web sockety.
 			}
 		}
 

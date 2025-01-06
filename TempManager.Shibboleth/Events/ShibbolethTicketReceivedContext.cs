@@ -17,7 +17,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Vrací nebo nastavuje adresu na kterou bude přesměrováno po přihlášení.
 		/// </summary>
-		public string? ReturnUri
+		public string ReturnUri
 		{
 			get;
 			set;

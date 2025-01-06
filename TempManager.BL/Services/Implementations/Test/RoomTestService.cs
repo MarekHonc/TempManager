@@ -34,7 +34,7 @@ namespace TempManager.BL.Services.Implementations.Test
 			return Task.FromResult(Array.Empty<Room>());
 		}
 
-		public Task<bool> SetTemperature(int roomId)
+		public Task<bool> SetTemperature(int roomId, double newTemperature)
 		{
 			return Task.FromResult(true);
 		}

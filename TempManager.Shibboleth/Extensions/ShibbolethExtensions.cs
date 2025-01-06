@@ -21,7 +21,7 @@ namespace TempManager.Shibboleth
 		/// </summary>
 		private static AuthenticationBuilder AddShibboleth(this AuthenticationBuilder builder,
 			string authenticationScheme,
-			string? displayName,
+			string displayName,
 			Action<ShibbolethOptions> configureOptions)
 		{
 			builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<ShibbolethOptions>, ShibbolethPostConfigureOptions>());

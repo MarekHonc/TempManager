@@ -26,6 +26,6 @@ namespace TempManager.BL.Services
 		/// Vrací podlaží podle jeho id.
 		/// </summary>
 		/// <returns></returns>
-		Task<Floor?> GetByFriendlyId(string floorId);
+		Task<Floor> GetByFriendlyId(string floorId);
 	}
 }

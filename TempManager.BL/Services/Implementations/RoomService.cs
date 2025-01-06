@@ -67,9 +67,42 @@ namespace TempManager.BL.Services
 		/// <summary>
 		/// Nastaví teplotu v místnosti.
 		/// </summary>
-		public Task<bool> SetTemperature(int roomId)
+		public async Task<bool> SetTemperature(int roomId, double newTemperature)
 		{
-			throw new NotImplementedException();
+			var user = await this.userService.GetCurrentUser();
+			var room = await this.repositoriesFactory.RoomRepository.FetchById(roomId);
+
+			// Pokud není admin.
+			if (!user.IsAdmin)
+			{
+				var userRightsQuery = new UserToRoomForUserQuery(user.Id, room.Id);
+				var userRights = await this.repositoriesFactory.UserToRoomRepository.FetchOne(userRightsQuery);
+
+				// Žádný záznam neexistuje nebo nemá právo.
+				if (userRights == null || !userRights.HasRightToEdit)
+					return false;
+			}
+
+			// Stáhnu poslední hodnoty pro celé podlaží.
+			var values = await this.repositoriesFactory.FloorHistoryRepository.FetchOne(
+				new FloorHistoryLatestQuery(room.FloorId)
+			);
+
+			var latestTemp = values?.RoomValues.FirstOrDefault(r => r.ExternalRoomId == room.ExternalId);
+
+			// Vytvořím záznam o uložení teploty.
+			var temperature = DL.Entities.SetTemperature.Create(
+				user.Id,
+				roomId,
+				latestTemp?.Temperature ?? 0,
+				newTemperature
+			);
+
+			// Uložím do databáze.
+			await this.repositoriesFactory.SetTemperatureRepository.Add(temperature);
+			await this.repositoriesFactory.SaveChanges();
+
+			return true;
 		}
 
 		/// <inheritdoc cref="SetFavorite"/>

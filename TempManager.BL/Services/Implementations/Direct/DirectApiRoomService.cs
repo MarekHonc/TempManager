@@ -48,7 +48,7 @@ namespace TempManager.BL.Services.Implementations.Direct
 			return result.OrderBy(r => r.Name).ToArray();
 		}
 
-		public Task<bool> SetTemperature(int roomId)
+		public Task<bool> SetTemperature(int roomId, double newTemperature)
 		{
 			return Task.FromResult(true);
 		}

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Interfaces;
@@ -19,6 +20,7 @@ namespace TempManager.DL.Entities
 		/// Vrací nebo nastavuje název uživatele.
 		/// </summary>
 		[Required]
+		[Column(TypeName = "varchar(150)")]
 		public string UserName
 		{
 			get;
@@ -29,6 +31,7 @@ namespace TempManager.DL.Entities
 		/// Vrací nebo nastavuje křestní jméno.
 		/// </summary>
 		[Required]
+		[Column(TypeName = "varchar(150)")]
 		public string FirstName
 		{
 			get;
@@ -39,6 +42,7 @@ namespace TempManager.DL.Entities
 		/// Vrací nebo nastavuje příjmení.
 		/// </summary>
 		[Required]
+		[Column(TypeName = "varchar(150)")]
 		public string LastName
 		{
 			get;
@@ -49,6 +53,7 @@ namespace TempManager.DL.Entities
 		/// Vrací nebo nastavuje unikátní identifikátor uživatele.
 		/// </summary>
 		[Required]
+		[Column(TypeName = "varchar(150)")]
 		public string Uid
 		{
 			get;
@@ -77,7 +82,7 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Vrací nebo nastavuje aktuálně vybrané podlaží.
 		/// </summary>
-		public Floor? SelectedFloor
+		public Floor SelectedFloor
 		{
 			get;
 			protected set;
@@ -119,6 +124,16 @@ namespace TempManager.DL.Entities
 			};
 
 			return user;
+		}
+
+		/// <summary>
+		/// Nastaví dodatečné bindingy v tabulce.
+		/// </summary>
+		public static void CreateBindings(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<User>()
+				.HasIndex(u => u.Uid)
+				.IsUnique();
 		}
 	}
 }

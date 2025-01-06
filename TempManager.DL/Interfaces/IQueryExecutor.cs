@@ -34,6 +34,6 @@
 		/// </summary>
 		/// <param name="query">Dotaz, pro získání záznamu.</param>
 		/// <returns>První dotaz, který odpovídá dotazu, nebo null.</returns>
-		Task<T?> FetchOne(IQueryObjectBase<T> query);
+		Task<T> FetchOne(IQueryObjectBase<T> query);
 	}
 }

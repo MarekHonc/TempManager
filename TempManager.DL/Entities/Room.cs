@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Interfaces;
@@ -26,6 +27,7 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Vrací nebo nastavuje id místnosti v externím systému.
 		/// </summary>
+		[Required]
 		[StringLength(30)]
 		[Column(TypeName = "varchar(30)")]
 		public string ExternalId
@@ -37,6 +39,7 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Vrací nebo nastavuje název místnosti.
 		/// </summary>
+		[Required]
 		[StringLength(50)]
 		[Column(TypeName = "varchar(50)")]
 		public string Name
@@ -87,7 +90,7 @@ namespace TempManager.DL.Entities
 		public void SetName(string name)
 		{
 			this.Name = name;
-	}
+		}
 
 		/// <summary>
 		/// Vytvoří novou entitu místnosti.
@@ -107,6 +110,16 @@ namespace TempManager.DL.Entities
 
 			// Vracím novou místnost.
 			return room;
+		}
+
+		/// <summary>
+		/// Nastaví dodatečné bindingy v tabulce.
+		/// </summary>
+		public static void CreateBindings(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Room>()
+				.HasIndex(r => r.ExternalId)
+				.IsUnique();
 		}
 	}
 }

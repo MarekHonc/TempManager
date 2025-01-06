@@ -17,7 +17,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Vrací nebo nastavuje výjimku, která nastala.
 		/// </summary>
-		public Exception? Failure
+		public Exception Failure
 		{
 			get;
 			set;
@@ -26,7 +26,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Vrací nebo natavuje stavové proměnné z přihlašovací sesion.
 		/// </summary>
-		public AuthenticationProperties? Properties
+		public AuthenticationProperties Properties
 		{
 			get;
 			set;

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Interfaces;
 
@@ -18,6 +19,7 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Vrací nebo nastavuje id podlaží v externím systému.
 		/// </summary>
+		[Required]
 		[StringLength(30)]
 		[Column(TypeName = "varchar(30)")]
 		public string ExternalId
@@ -29,6 +31,7 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Vrací nebo nastavuje interní název podlaží.
 		/// </summary>
+		[Required]
 		[StringLength(30)]
 		[Column(TypeName = "varchar(30)")]
 		public string FriendlyId
@@ -40,6 +43,7 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Vrací název podlaží.
 		/// </summary>
+		[Required]
 		[StringLength(50)]
 		[Column(TypeName = "varchar(50)")]
 		public string Name
@@ -53,7 +57,7 @@ namespace TempManager.DL.Entities
 		/// </summary>
 		[StringLength(30)]
 		[Column(TypeName = "varchar(30)")]
-		public string? MapViewName
+		public string MapViewName
 		{
 			get;
 			protected set;
@@ -80,7 +84,7 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Updatuje hodnoty podlaží.
 		/// </summary>
-		public void Update(string friendlyId, string name, string? mapViewName, bool isVisible)
+		public void Update(string friendlyId, string name, string mapViewName, bool isVisible)
 		{
 			this.FriendlyId = friendlyId;
 			this.Name = name;
@@ -115,6 +119,20 @@ namespace TempManager.DL.Entities
 
 			// Vracím nové podlaží.
 			return floor;
+		}
+
+		/// <summary>
+		/// Nastaví dodatečné bindingy v tabulce.
+		/// </summary>
+		public static void CreateBindings(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Floor>()
+				.HasIndex(f => f.ExternalId)
+				.IsUnique();
+
+			modelBuilder.Entity<Floor>()
+				.HasIndex(f => f.FriendlyId)
+				.IsUnique();
 		}
 	}
 }

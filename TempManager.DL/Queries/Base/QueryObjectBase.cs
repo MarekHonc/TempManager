@@ -84,9 +84,9 @@ namespace TempManager.DL.Queries
 		/// </summary>
 		/// <param name="dbContext">Databázový kontext.</param>
 		/// <returns>
-		/// Záznam odpovídající dotazu, nebo nullm pokud dotazu neodpovídá žádný záznam.
+		/// Záznam odpovídající dotazu, nebo null pokud dotazu neodpovídá žádný záznam.
 		/// </returns>
-		Task<T?> IQueryObjectBase<T>.FetchOne(TempManagerContext dbContext)
+		Task<T> IQueryObjectBase<T>.FetchOne(TempManagerContext dbContext)
 		{
 			return Query(dbContext).FirstOrDefaultAsync();
 		}

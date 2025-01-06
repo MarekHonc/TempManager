@@ -38,7 +38,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Vrací nebo nastavuje zabezpečovací schéma, které je shodné s middlewarem.
 		/// </summary>
-		public string? SignInScheme
+		public string SignInScheme
 		{
 			get;
 			set;
@@ -56,7 +56,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Vrací nebo nastavuje provider, který zabezpečuje data.
 		/// </summary>
-		public IDataProtectionProvider? DataProtectionProvider
+		public IDataProtectionProvider DataProtectionProvider
 		{
 			get;
 			set;

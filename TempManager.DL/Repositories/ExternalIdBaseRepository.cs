@@ -14,7 +14,7 @@ namespace TempManager.DL.Repositories
 		}
 
 		/// <inheritdoc cref="GetByExternalId"/>
-		public Task<T?> GetByExternalId(string externalId)
+		public Task<T> GetByExternalId(string externalId)
 		{
 			return this.context.Set<T>().FirstOrDefaultAsync(e => e.ExternalId == externalId);
 		}

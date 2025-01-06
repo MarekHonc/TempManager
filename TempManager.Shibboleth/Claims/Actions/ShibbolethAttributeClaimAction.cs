@@ -31,7 +31,7 @@ namespace TempManager.Shibboleth
 		/// <inheritdoc cref="Run"/>
 		public override void Run(ShibbolethAttributeValueCollection userData, ClaimsIdentity identity, string issuer)
 		{
-			string? value = GetValue(userData, this.AttributeName);
+			var value = GetValue(userData, this.AttributeName);
 
 			if (!string.IsNullOrEmpty(value))
 				identity.AddClaim(new Claim(ClaimType, value, ValueType, issuer));

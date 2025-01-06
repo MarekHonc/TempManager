@@ -24,15 +24,22 @@ function roomModel(room, initData) {
 	 */
 	self.isFavorite = ko.observable(room.isFavorite);
 	self.isFavorite.subscribe(function (newValue) {
+		debouncedHandleFavoriteChange();
+	});
+
+	const handleFavoriteChange = function () {
 		$.ajax({
 			method: "POST",
 			url: initData.saveFavoriteUrl,
 			data: {
 				roomId: self.id(),
-				isFavorite: newValue
+				isFavorite: self.isFavorite()
 			}
+			// TODO: success + fail
 		});
-	});
+	}
+
+	const debouncedHandleFavoriteChange = _.debounce(handleFavoriteChange, 500, false);
 
 	/**
 	 * Aktuální templota.
@@ -53,6 +60,23 @@ function roomModel(room, initData) {
 	 * Nastavená teplota.
 	 */
 	self.desiredTemperature = ko.observable(room.desiredTemperature);
+	self.desiredTemperature.subscribe(function (newValue) {
+		debouncedhandleTemperatureChange();
+	});
+
+	const handleTemperatureChange = function () {
+		$.ajax({
+			method: "POST",
+			url: initData.setTemperatureUrl,
+			data: {
+				roomId: self.id(),
+				desiredTemperature: self.desiredTemperature()
+			}
+			// TODO: success + fail
+		});
+	}
+
+	const debouncedhandleTemperatureChange = _.debounce(handleTemperatureChange, 500, false);
 
 	/**
 	 * Příznak - vytápí se nebo ne.

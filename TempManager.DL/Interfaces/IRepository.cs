@@ -8,7 +8,7 @@
 		/// <summary>
 		/// Vrátí záznam podle jeho id.
 		/// </summary>
-		Task<T?> FetchById(params object[] id);
+		Task<T> FetchById(params object[] id);
 
 		/// <summary>
 		/// Vrací všechny záznamy z databáze.

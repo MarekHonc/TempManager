@@ -20,6 +20,7 @@ namespace TempManager.DL.Repositories
 			this.RoomRepository = new ExternalIdBaseRepository<Room>(this.context);
 			this.UserRepository = new BaseRepository<User>(this.context);
 			this.UserToRoomRepository = new BaseRepository<UserToRoom>(this.context);
+			this.SetTemperatureRepository = new BaseRepository<SetTemperature>(this.context);
 		}
 
 		#region Repositories
@@ -60,6 +61,14 @@ namespace TempManager.DL.Repositories
 		/// Vrací repozitář pro práci s podlažími.
 		/// </summary>
 		public IRepository<UserToRoom> UserToRoomRepository
+		{
+			get;
+		}
+
+		/// <summary>
+		/// Vrací repozitář pro práci s historíí nastavení teplot.
+		/// </summary>
+		public IRepository<SetTemperature> SetTemperatureRepository
 		{
 			get;
 		}

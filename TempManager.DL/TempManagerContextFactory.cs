@@ -6,15 +6,15 @@ namespace TempManager.DL
 	/// <summary>
 	/// Designer factory pro připojení k databázi kvůli migracím.
 	/// </summary>
-	public class TempManagerContextFactory : IDesignTimeDbContextFactory<TempManagerContext>
-	{
-		public TempManagerContext CreateDbContext(string[] args)
-		{
-			var optionsBuilder = new DbContextOptionsBuilder<TempManagerContext>();
-			optionsBuilder.UseNpgsql("Host=db;Database=temp.manager;Username=postgres;Password=example");
-			var context = new TempManagerContext(optionsBuilder.Options);
+	//public class TempManagerContextFactory : IDesignTimeDbContextFactory<TempManagerContext>
+	//{
+	//	public TempManagerContext CreateDbContext(string[] args)
+	//	{
+	//		var optionsBuilder = new DbContextOptionsBuilder<TempManagerContext>();
+	//		optionsBuilder.UseNpgsql("Host=db;Database=temp.manager;Username=postgres;Password=example");
+	//		var context = new TempManagerContext(optionsBuilder.Options);
 
-			return context;
-		}
-	}
+	//		return context;
+	//	}
+	//}
 }

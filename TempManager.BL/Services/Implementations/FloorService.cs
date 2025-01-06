@@ -35,13 +35,13 @@ namespace TempManager.BL.Services
 			var user = await this.userService.GetCurrentUser();
 			var dbUser = await this.repositoriesFactory.UserRepository.FetchById(user.Id);
 
-			if (dbUser!.SelectedFloorId != null)
-				return new Floor(dbUser.SelectedFloor!);
+			if (dbUser.SelectedFloorId != null)
+				return new Floor(dbUser.SelectedFloor);
 
 			var floorsQuery = new GetVisibleFloorsQuery();
 			var floor = await this.repositoriesFactory.FloorRepository.FetchOne(floorsQuery);
 
-			return new Floor(floor!);
+			return new Floor(floor);
 		}
 
 		/// <inheritdoc cref="SaveLastSelectedFloor"/>
@@ -54,7 +54,7 @@ namespace TempManager.BL.Services
 			var user = await this.userService.GetCurrentUser();
 			var dbUser = await this.repositoriesFactory.UserRepository.FetchById(user.Id);
 
-			dbUser!.SetSelectedFloor(floor);
+			dbUser.SetSelectedFloor(floor);
 
 			await this.repositoriesFactory.SaveChanges();
 
@@ -62,7 +62,7 @@ namespace TempManager.BL.Services
 		}
 
 		/// <inheritdoc cref="GetByFriendlyId"/>
-		public async Task<Floor?> GetByFriendlyId(string friendlyId)
+		public async Task<Floor> GetByFriendlyId(string friendlyId)
 		{
 			var floorQuery = new FloorByFriendlyIdQuery(friendlyId);
 			var floor = await this.repositoriesFactory.FloorRepository.FetchOne(floorQuery);

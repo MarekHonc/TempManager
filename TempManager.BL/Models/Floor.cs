@@ -48,7 +48,7 @@
 		/// <summary>
 		/// Vrací název šablony, která se má zobrazit při zobrazení typu "mapa".
 		/// </summary>
-		public string? MapViewName
+		public string MapViewName
 		{
 			get;
 		}

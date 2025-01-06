@@ -17,7 +17,7 @@ namespace TempManager.DL.Repositories
 		}
 
 		/// <inheritdoc cref="FetchById"/>
-		public async Task<T?> FetchById(params object[] id)
+		public async Task<T> FetchById(params object[] id)
 		{
 			return await this.context.Set<T>().FindAsync(id);
 		}
@@ -66,7 +66,7 @@ namespace TempManager.DL.Repositories
 		}
 
 		/// <inheritdoc cref="FetchOne"/>
-		public Task<T?> FetchOne(IQueryObjectBase<T> query)
+		public Task<T> FetchOne(IQueryObjectBase<T> query)
 		{
 			return query.FetchOne(this.context);
 		}

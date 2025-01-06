@@ -11,7 +11,7 @@ namespace TempManager.Shibboleth
 		/// Vytvoøí novou mapovací akci s konverzní funkcí.
 		/// </summary>
 		public ShibbolethCustomClaimAction(string claimType, string valueType, string attributeName,
-			Func<string, string?> processor)
+			Func<string, string> processor)
 			: base(claimType, valueType, attributeName)
 		{
 			this.Processor = processor;
@@ -20,7 +20,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Vrací funkci, která zpracuje data ze Shibbolethu.
 		/// </summary>
-		public Func<string, string?> Processor
+		public Func<string, string> Processor
 		{
 			get;
 		}

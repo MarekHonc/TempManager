@@ -53,7 +53,7 @@ namespace TempManager.BL.Services.Implementations.Direct
 			return Task.FromResult(true);
 		}
 
-		public Task<Floor?> GetByFriendlyId(string friendlyId)
+		public Task<Floor> GetByFriendlyId(string friendlyId)
 		{
 			return Task.FromResult(floors.Single(f => f.Value.FriendlyId == friendlyId).Value);
 		}

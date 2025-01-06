@@ -67,30 +67,12 @@ namespace TempManager.DL
 		/// </summary>
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			// TODO: Rozházet aby se definovalo na entitách -> možná zkusit static metodu na interface?
+			Floor.CreateBindings(modelBuilder);
+			FloorHistory.CreateBindings(modelBuilder);
+			Room.CreateBindings(modelBuilder);
+			User.CreateBindings(modelBuilder);
 
-			modelBuilder.Entity<Floor>()
-				.HasIndex(f => f.ExternalId)
-				.IsUnique();
-
-			modelBuilder.Entity<Floor>()
-				.HasIndex(f => f.FriendlyId)
-				.IsUnique();
-
-			modelBuilder.Entity<Room>()
-				.HasIndex(r => r.ExternalId)
-				.IsUnique();
-
-			modelBuilder.Entity<User>()
-				.HasIndex(u => u.Uid)
-				.IsUnique();
-
-			modelBuilder.Entity<FloorHistory>()
-				.HasIndex(nameof(FloorHistory.Date), nameof(FloorHistory.FloorId))
-				.IsUnique();
-
-			modelBuilder.Entity<FloorHistory>()
-				.OwnsMany(fh => fh.RoomValues, builder => { builder.ToJson(); });
+			// TODO: retance nad floor history + set temperature
 		}
 
 		/// <summary>

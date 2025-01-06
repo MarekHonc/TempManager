@@ -9,7 +9,7 @@ namespace TempManager.Shibboleth
 	/// </summary>
 	public abstract class ShibbolethAuthenticationContext : HandleRequestContext<ShibbolethOptions>
 	{
-		protected ShibbolethAuthenticationContext(HttpContext context, AuthenticationScheme scheme, ShibbolethOptions options, AuthenticationProperties? properties)
+		protected ShibbolethAuthenticationContext(HttpContext context, AuthenticationScheme scheme, ShibbolethOptions options, AuthenticationProperties properties)
 			: base(context, scheme, options)
 		{
 			this.Properties = properties ?? new AuthenticationProperties();
@@ -18,7 +18,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Vrací nebo nastavuje <see cref="ClaimsPrincipal"/> obsahující claimy od uživatele.
 		/// </summary>
-		public ClaimsPrincipal? Principal
+		public ClaimsPrincipal Principal
 		{
 			get;
 			set;
@@ -27,7 +27,7 @@ namespace TempManager.Shibboleth
 		/// <summary>
 		/// Vrací nebo nastavuje <see cref="AuthenticationProperties"/> aktuální uživatele.
 		/// </summary>
-		public virtual AuthenticationProperties? Properties
+		public virtual AuthenticationProperties Properties
 		{
 			get;
 			set;

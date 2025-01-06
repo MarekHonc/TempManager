@@ -44,6 +44,6 @@
 		/// <returns>
 		/// Záznam odpovídající dotazu, nebo null pokud dotazu neodpovídá žádný záznam.
 		/// </returns>
-		Task<T?> FetchOne(TempManagerContext dbContext);
+		Task<T> FetchOne(TempManagerContext dbContext);
 	}
 }
