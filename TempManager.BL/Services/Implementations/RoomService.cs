@@ -94,7 +94,7 @@ namespace TempManager.BL.Services
 			var temperature = DL.Entities.SetTemperature.Create(
 				user.Id,
 				roomId,
-				latestTemp?.Temperature ?? 0,
+				latestTemp?.DesiredTemperature ?? 0,
 				newTemperature
 			);
 

@@ -125,6 +125,7 @@ namespace TempManager.DL.Entities
 		{
 			return new SetTemperature()
 			{
+				Date = DateTimeOffset.UtcNow,
 				UserId = userId,
 				RoomId = roomId,
 				OldTemperature = oldTemperature,

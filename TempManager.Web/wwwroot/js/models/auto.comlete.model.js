@@ -36,7 +36,6 @@ function autoCompleteViewModel(initData) {
 		}
 	}).each(function (i, input) {
 		$(input).data("ui-autocomplete")._renderItem = function (ul, item) {
-			console.log(item);
 			return $("<li>")
 				.append("<div>" + item.userName + "</div>")
 				.appendTo(ul);

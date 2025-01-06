@@ -60,6 +60,15 @@ namespace TempManager.DL
 			set;
 		}
 
+		/// <summary>
+		/// Vrací nebo nastavuje tabulku s historií nastavování teplot.
+		/// </summary>
+		internal DbSet<SetTemperature> SetTemperatures
+		{
+			get;
+			set;
+		}
+
 		#endregion
 
 		/// <summary>

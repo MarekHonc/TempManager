@@ -158,6 +158,8 @@ namespace TempManager.BL.SyncService
 				result.Add(new Floor(floor.Value), rooms);
 			}
 
+			// TODO: synchronizace nastavených hodnot
+
 			// A vracím aktuální hodnoty.
 			return result;
 		}
