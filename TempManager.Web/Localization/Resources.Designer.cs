@@ -70,6 +70,15 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zpět.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zavřít.
         /// </summary>
         public static string Close {
@@ -187,6 +196,33 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hodnota musí být mezi {1} a {2}.
+        /// </summary>
+        public static string Range {
+            get {
+                return ResourceManager.GetString("Range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnocení.
+        /// </summary>
+        public static string Rating {
+            get {
+                return ResourceManager.GetString("Rating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnota {0} je povinná.
+        /// </summary>
+        public static string Required {
+            get {
+                return ResourceManager.GetString("Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rh.
         /// </summary>
         public static string Rh {
@@ -210,6 +246,15 @@ namespace TempManager.Web.Localization {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odeslat.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
             }
         }
         

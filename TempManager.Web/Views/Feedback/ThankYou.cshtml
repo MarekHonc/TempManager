@@ -1,0 +1,19 @@
+﻿@using TempManager.Web.Localization
+@model TempManager.Web.Models.FeedbackViewModel
+
+@{
+	ViewData["Title"] = Resources.Feedback;
+}
+
+<div class="container mt-5">
+	<div class="row d-flex justify-content-center">
+		<div class="col-md-6">
+			<h1>@Resources.Feedback</h1>
+
+			<hr />
+			<div class="form-group float-end">
+				@Html.ActionLink(Resources.Back, "Index", "Home", null, new { @class = "m-2" })
+			</div>
+		</div>
+	</div>
+</div>

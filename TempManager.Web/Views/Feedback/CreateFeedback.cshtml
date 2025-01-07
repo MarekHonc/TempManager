@@ -1,0 +1,34 @@
+﻿@using TempManager.Web.Localization
+@model TempManager.Web.Models.FeedbackViewModel
+
+@{
+	ViewData["Title"] = Resources.Feedback;
+}
+
+<div class="container mt-5">
+	<div class="row d-flex justify-content-center">
+		<div class="col-md-6">
+			<h1>@Resources.Feedback</h1>
+
+			<hr />
+
+			<form asp-action="SubmitForm" asp-controller="Feedback" method="POST">
+				<div class="text-danger">
+					@Html.ValidationSummary(excludePropertyErrors: false)
+				</div>
+				<div class="form-group mb-3">
+					@Html.LabelFor(m => m.Rating, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Rating, new { @class = "form-control" })
+				</div>
+				<div class="form-group mb-3">
+					@Html.LabelFor(m => m.Feedback, new { @class = "control-label" })
+					@Html.TextAreaFor(m => m.Feedback, new { @class = "form-control", rows = 20 })
+				</div>
+				<div class="form-group float-end">
+					@Html.ActionLink(Resources.Back, "Index", "Home", null, new { @class = "m-2" })
+					<input type="submit" value="@Resources.Send" class="btn btn-primary" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

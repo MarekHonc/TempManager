@@ -40,6 +40,7 @@ namespace TempManager.Web.Code
 			builder.Services.AddScoped<IUserService, UserService>();
 			builder.Services.AddScoped<IFloorService, FloorService>();
 			builder.Services.AddScoped<IRoomService, RoomService>();
+			builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
 			// Background task, který synchronizuje lokální storage s/do KNX.
 			builder.Services.AddHostedService<ValueSyncServiceWrapper>();

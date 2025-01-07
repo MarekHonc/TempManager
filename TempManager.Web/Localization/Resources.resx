@@ -120,6 +120,9 @@
   <data name="Admin" xml:space="preserve">
     <value>Administrace</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Zpět</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Zavřít</value>
   </data>
@@ -159,6 +162,15 @@
   <data name="OnlyFavorites" xml:space="preserve">
     <value>Pouze oblíbené</value>
   </data>
+  <data name="Range" xml:space="preserve">
+    <value>Hodnota musí být mezi {1} a {2}</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Hodnocení</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Hodnota {0} je povinná</value>
+  </data>
   <data name="Rh" xml:space="preserve">
     <value>Rh</value>
   </data>
@@ -167,6 +179,9 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>Hledat</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Odeslat</value>
   </data>
   <data name="Temperature" xml:space="preserve">
     <value>Teplota</value>

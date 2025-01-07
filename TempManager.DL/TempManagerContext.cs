@@ -69,6 +69,15 @@ namespace TempManager.DL
 			set;
 		}
 
+		/// <summary>
+		/// Vrací nebo nastavuje hodnocení od uživatelů.
+		/// </summary>
+		internal DbSet<Feedback> Feedbacks
+		{
+			get;
+			set;
+		}
+
 		#endregion
 
 		/// <summary>
