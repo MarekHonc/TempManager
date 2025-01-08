@@ -23,7 +23,7 @@
 					<a class="nav-link @(Model.AdminWebLocation == AdminWebLocation.RoomValues ? "active" : string.Empty)" href="#">@AdminResources.RoomValues</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link @(Model.AdminWebLocation == AdminWebLocation.UserRights ? "active" : string.Empty)" href="#">@AdminResources.UserRights</a>
+					<a class="nav-link @(Model.AdminWebLocation == AdminWebLocation.UserRights ? "active" : string.Empty)" href="@Url.Action("Index", "AdminUserRights")">@AdminResources.UserRights</a>
 				</li>
 			</ul>
 		</div>

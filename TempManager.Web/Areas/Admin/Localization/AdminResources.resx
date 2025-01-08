@@ -183,4 +183,25 @@
   <data name="Visible" xml:space="preserve">
     <value>Viditelné</value>
   </data>
+  <data name="IsAdmin" xml:space="preserve">
+    <value>Administrátorská oprávnění</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Jméno</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Příjmení</value>
+  </data>
+  <data name="Uid" xml:space="preserve">
+    <value>Unikátní identifikátor</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Uživatelské jméno</value>
+  </data>
+  <data name="UserRightsTitle" xml:space="preserve">
+    <value>Oprávenění {0}</value>
+  </data>
+  <data name="SearchRooms" xml:space="preserve">
+    <value>Vyhledat místnosti</value>
+  </data>
 </root>

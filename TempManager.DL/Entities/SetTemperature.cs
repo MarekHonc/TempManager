@@ -18,9 +18,8 @@ namespace TempManager.DL.Entities
 		{
 		}
 
-		protected SetTemperature(ILazyLoader lazyLoader)
+		protected SetTemperature(ILazyLoader lazyLoader) : base(lazyLoader)
 		{
-			this.LazyLoader = lazyLoader;
 		}
 
 		/// <summary>
@@ -96,14 +95,6 @@ namespace TempManager.DL.Entities
 		{
 			get => this.LazyLoader.Load(this, ref this.room);
 			set => this.room = value;
-		}
-
-		/// <summary>
-		/// Vrací Lazy loader pro dodatečné načítání entit.
-		/// </summary>
-		private ILazyLoader LazyLoader
-		{
-			get;
 		}
 
 		/// <summary>

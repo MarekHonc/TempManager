@@ -32,12 +32,12 @@ function autoCompleteViewModel(initData) {
 		}, autoFocus: true,
 		select: function (event, ui) {
 			event.preventDefault();
-			self.data.set(ui.item.id, ui.item.userName);
+			self.data.set(ui.item.id, ui.item.name);
 		}
 	}).each(function (i, input) {
 		$(input).data("ui-autocomplete")._renderItem = function (ul, item) {
 			return $("<li>")
-				.append("<div>" + item.userName + "</div>")
+				.append("<div>" + item.name + "</div>")
 				.appendTo(ul);
 		};
 	});

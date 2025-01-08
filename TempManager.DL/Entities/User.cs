@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TempManager.DL.Entities.Base;
@@ -12,7 +13,14 @@ namespace TempManager.DL.Entities
 	/// </summary>
 	public class User : EntityBase, IEntity
 	{
+		private ICollection<UserToRoom> userToRooms;
+		private Floor selectedFloor;
+
 		protected User()
+		{
+		}
+
+		protected User(ILazyLoader lazyLoader) : base(lazyLoader)
 		{
 		}
 
@@ -84,8 +92,17 @@ namespace TempManager.DL.Entities
 		/// </summary>
 		public Floor SelectedFloor
 		{
-			get;
-			protected set;
+			get => this.LazyLoader.Load(this, ref this.selectedFloor);
+			protected set => this.selectedFloor = value;
+		}
+
+		/// <summary>
+		/// Vrací všechny místnosti, na které má uživatel vazbu.
+		/// </summary>
+		public virtual ICollection<UserToRoom> UserToRooms
+		{
+			get => this.LazyLoader.Load(this, ref this.userToRooms);
+			protected set => this.userToRooms = value;
 		}
 
 		/// <summary>
@@ -97,12 +114,11 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
-		/// Vrací všechny místnosti, na které má uživatel vazbu.
+		/// Nastaví danému uživateli zda-li má administrátorská práva.
 		/// </summary>
-		public virtual ICollection<UserToRoom> UserToRooms
+		public void SetIsAdmin(bool isAdmin)
 		{
-			get;
-			protected set;
+			this.IsAdmin = isAdmin;
 		}
 
 		/// <summary>

@@ -45,5 +45,13 @@
 		/// Záznam odpovídající dotazu, nebo null pokud dotazu neodpovídá žádný záznam.
 		/// </returns>
 		Task<T> FetchOne(TempManagerContext dbContext);
+
+		/// <summary>
+		/// Vrací záznamy odpovídající dotazu omezené daným počtem.
+		/// </summary>
+		/// <param name="dbContext">Databázový kontext.</param>
+		/// <param name="count">Počet záznamů (nebo méně pokud jich tolik není) kolik se vrátí.</param>
+		/// <returns>Záznamy odpovídající dotazu.</returns>
+		Task<IReadOnlyCollection<T>> FetchCount(TempManagerContext dbContext, int count);
 	}
 }

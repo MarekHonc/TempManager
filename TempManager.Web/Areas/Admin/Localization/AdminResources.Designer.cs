@@ -88,6 +88,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jméno.
+        /// </summary>
+        public static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Podlaží s identifikátorem &apos;{0}&apos; již existuje.
         /// </summary>
         public static string FloorDuplicate {
@@ -129,6 +138,24 @@ namespace TempManager.Web.Areas.Admin.Localization {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administrátorská oprávnění.
+        /// </summary>
+        public static string IsAdmin {
+            get {
+                return ResourceManager.GetString("IsAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Příjmení.
+        /// </summary>
+        public static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
             }
         }
         
@@ -205,6 +232,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vyhledat místnosti.
+        /// </summary>
+        public static string SearchRooms {
+            get {
+                return ResourceManager.GetString("SearchRooms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vyhledat uživatele.
         /// </summary>
         public static string SearchUsers {
@@ -232,11 +268,38 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unikátní identifikátor.
+        /// </summary>
+        public static string Uid {
+            get {
+                return ResourceManager.GetString("Uid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uživatelské jméno.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oprávnění.
         /// </summary>
         public static string UserRights {
             get {
                 return ResourceManager.GetString("UserRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oprávenění {0}.
+        /// </summary>
+        public static string UserRightsTitle {
+            get {
+                return ResourceManager.GetString("UserRightsTitle", resourceCulture);
             }
         }
         

@@ -1,0 +1,37 @@
+﻿@using TempManager.Web.Areas.Admin.Localization
+@model TempManager.Web.Areas.Admin.Models.AdminListViewModel<TempManager.DL.Entities.User>
+
+@{
+	ViewData["Title"] = AdminResources.UserRights;
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@AdminResources.UserRights</h1>
+
+<table class="table">
+	<thead>
+	<tr>
+		<th>@AdminResources.UserName</th>
+		<th>@AdminResources.FirstName</th>
+		<th>@AdminResources.LastName</th>
+		<th>@AdminResources.Uid</th>
+		<th>@AdminResources.IsAdmin</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var item in Model.Items)
+	{
+		<tr>
+			<td>@item.UserName</td>
+			<td>@item.FirstName</td>
+			<td>@item.LastName</td>
+			<td>@item.Uid</td>
+			<td>@item.IsAdmin</td>
+			<td>
+				@Html.ActionLink(AdminResources.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning"})
+			</td>
+		</tr>
+	}
+	</tbody>
+</table>

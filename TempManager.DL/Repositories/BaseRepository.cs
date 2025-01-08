@@ -70,5 +70,11 @@ namespace TempManager.DL.Repositories
 		{
 			return query.FetchOne(this.context);
 		}
+
+		/// <inheritdoc cref="FetchCount"/>
+		public Task<IReadOnlyCollection<T>> FetchCount(IQueryObjectBase<T> query, int count)
+		{
+			return query.FetchCount(this.context, count);
+		}
 	}
 }

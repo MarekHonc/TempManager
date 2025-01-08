@@ -1,0 +1,65 @@
+﻿@using TempManager.Web.Areas.Admin.Localization
+@using TempManager.Web.Code
+@model TempManager.Web.Areas.Admin.Models.UserRightsEditorViewModel
+
+@{
+	ViewData["Title"] = string.Format(AdminResources.UserRightsTitle, Model.UserName);
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+{
+	<script src="~/js/models/auto.comlete.model.js"></script>
+}
+
+<div class="row d-flex justify-content-center">
+	<div class="col-md-6">
+		<h1>@Model.UserName</h1>
+
+		<hr />
+
+		<form asp-action="Edit" asp-controller="AdminUserRights" asp-area="Admin" method="POST">
+			<div class="text-danger">
+				@Html.ValidationSummary(excludePropertyErrors: false)
+			</div>
+			<input type="hidden" asp-for="Id" />
+			<input type="hidden" asp-for="UserName" />
+			<div id="autocomplete-app" class="mb-3">
+				<div class="form-group form-check mb-3">
+					<label class="form-check-label">
+						@Html.CheckBoxFor(m => m.IsAdmin, new { @class = "form-check-input" })
+						@Html.DisplayNameFor(m => m.IsAdmin)
+					</label>
+				</div>
+
+				<label class="control-label" for="auto-complete">@AdminResources.Rooms</label>
+				<input id="auto-complete" class="form-control" placeholder="@AdminResources.SearchRooms"/>
+
+				<!-- ko foreach: data.items -->
+				<input type="hidden" data-bind="value: key, attr: { name: '@(Html.NameFor(m => m.EditableRooms))[-1].Key'.replace('-1', $index()) }"/>
+				<input type="hidden" data-bind="value: value, attr: { name: '@(Html.NameFor(m => m.EditableRooms))[-1].Value'.replace('-1', $index()) }"/>
+
+				<div class="row mt-1">
+					<p data-bind="text: value"></p>
+				</div>
+				<!-- /ko -->
+			</div>
+			<div class="form-group float-end">
+				@Html.ActionLink(AdminResources.Back, "Index", "AdminUserRights", null, new { @class = "m-2" })
+				<input type="submit" value="@AdminResources.Save" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="auto-complete-holder"></div>
+
+<script type="text/javascript">
+	let model = new autoCompleteViewModel({
+		values: @Html.Raw(Model.EditableRooms.ToJson()),
+		autoComplete: "#auto-complete",
+		autoCompleteHolder: "#auto-complete-holder",
+		autoCompleteUrl: "@Url.Action("AutoCompleteRoom", "AdminUserRights")"
+	});
+	ko.applyBindings(model, document.getElementById("autocomplete-app"));
+</script>

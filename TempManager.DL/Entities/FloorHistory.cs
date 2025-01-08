@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Entities.JsonTypes;
 using TempManager.DL.Interfaces;
@@ -13,7 +14,13 @@ namespace TempManager.DL.Entities
 	/// </summary>
 	public class FloorHistory : EntityBase, IEntity
 	{
+		private Floor floor;
+
 		protected FloorHistory()
+		{
+		}
+
+		protected FloorHistory(ILazyLoader lazyLoader) : base(lazyLoader)
 		{
 		}
 
@@ -51,8 +58,8 @@ namespace TempManager.DL.Entities
 		/// </summary>
 		public Floor Floor
 		{
-			get;
-			protected set;
+			get => this.LazyLoader.Load(this, ref this.floor);
+			protected set => this.floor = value;
 		}
 
 		/// <summary>

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Interfaces;
 
@@ -11,9 +12,15 @@ namespace TempManager.DL.Entities
 	/// </summary>
 	public class Floor : EntityBase, IExternalId
 	{
+		private ICollection<Room> rooms;
+
 		protected Floor()
 		{
 			this.Rooms = new HashSet<Room>();
+		}
+
+		protected Floor(ILazyLoader lazyLoader) : base(lazyLoader)
+		{
 		}
 
 		/// <summary>
@@ -77,8 +84,8 @@ namespace TempManager.DL.Entities
 		/// </summary>
 		public ICollection<Room> Rooms
 		{
-			get;
-			protected set;
+			get => this.LazyLoader.Load(this, ref this.rooms);
+			protected set => this.rooms = value;
 		}
 
 		/// <summary>

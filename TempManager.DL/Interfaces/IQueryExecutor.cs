@@ -35,5 +35,13 @@
 		/// <param name="query">Dotaz, pro získání záznamu.</param>
 		/// <returns>První dotaz, který odpovídá dotazu, nebo null.</returns>
 		Task<T> FetchOne(IQueryObjectBase<T> query);
+
+		/// <summary>
+		/// Vrací záznamy odpovídající dotazu omezené daným počtem.
+		/// </summary>
+		/// <param name="query">Dotaz, pro získání záznamů.</param>
+		/// <param name="count">Počet záznamů (nebo méně pokud jich tolik není) kolik se vrátí.</param>
+		/// <returns>Záznamy odpovídající dotazu.</returns>
+		Task<IReadOnlyCollection<T>> FetchCount(IQueryObjectBase<T> query, int count);
 	}
 }

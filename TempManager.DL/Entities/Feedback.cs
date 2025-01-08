@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Interfaces;
 
@@ -12,7 +13,13 @@ namespace TempManager.DL.Entities
 		public const int MinRating = 1;
 		public const int MaxRating = 10;
 
+		private User user;
+
 		protected Feedback()
+		{
+		}
+
+		protected Feedback(ILazyLoader lazyLoader) : base(lazyLoader)
 		{
 		}
 
@@ -42,6 +49,15 @@ namespace TempManager.DL.Entities
 		{
 			get;
 			protected set;
+		}
+
+		/// <summary>
+		/// Vrací nebo nastavuje uživatele, který vytvořil hodnocení.
+		/// </summary>
+		public User User
+		{
+			get => this.LazyLoader.Load(this, ref this.user);
+			set => this.user = value;
 		}
 
 		/// <summary>

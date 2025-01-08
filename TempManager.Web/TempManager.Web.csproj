@@ -53,7 +53,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\AdminRoomHistory\" />
     <Folder Include="Areas\Admin\Views\AdminRoomValues\" />
-    <Folder Include="Areas\Admin\Views\AdminUserRights\" />
   </ItemGroup>
 
   <ItemGroup>

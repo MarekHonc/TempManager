@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
 
 namespace TempManager.DL.Entities.Base
 {
@@ -7,6 +8,15 @@ namespace TempManager.DL.Entities.Base
 	/// </summary>
 	public class EntityBase
 	{
+		protected EntityBase()
+		{
+		}
+
+		protected EntityBase(ILazyLoader lazyLoader)
+		{
+			this.LazyLoader = lazyLoader;
+		}
+
 		/// <summary>
 		/// Vrací nebo nastavuje id entity.
 		/// </summary>
@@ -15,6 +25,14 @@ namespace TempManager.DL.Entities.Base
 		{
 			get;
 			set;
+		}
+
+		/// <summary>
+		/// Vrací Lazy loader pro dodatečné načítání entit.
+		/// </summary>
+		protected ILazyLoader LazyLoader
+		{
+			get;
 		}
 	}
 }

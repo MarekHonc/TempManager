@@ -71,12 +71,12 @@ namespace TempManager.Web.Areas.Admin.Controllers
 				return Json(Enumerable.Empty<object>());
 
 			var query = new UserSearchQuery(search);
-			var users = await this.repositoriesFactory.UserRepository.Fetch(query);
+			var users = await this.repositoriesFactory.UserRepository.FetchCount(query, count: 10);
 
 			return Json(users.Select(u => new
 			{
 				id = u.Id,
-				userName = u.UserName
+				name = u.UserName
 			}));
 		}
 	}

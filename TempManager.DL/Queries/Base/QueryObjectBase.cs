@@ -92,6 +92,18 @@ namespace TempManager.DL.Queries
 		}
 
 		/// <summary>
+		/// Vrací záznamy odpovídající dotazu omezené daným počtem.
+		/// </summary>
+		/// <param name="dbContext">Databázový kontext.</param>
+		/// <param name="count">Počet záznamů (nebo méně pokud jich tolik není) kolik se vrátí.</param>
+		/// <returns>Záznamy odpovídající dotazu.</returns>
+		async Task<IReadOnlyCollection<T>> IQueryObjectBase<T>.FetchCount(TempManagerContext dbContext, int count)
+		{
+			return await Query(dbContext).Take(count).ToListAsync();
+		}
+
+
+		/// <summary>
 		/// Do vytvoří LINQ dotaz, který získá požadovaná data.
 		/// </summary>
 		/// <param name="dbContext">Databázový kontext pro provedení query.</param>
