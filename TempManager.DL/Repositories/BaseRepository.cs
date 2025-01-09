@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TempManager.Common;
 using TempManager.DL.Interfaces;
 
 namespace TempManager.DL.Repositories
@@ -75,6 +76,12 @@ namespace TempManager.DL.Repositories
 		public Task<IReadOnlyCollection<T>> FetchCount(IQueryObjectBase<T> query, int count)
 		{
 			return query.FetchCount(this.context, count);
+		}
+
+		/// <inheritdoc cref="FetchPage"/>
+		public Task<IPagedList<T>> FetchPage(IQueryObjectBase<T> query, int pageNumber, int pageSize)
+		{
+			return query.FetchPage(this.context, pageNumber, pageSize);
 		}
 	}
 }

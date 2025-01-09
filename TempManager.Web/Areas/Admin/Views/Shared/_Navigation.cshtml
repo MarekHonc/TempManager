@@ -17,10 +17,10 @@
 					<a class="nav-link @(Model.AdminWebLocation == AdminWebLocation.Rooms ? "active" : string.Empty)" href="@Url.Action("Index", "AdminRoom")">@AdminResources.Rooms</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link @(Model.AdminWebLocation == AdminWebLocation.RoomHistory ? "active" : string.Empty)" href="#">@AdminResources.RoomHistory</a>
+					<a class="nav-link @(Model.AdminWebLocation == AdminWebLocation.SetTemperature ? "active" : string.Empty)" href="@Url.Action("Index", "AdminSetTemperature")">@AdminResources.SetTemperature</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link @(Model.AdminWebLocation == AdminWebLocation.RoomValues ? "active" : string.Empty)" href="#">@AdminResources.RoomValues</a>
+					<a class="nav-link @(Model.AdminWebLocation == AdminWebLocation.RoomValues ? "active" : string.Empty)" href="@Url.Action("Index", "AdminRoomValues")">@AdminResources.RoomValues</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link @(Model.AdminWebLocation == AdminWebLocation.UserRights ? "active" : string.Empty)" href="@Url.Action("Index", "AdminUserRights")">@AdminResources.UserRights</a>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TempManager.Common;
 using TempManager.DL.Interfaces;
 
 namespace TempManager.DL.Queries
@@ -102,6 +103,17 @@ namespace TempManager.DL.Queries
 			return await Query(dbContext).Take(count).ToListAsync();
 		}
 
+		/// <summary>
+		/// Vrací záznamy odpovídající dotazu omezené na danou stránku.
+		/// </summary>
+		/// <param name="dbContext">Databázový kontext.</param>
+		/// <param name="pageNumber">Číslo stránky, pro kterou se mají vybrat záznamy.</param>
+		/// <param name="pageSize">Počet záznamů na stránku.</param>
+		/// <returns>Záznamy odpovídající dotazu.</returns>
+		Task<IPagedList<T>> IQueryObjectBase<T>.FetchPage(TempManagerContext dbContext, int pageNumber, int pageSize)
+		{
+			return Task.FromResult(Query(dbContext).ToPagedList(pageNumber, pageSize));
+		}
 
 		/// <summary>
 		/// Do vytvoří LINQ dotaz, který získá požadovaná data.

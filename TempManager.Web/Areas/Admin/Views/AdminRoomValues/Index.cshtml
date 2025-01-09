@@ -1,0 +1,29 @@
+﻿@using TempManager.Web.Areas.Admin.Localization
+@model TempManager.Web.Areas.Admin.Models.AdminPagedListViewModel<TempManager.DL.Entities.FloorHistory>
+
+@{
+	ViewData["Title"] = AdminResources.RoomValues;
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@AdminResources.RoomValues</h1>
+
+@* TODO: Filtry + paging + zobrazení hodnot *@
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>@AdminResources.Date</th>
+			<th>@AdminResources.RoomValues</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Items)
+		{
+			<tr>
+				<td>@item.Date</td>
+				<td>@Html.Raw(string.Join("<br/>", item.RoomValues.Select(r => $"{r.ExternalRoomId}: {r.Temperature};")))</td>
+			</tr>
+		}
+	</tbody>
+</table>

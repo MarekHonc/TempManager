@@ -1,4 +1,6 @@
-﻿namespace TempManager.DL.Interfaces
+﻿using TempManager.Common;
+
+namespace TempManager.DL.Interfaces
 {
 	/// <summary>
 	/// Rozhraní pro spouštění dotazů nad databází.
@@ -43,5 +45,14 @@
 		/// <param name="count">Počet záznamů (nebo méně pokud jich tolik není) kolik se vrátí.</param>
 		/// <returns>Záznamy odpovídající dotazu.</returns>
 		Task<IReadOnlyCollection<T>> FetchCount(IQueryObjectBase<T> query, int count);
+
+		/// <summary>
+		/// Získá záznamy odpovídající dotazu a dané stránce.
+		/// </summary>
+		/// <param name="query">Dotaz, pro získání záznamů.</param>
+		/// <param name="pageNumber">Číslo stránky (od 1 do x).</param>
+		/// <param name="pageSize">Velikost stránky.</param>
+		/// <returns>Záznamy odpovídající danému dotazu a stránce.</returns>
+		Task<IPagedList<T>> FetchPage(IQueryObjectBase<T> query, int pageNumber, int pageSize);
 	}
 }

@@ -150,8 +150,8 @@
   <data name="Required" xml:space="preserve">
     <value>Pole '{0}' je povinné</value>
   </data>
-  <data name="RoomHistory" xml:space="preserve">
-    <value>Historie</value>
+  <data name="SetTemperature" xml:space="preserve">
+    <value>Historie nastavení teplot</value>
   </data>
   <data name="Rooms" xml:space="preserve">
     <value>Místnosti</value>
@@ -203,5 +203,20 @@
   </data>
   <data name="SearchRooms" xml:space="preserve">
     <value>Vyhledat místnosti</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Výsledek</value>
+  </data>
+  <data name="Room" xml:space="preserve">
+    <value>Místnost</value>
+  </data>
+  <data name="SetTemperatureTo" xml:space="preserve">
+    <value>Požadovaná teplota</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Uživatel</value>
   </data>
 </root>

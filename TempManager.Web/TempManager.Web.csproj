@@ -51,11 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\AdminRoomHistory\" />
-    <Folder Include="Areas\Admin\Views\AdminRoomValues\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="compilerconfig.json" />
   </ItemGroup>
 

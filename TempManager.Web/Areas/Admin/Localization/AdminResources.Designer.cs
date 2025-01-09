@@ -70,6 +70,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Datum.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upravit.
         /// </summary>
         public static string Edit {
@@ -187,11 +196,20 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Historie.
+        ///   Looks up a localized string similar to Výsledek.
         /// </summary>
-        public static string RoomHistory {
+        public static string Result {
             get {
-                return ResourceManager.GetString("RoomHistory", resourceCulture);
+                return ResourceManager.GetString("Result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Místnost.
+        /// </summary>
+        public static string Room {
+            get {
+                return ResourceManager.GetString("Room", resourceCulture);
             }
         }
         
@@ -250,6 +268,24 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Historie nastavení teplot.
+        /// </summary>
+        public static string SetTemperature {
+            get {
+                return ResourceManager.GetString("SetTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Požadovaná teplota.
+        /// </summary>
+        public static string SetTemperatureTo {
+            get {
+                return ResourceManager.GetString("SetTemperatureTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximální délka pole &apos;{0}&apos; je &apos;{1}&apos;.
         /// </summary>
         public static string StringLength {
@@ -273,6 +309,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         public static string Uid {
             get {
                 return ResourceManager.GetString("Uid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uživatel.
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
             }
         }
         

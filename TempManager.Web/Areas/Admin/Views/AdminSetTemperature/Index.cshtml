@@ -1,0 +1,35 @@
+﻿@using TempManager.Web.Areas.Admin.Localization
+@model TempManager.Web.Areas.Admin.Models.AdminPagedListViewModel<TempManager.DL.Entities.SetTemperature>
+
+@{
+	ViewData["Title"] = AdminResources.SetTemperature;
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@AdminResources.SetTemperature</h1>
+
+@* TODO: Filtry + paging *@
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>@AdminResources.Date</th>
+			<th>@AdminResources.User</th>
+			<th>@AdminResources.Room</th>
+			<th>@AdminResources.SetTemperatureTo</th>
+			<th>@AdminResources.Result</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Items)
+		{
+			<tr>
+				<td>@item.Date</td>
+				<td>@item.User.UserName</td>
+				<td>@item.Room.Name</td>
+				<td>@item.NewTemperature</td>
+				<td>@item.Result</td>
+			</tr>
+		}
+	</tbody>
+</table>

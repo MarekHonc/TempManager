@@ -1,4 +1,6 @@
-﻿namespace TempManager.DL.Interfaces
+﻿using TempManager.Common;
+
+namespace TempManager.DL.Interfaces
 {
 	/// <summary>
 	/// Rozhraní definující dotazovací objekt.
@@ -53,5 +55,14 @@
 		/// <param name="count">Počet záznamů (nebo méně pokud jich tolik není) kolik se vrátí.</param>
 		/// <returns>Záznamy odpovídající dotazu.</returns>
 		Task<IReadOnlyCollection<T>> FetchCount(TempManagerContext dbContext, int count);
+
+		/// <summary>
+		/// Vrací záznamy odpovídající dotazu omezené na danou stránku.
+		/// </summary>
+		/// <param name="dbContext">Databázový kontext.</param>
+		/// <param name="pageNumber">Číslo stránky, pro kterou se mají vybrat záznamy.</param>
+		/// <param name="pageSize">Počet záznamů na stránku.</param>
+		/// <returns>Záznamy odpovídající dotazu.</returns>
+		Task<IPagedList<T>> FetchPage(TempManagerContext dbContext, int pageNumber, int pageSize);
 	}
 }

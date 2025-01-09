@@ -8,7 +8,7 @@
 		Floors,
 		Rooms,
 		UserRights,
-		RoomHistory,
+		SetTemperature,
 		RoomValues
 	}
 }
