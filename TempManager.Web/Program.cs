@@ -1,4 +1,5 @@
 using TempManager.Web.Code;
+using TempManager.Web.Hubs;
 
 namespace TempManager.Web
 {
@@ -46,6 +47,8 @@ namespace TempManager.Web
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
+
+			app.MapHub<UpdateHub>("/updateHub");
 
 			app.EnsureLatestDatabase();
 			app.Run();

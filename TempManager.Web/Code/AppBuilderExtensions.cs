@@ -45,6 +45,9 @@ namespace TempManager.Web.Code
 			// Background task, který synchronizuje lokální storage s/do KNX.
 			builder.Services.AddHostedService<ValueSyncServiceWrapper>();
 			builder.Services.AddScoped<ValueSyncService>();
+
+			// Hub pro real time update hodnot.
+			builder.Services.AddSignalR();
 		}
 
 		/// <summary>

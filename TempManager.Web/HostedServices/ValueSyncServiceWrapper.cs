@@ -1,5 +1,7 @@
-﻿using TempManager.BL.Models;
+﻿using Microsoft.AspNetCore.SignalR;
+using TempManager.BL.Models;
 using TempManager.BL.SyncService;
+using TempManager.Web.Hubs;
 
 namespace TempManager.Web.HostedServices
 {
@@ -10,12 +12,16 @@ namespace TempManager.Web.HostedServices
 	{
 		private readonly ILogger<ValueSyncServiceWrapper> logger;
 		private readonly IServiceProvider serviceProvider;
+		private readonly IHubContext<UpdateHub> hubContext;
+
 		private Timer timer = null;
 
-		public ValueSyncServiceWrapper(IServiceProvider serviceProvider, ILogger<ValueSyncServiceWrapper> logger)
+		public ValueSyncServiceWrapper(IServiceProvider serviceProvider,
+			ILogger<ValueSyncServiceWrapper> logger, IHubContext<UpdateHub> hubContext)
 		{
 			this.logger = logger;
 			this.serviceProvider = serviceProvider;
+			this.hubContext = hubContext;
 		}
 
 		/// <summary>
@@ -78,7 +84,7 @@ namespace TempManager.Web.HostedServices
 				this.logger.LogInformation($"Floor {value.Key.FriendlyId}: {value.Value.Length} rooms synced.");
 
 				// A pošlu na web sockety.
-				// TODO: rozeslat na web sockety.
+				await this.hubContext.Clients.Group(value.Key.FriendlyId).SendAsync("ReceiveMessage", value.Value);
 			}
 		}
 

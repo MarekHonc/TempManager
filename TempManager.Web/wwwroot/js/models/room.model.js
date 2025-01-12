@@ -15,6 +15,11 @@ function roomModel(room, initData) {
 	self.name = ko.observable(room.name);
 
 	/**
+	 * Externí identifikátor místnosti.
+	 */
+	self.externalId = ko.observable(room.externalId);
+
+	/**
 	 * Příznak - právo k nastavení temploty.
 	 */
 	self.hasRightToEdit = ko.observable(room.hasRightToEdit);
@@ -47,14 +52,14 @@ function roomModel(room, initData) {
 	self.temperature = ko.observable(room.temperature);
 
 	/**
+	 * Zformátovaná teplota.
+	 */
+	self.temperatureFormatted = ko.observable(room.temperatureFormatted);
+
+	/**
 	 * Hodnota RH.
 	 */
 	self.rh = ko.observable(room.rh);
-
-	/**
-	 * Hodnota CO2.
-	 */
-	self.co2 = ko.observable(room.cO2);
 
 	/**
 	 * Nastavená teplota.
@@ -82,4 +87,11 @@ function roomModel(room, initData) {
 	 * Příznak - vytápí se nebo ne.
 	 */
 	self.valveOpen = ko.observable(room.valveOpen);
+
+	self.update = function (room) {
+		self.temperature(room.temperature);
+		self.temperatureFormatted(room.temperatureFormatted);
+		self.rh(room.rh);
+		self.valveOpen(room.valveOpen);
+	}
 }

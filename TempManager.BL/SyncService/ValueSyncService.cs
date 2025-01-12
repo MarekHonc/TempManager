@@ -140,8 +140,8 @@ namespace TempManager.BL.SyncService
 						rooms[i] = Room.Create(
 							current.room,
 							current.value,
-							isAdmin: true, // TODO: reálná hodnota
-							userToRoom: null // TODO: reálná hodnota
+							isAdmin: false,
+							userToRoom: null
 						);
 					}
 

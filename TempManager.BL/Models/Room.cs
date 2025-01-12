@@ -8,15 +8,15 @@ namespace TempManager.BL.Models
 	/// </summary>
 	public class Room
 	{
-		internal Room(int id, string name, bool hasRightToEdit, bool isFavorite, double temperature, double rh, double co2, double desiredTemperature, bool valveOpen)
+		internal Room(int id, string name, string externalId, bool hasRightToEdit, bool isFavorite, double temperature, double rh, double desiredTemperature, bool valveOpen)
 		{
 			this.Id = id;
 			this.Name = name;
+			this.ExternalId = externalId;
 			this.HasRightToEdit = hasRightToEdit;
 			this.IsFavorite = isFavorite;
 			this.Temperature = temperature;
 			this.Rh = rh;
-			this.CO2 = co2;
 			this.DesiredTemperature = desiredTemperature;
 			this.ValveOpen = valveOpen;
 		}
@@ -35,6 +35,15 @@ namespace TempManager.BL.Models
 		public string Name
 		{
 			get;
+		}
+
+		/// <summary>
+		/// Vrací nebo nastavuje externí identifikátor místnosti.
+		/// </summary>
+		public string ExternalId
+		{
+			get;
+			set;
 		}
 
 		/// <summary>
@@ -62,17 +71,14 @@ namespace TempManager.BL.Models
 		}
 
 		/// <summary>
+		/// Vrací zformátovanou teplotu.
+		/// </summary>
+		public string TemperatureFormatted => Temperature.ToString("0.00");
+
+		/// <summary>
 		/// Vrací hodnotu rh v místnosti.
 		/// </summary>
 		public double Rh
-		{
-			get;
-		}
-
-		/// <summary>
-		/// Vrací hodnotu CO2 v místnosti.
-		/// </summary>
-		public double CO2
 		{
 			get;
 		}
@@ -110,11 +116,11 @@ namespace TempManager.BL.Models
 			return new Room(
 				room.Id,
 				room.Name,
+				room.ExternalId,
 				isAdmin || userToRoom?.HasRightToEdit == true,
 				userToRoom?.IsFavorite == true,
 				roomValue.Temperature,
 				roomValue.Rh,
-				roomValue.CO2,
 				roomValue.DesiredTemperature,
 				roomValue.ValveOpen
 			);
@@ -129,11 +135,11 @@ namespace TempManager.BL.Models
 			return new Room(
 				id: 0,
 				roomValue.ExternalRoomId,
+				roomValue.ExternalRoomId,
 				hasRightToEdit: false,
 				isFavorite: false,
 				roomValue.Temperature,
 				roomValue.Rh,
-				roomValue.CO2,
 				roomValue.DesiredTemperature,
 				roomValue.ValveOpen
 			);

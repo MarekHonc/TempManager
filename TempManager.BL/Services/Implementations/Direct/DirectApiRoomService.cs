@@ -33,11 +33,11 @@ namespace TempManager.BL.Services.Implementations.Direct
 				var r = new Room(
 					int.Parse(Regex.Match(room.Name, @"\d+").Value),
 					room.Name,
+					room.Name,
 					true,
 					false,
 					room.Temp,
 					room.Rh,
-					room.CO2,
 					room.DesiredTemperature,
 					room.ValveOpen
 				);

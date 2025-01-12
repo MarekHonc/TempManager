@@ -28,7 +28,7 @@ namespace TempManager.Web.Controllers
 				return NotFound();
 
 			// Stáhnu a vrátím podlaží.
-			// TODO: Odebrat hodnotu CO2 + možná i další?
+			// TODO: Odebrat hodnotu CO2 - odebráno + možná i další?
 			var rooms = await this.roomService.GetRooms(floor.Id);
 			return Json(rooms);
 		}

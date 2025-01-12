@@ -7,6 +7,8 @@ function appModel(initData) {
 
 	if (!initData.roomsUrl) throw "Missing roomsUrl";
 	if (!initData.saveFavoriteUrl) throw "Missing saveFavoriteUrl";
+	if (!initData.setTemperatureUrl) throw "Missing setTemperatureUrl";
+	if (!initData.group) throw "Missing group";
 
 	/**
 	 * Příznak, zda-li probíhá načítání.
@@ -55,7 +57,7 @@ function appModel(initData) {
 
 	let loadData = function (data) {
 		data.forEach(function (room) {
-			self.rooms.set(room.name, new roomModel(room, initData));
+			self.rooms.set(room.externalId, new roomModel(room, initData));
 		});
 	}
 
@@ -78,4 +80,45 @@ function appModel(initData) {
 
 	// Inicializace.
 	init();
+
+	// SignalR
+	const connection = new signalR.HubConnectionBuilder()
+		.withUrl("/updateHub")
+		.build();
+
+	connection.on("ReceiveMessage", (data) => {
+		const values = self.rooms.values();
+
+		for (let i = 0; i < data.length; i++) {
+			const current = data[i];
+			const room = _.find(values, function (r) { return r.externalId() == current.externalId });
+
+			if (room)
+				room.update(current);
+		}
+	});
+
+	/**
+	 * Nastartuje SignalR připojení.
+	 */
+	async function start() {
+		try {
+			await connection.start();
+			await connection.invoke("Join", initData.group);
+		} catch (err) {
+			console.error(err);
+			setTimeout(start, 5000);
+		}
+	}
+
+	connection.onclose(start);
+	start();
+
+	/**
+	 * Na zavření okna odpojím.
+	 */
+	window.addEventListener("unload", async () => await connection.invoke("Leave", initData.group));
+	//window.onbeforeunload = async () => {
+	//	await connection.invoke("Leave", initData.group);
+	//}
 }

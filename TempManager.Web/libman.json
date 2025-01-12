@@ -53,6 +53,11 @@
 				"themes/base/jquery-ui.min.css",
 				"jquery-ui.js"
 			]
+		},
+		{
+			"provider": "cdnjs",
+			"library": "microsoft-signalr@8.0.7",
+			"destination": "wwwroot/lib/microsoft-signalr/"
 		}
 	]
 }
