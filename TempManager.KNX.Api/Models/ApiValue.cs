@@ -66,5 +66,13 @@ namespace TempManager.KNX.Api
 			get;
 			internal set;
 		}
+
+		/// <summary>
+		/// Nastaví novou hodnotu teploty.
+		/// </summary>
+		public void SetDesiredTemperature(double newValue)
+		{
+			this.DesiredTemperature = newValue;
+		}
 	}
 }

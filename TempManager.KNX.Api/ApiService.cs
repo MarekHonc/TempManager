@@ -1,7 +1,6 @@
-﻿using System.Net;
-using Newtonsoft.Json.Linq;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace TempManager.KNX.Api
 {
@@ -80,6 +79,17 @@ namespace TempManager.KNX.Api
 			return result;
 		}
 
+		/// <summary>
+		/// Promítne změny do API.
+		/// </summary>
+		public Task<bool> PutValues(ApiVariable variable, ApiValue[] newVariables)
+		{
+			//var result = await Put(variable, newVariables);
+
+			// TODO: update... Na tom PLC mi to nějak nefachčí...
+			return Task.FromResult(true);
+		}
+
 		#region private helpers
 
 		/// <summary>
@@ -121,6 +131,46 @@ namespace TempManager.KNX.Api
 				return parseResponse(jsonResult);
 			}
 		}
+
+		private async Task<T> Put<T>(string endPoint, Func<string, T> parseResponse)
+		{
+			using (var httpClient = new HttpClient())
+			{
+				// Header
+				var authorization = new AuthenticationHeaderValue(
+					"Basic", Base64Encode($"{this.apiSettings.UserName}:{this.apiSettings.Password}")
+				);
+
+				// Výchozí nastavení.
+				httpClient.BaseAddress = new Uri(this.apiSettings.Url);
+				httpClient.DefaultRequestHeaders.Authorization = authorization;
+
+				HttpResponseMessage response;
+
+				// Samotné provedení požadavku.
+				try
+				{
+					string jsonString = JsonConvert.SerializeObject(endPoint);
+					HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+					response = await httpClient.PutAsync(endPoint, content);
+				}
+				catch
+				{
+					return default(T);
+				}
+
+				// Cokoli jiného než 200 vracím výchozí hodnotu.
+				if (!response.IsSuccessStatusCode)
+					return default(T);
+
+				// Přečtu odpověď jako string.
+				var jsonResult = await response.Content.ReadAsStringAsync();
+
+				// A transformuji na požadovaný objekt.
+				return parseResponse(jsonResult);
+			}
+		}
+
 
 		/// <summary>
 		/// Vrací předaný string konvertovaný do base 64.

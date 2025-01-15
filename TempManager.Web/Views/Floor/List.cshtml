@@ -41,10 +41,10 @@
 				<th data-bind="text: name"></th>
 				<th data-bind="text: temperatureFormatted"></th>
 				<!-- ko if: hasRightToEdit -->
-				<th><input data-bind="value: desiredTemperature, enabled: hasRightToEdit" type="number" class="form-control" /></th>
+				<th><input data-bind="value: desiredTemperature().inputValue, enabled: hasRightToEdit" type="number" class="form-control" /></th>
 				<!-- /ko -->
 				<!-- ko ifnot: hasRightToEdit -->
-				<th data-bind="text: desiredTemperature"></th>
+				<th data-bind="text: desiredTemperature().dsValue"></th>
 				<!-- /ko -->
 				<th data-bind="text: rh"></th>
 				<th><span class="form-check"><input type="checkbox" data-bind="checked: valveOpen" class="form-check-input" disabled="disabled" /></span></th>

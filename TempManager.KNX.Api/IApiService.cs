@@ -19,5 +19,10 @@
 		/// Vrací hodnoty proměnné z API.
 		/// </summary>
 		Task<ApiValue[]> GetValues(ApiVariable variable);
+
+		/// <summary>
+		/// Promítne změny do API.
+		/// </summary>
+		Task<bool> PutValues(ApiVariable variable, ApiValue[] newVariables);
 	}
 }

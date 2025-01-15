@@ -11,7 +11,7 @@
 		public const string Ping = "GetInfo";
 
 		/// <summary>
-		/// End´-point vracející všechny proměnné z API.
+		/// End-point vracející všechny proměnné z API.
 		/// </summary>
 		public const string GetVariables = "GetList";
 
@@ -19,5 +19,10 @@
 		/// End-point vracející všechny 
 		/// </summary>
 		public const string GetVariableValue = "GetObject?{0}";
+
+		/// <summary>
+		/// End-point pro nastavení hodnoty v PLC.
+		/// </summary>
+		public const string PutObject = "PutObject";
 	}
 }

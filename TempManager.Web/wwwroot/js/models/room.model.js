@@ -64,18 +64,24 @@ function roomModel(room, initData) {
 	/**
 	 * Nastavená teplota.
 	 */
-	self.desiredTemperature = ko.observable(room.desiredTemperature);
-	self.desiredTemperature.subscribe(function (newValue) {
+	self.desiredTemperature = ko.observable(new valueHolder(room.desiredTemperature, room.desiredTemperature));
+	self.desiredTemperature().inputValue.subscribe(function (newValue) {
 		debouncedhandleTemperatureChange();
 	});
 
+	/**
+	 * Zpracování změny teploty.
+	 */
 	const handleTemperatureChange = function () {
+		if (self.desiredTemperature().dsValue() == self.desiredTemperature().inputValue())
+			return;
+
 		$.ajax({
 			method: "POST",
 			url: initData.setTemperatureUrl,
 			data: {
 				roomId: self.id(),
-				desiredTemperature: self.desiredTemperature()
+				desiredTemperature: self.desiredTemperature().inputValue()
 			}
 			// TODO: success + fail
 		});
@@ -93,5 +99,25 @@ function roomModel(room, initData) {
 		self.temperatureFormatted(room.temperatureFormatted);
 		self.rh(room.rh);
 		self.valveOpen(room.valveOpen);
+
+		self.desiredTemperature().dsValue(room.desiredTemperature);
+		self.desiredTemperature().inputValue(room.desiredTemperature);
 	}
+}
+
+/**
+ * Value holder, pro správý update hodnoty input <--> server.
+ */
+function valueHolder(dsValue, inputValue) {
+	var self = this;
+
+	/**
+	 * Hodnota ze serveru.
+	 */
+	self.dsValue = ko.observable(dsValue);
+
+	/**
+	 * Hodnota z klienta.
+	 */
+	self.inputValue = ko.observable(inputValue);
 }
