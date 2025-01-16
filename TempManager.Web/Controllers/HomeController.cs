@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using TempManager.BL.Services;
 using TempManager.Common;
+using TempManager.Web.Code;
 using TempManager.Web.Models;
 
 namespace TempManager.Web.Controllers
@@ -10,9 +12,14 @@ namespace TempManager.Web.Controllers
 	/// </summary>
 	public class HomeController : BaseController
 	{
-		public HomeController(IFloorService floorService, IUserService userService)
+		private readonly ICompositeViewEngine viewEngine;
+		private readonly CookieManager cookieManager;
+
+		public HomeController(IFloorService floorService, IUserService userService, ICompositeViewEngine viewEngine, CookieManager cookieManager)
 			: base(floorService, userService)
 		{
+			this.cookieManager = cookieManager;
+			this.viewEngine = viewEngine;
 		}
 
 		/// <summary>
@@ -43,6 +50,15 @@ namespace TempManager.Web.Controllers
 		}
 
 		/// <summary>
+		/// Pøepne zobrazení v daném prohlížeèi pro klienta.
+		/// </summary>
+		public IActionResult SwitchView(FloorViewType viewType)
+		{
+			this.cookieManager.Save(CookieManager.FloorViewTypeCookieName, viewType);
+			return RedirectToAction(nameof(Index));
+		}
+
+		/// <summary>
 		/// Vrací konkrétní zobrazení pro aplikaci.
 		/// </summary>
 		private async Task<IActionResult> GetView()
@@ -54,7 +70,7 @@ namespace TempManager.Web.Controllers
 				return View("NotInitialized");
 
 			// Inicializace modelu.
-			model.Init();
+			model.Init(this.cookieManager, this.viewEngine);
 
 			return View("Index", model);
 		}

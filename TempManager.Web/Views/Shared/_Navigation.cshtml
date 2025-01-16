@@ -18,7 +18,7 @@
 				var isSelected = Model.WebLocation == WebLocation.Floor && floor.FriendlyId == Model.SelectedFloor.FriendlyId;
 
 				<a href="@Url.Action("Floor", "Home", new { floor.FriendlyId })"
-				   class="list-group-item list-group-item-action @(isSelected ? "active" : string.Empty)" @(isSelected ? "aria-current=\"true\"" : string.Empty)>
+				class="list-group-item list-group-item-action @(isSelected ? "active" : string.Empty)" @(isSelected ? "aria-current=\"true\"" : string.Empty)>
 					@floor.Name
 				</a>
 			}
@@ -28,17 +28,32 @@
 			}
 
 			<a href="@Url.Action("Index", "Feedback")"
-			   class="list-group-item list-group-item-action @(isFeedbackSelected ? "active" : string.Empty)" @(isFeedbackSelected ? "aria-current=\"true\"" : string.Empty)>
+			class="list-group-item list-group-item-action @(isFeedbackSelected ? "active" : string.Empty)" @(isFeedbackSelected ? "aria-current=\"true\"" : string.Empty)>
 				@Resources.Feedback
 			</a>
 
 			@if (Model.CurrentUser.IsAdmin)
 			{
 				<a href="@Url.Action("Index", "AdminFloor", new { area = "Admin" })"
-				   class="list-group-item list-group-item-action">
+				class="list-group-item list-group-item-action">
 					@Resources.Admin
 				</a>
 			}
 		</div>
 	</div>
 </div>
+
+@if (Model is MainViewModel mainModel)
+{
+	<div id="view-switcher">
+		@switch (mainModel.FloorViewType)
+		{
+			case FloorViewType.List:
+				<a href="@Url.Action("SwitchView", "Home", new { viewType = FloorViewType.Map })">@Resources.Map</a>
+				break;
+			case FloorViewType.Map:
+				<a href="@Url.Action("SwitchView", "Home", new { viewType = FloorViewType.List })">@Resources.List</a>
+				break;
+		}
+	</div>
+}

@@ -1,0 +1,11 @@
+﻿@model MainViewModel
+
+<img src="~/images/1NP.png" alt="@Model.SelectedFloor.Name">
+
+@* TODO: pozici uložit a vyrenderovat možná hromadně? *@
+@* Možná když iložím cestu k okbrázku + ke každý místnosti pozici tak to budu moct sdrcnout do 1 view? *@
+
+<div class="room text-center" data-bind="with: rooms.get('A1069 MTI Hernych')" style="top: 213px; left: 1654px;">
+	<h5 class="mb-0" data-bind="text: name"></h5>
+	<span class="mb-0" data-bind="text: temperatureFormatted"></span>
+</div>

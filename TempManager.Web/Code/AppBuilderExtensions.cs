@@ -23,6 +23,7 @@ namespace TempManager.Web.Code
 		{
 			// Služby (např. přihlašovací služba) potřebuje mít aktuální httpcontext.
 			builder.Services.AddHttpContextAccessor();
+			builder.Services.AddScoped<CookieManager>();
 
 			// Připojení k databázi
 			builder.Services.AddDbContextPool<TempManagerContext>(opt =>
