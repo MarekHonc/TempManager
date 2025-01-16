@@ -16,6 +16,11 @@
 		Task<IReadOnlyCollection<T>> FetchAll();
 
 		/// <summary>
+		/// Vrací zda-li v tabulce již existují nějaké záznamy.
+		/// </summary>
+		Task<bool> IsAny();
+
+		/// <summary>
 		/// Přidá záznam do databáze.
 		/// </summary>
 		Task Add(T entity);

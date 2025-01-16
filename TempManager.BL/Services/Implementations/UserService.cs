@@ -40,6 +40,11 @@ namespace TempManager.BL.Services
 				user.FirstName,
 				user.LastName
 			);
+
+			// První vytvořený uživatel je vždy admin.
+			if (!await this.repositoriesFactory.UserRepository.IsAny())
+				newUser.SetIsAdmin(isAdmin: true);
+
 			await this.repositoriesFactory.UserRepository.Add(newUser);
 			await this.repositoriesFactory.SaveChanges();
 

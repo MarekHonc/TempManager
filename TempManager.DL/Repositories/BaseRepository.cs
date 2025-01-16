@@ -29,6 +29,12 @@ namespace TempManager.DL.Repositories
 			return await this.context.Set<T>().ToListAsync();
 		}
 
+		/// <inheritdoc cref="IRepository{T}.IsAny()"/>
+		public async Task<bool> IsAny()
+		{
+			return await this.context.Set<T>().AnyAsync();
+		}
+
 		/// <inheritdoc cref="Add"/>
 		public async Task Add(T entity)
 		{
