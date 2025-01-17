@@ -79,11 +79,12 @@ namespace TempManager.Web.Code
 
 				var attributes = new ShibbolethAttributeValueCollection()
 				{
-					new ShibbolethAttributeValue("uid", "uid123"),
+					// TODO: Opravit uid v db
+					new ShibbolethAttributeValue("uid", "uid1234"),
 					new ShibbolethAttributeValue("givenName", "Marek"),
 					new ShibbolethAttributeValue("sn", "Honc"),
 					new ShibbolethAttributeValue("mail", "marek.honc@tul.cz"),
-					new ShibbolethAttributeValue("eduPersonScopedAffiliation", "employees@tul.cz")
+					new ShibbolethAttributeValue("affiliation", "employee@tul.cz;member@tul.cz;alum@tul.cz;faculty@tul.cz")
 				};
 				options.Events = new ShibbolethEvents
 				{

@@ -20,11 +20,22 @@ namespace TempManager.Web.Controllers
 				"eppn: " + ident.FindFirst(ShibbolethClaimsType.EPPN)?.Value,
 				"uid: " + ident.FindFirst(ShibbolethClaimsType.UID).Value,
 				"mail: " + ident.FindFirst(ShibbolethClaimsType.EMAIL).Value,
-				// TODO: Todle je array
-				"eduPersonScopedAffiliation: " + ident.FindFirst(ShibbolethClaimsType.AFFILIATION).Value,
+				"affiliation: " + ident.FindFirst(ShibbolethClaimsType.AFFILIATION).Value.Split(";"),
 			};
 
 			return Content(string.Join("<br>", values), "text/html");
+		}
+
+		public IActionResult TestHeaders()
+		{
+			var list = new List<string>();
+
+			foreach (var header in Request.Headers)
+			{
+				list.Add($"{header.Key};{string.Join(",", header.Value.Select(v => v))}");
+			}
+
+			return Content(string.Join("<br>", list), "text/html");
 		}
 	}
 }

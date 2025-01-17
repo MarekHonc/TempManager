@@ -13,7 +13,7 @@ namespace TempManager.Shibboleth
 		public ShibbolethOptions()
 		{
 			Func<string, string> toLower = (s) => s.ToLower();
-			Func<string, IEnumerable<string>> toArray = (s) => new[] { s.ToLower() };
+			Func<string, IEnumerable<string>> toArray = (s) => s.ToLower().Split(";");
 
 			// Identifikátor názvu je uid z Shibba.
 			ClaimActions.MapCustomAttribute(ClaimTypes.NameIdentifier, "uid", toLower);
@@ -22,9 +22,7 @@ namespace TempManager.Shibboleth
 			ClaimActions.MapAttribute(ShibbolethClaimsType.EPPN, "eppn");
 			ClaimActions.MapCustomAttribute(ShibbolethClaimsType.UID, "uid", toLower);
 			ClaimActions.MapCustomAttribute(ShibbolethClaimsType.EMAIL, "mail", toLower);
-
-			// TODO: nějak string rozparsovat a vytáhnout z toho seznam
-			ClaimActions.MapCustomMultiValueAttribute(ShibbolethClaimsType.AFFILIATION, "eduPersonScopedAffiliation", toArray);
+			ClaimActions.MapCustomMultiValueAttribute(ShibbolethClaimsType.AFFILIATION, "affiliation", toArray);
 		}
 
 		/// <summary>

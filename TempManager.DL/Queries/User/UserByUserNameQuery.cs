@@ -5,18 +5,18 @@ namespace TempManager.DL.Queries
 	/// <summary>
 	/// Query, pro stažení uživatele na základě jeho unikátního identifikátoru.
 	/// </summary>
-	public class UserByUidQuery : QueryObjectBase<User>
+	public class UserByUserNameQuery : QueryObjectBase<User>
 	{
-		private readonly string uid;
+		private readonly string userName;
 
-		public UserByUidQuery(string uid)
+		public UserByUserNameQuery(string userName)
 		{
-			this.uid = uid;
+			this.userName = userName;
 		}
 		protected override IQueryable<User> CreateQuery(TempManagerContext dbContext)
 		{
 			return dbContext.Users.Where(u =>
-				u.Uid == this.uid
+				u.UserName == this.userName
 			);
 		}
 	}

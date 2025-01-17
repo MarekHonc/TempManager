@@ -127,7 +127,7 @@ namespace TempManager.DL.Entities
 		public static async Task<User> Create(IRepository<User> repository, string uid, string userName, string firstName, string lastName)
 		{
 			// Kouknu, jestli uživatel existuje.
-			var existingUser = await repository.FetchOne(new UserByUidQuery(uid));
+			var existingUser = await repository.FetchOne(new UserByUserNameQuery(uid));
 			if (existingUser != null)
 				throw new ArgumentException($"Uid {uid} already exists!", nameof(uid));
 

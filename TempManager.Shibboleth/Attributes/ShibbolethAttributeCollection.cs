@@ -20,7 +20,7 @@
 			"givenName",
 			"sn",
 			"mail",
-			"eduPersonScopedAffiliation",
+			"affiliation",
 			"uid",
 			"eppn"
 		});

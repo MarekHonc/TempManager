@@ -57,8 +57,10 @@ namespace TempManager.Web.Areas.Admin.Models
 		/// </summary>
 		public void Update(Room room)
 		{
+			this.AuthorizedUsers ??= new Dictionary<int, string>();
+
 			room.SetName(this.Name);
-			
+
 			// Oprávnění vůči místnostem.
 			foreach (var userToRoom in room.UsersToRoom)
 			{

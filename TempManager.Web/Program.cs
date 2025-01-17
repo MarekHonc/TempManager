@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using TempManager.Web.Code;
 using TempManager.Web.Hubs;
 
@@ -13,6 +14,14 @@ namespace TempManager.Web
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
+			// Potøebuji použít forwarded header, aby to fungovalo s reverse proxy.
+			// https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-9.0#other-proxy-server-and-load-balancer-scenarios
+			builder.Services.Configure<ForwardedHeadersOptions>(options =>
+			{
+				options.ForwardedHeaders =
+					ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+			});
+
 			// Zaregistruji služby.
 			builder.RegisterServices();
 
@@ -25,11 +34,13 @@ namespace TempManager.Web
 			if (!app.Environment.IsDevelopment())
 			{
 				app.UseExceptionHandler("/Home/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
+			}
+			else
+			{
+				app.UseHttpsRedirection();
 			}
 
-			app.UseHttpsRedirection();
+			app.UseForwardedHeaders();
 			app.UseStaticFiles();
 			
 			app.UseRouting();

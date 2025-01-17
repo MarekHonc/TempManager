@@ -25,7 +25,7 @@ namespace TempManager.BL.Services
 			var user = this.claimsUser;
 
 			// Kontrola existujícího.
-			var query = new UserByUidQuery(user.Uid);
+			var query = new UserByUserNameQuery(user.UserName);
 			var existing = await this.repositoriesFactory.UserRepository.FetchOne(query);
 
 			// Pokud již existuje, vracím existujícího.

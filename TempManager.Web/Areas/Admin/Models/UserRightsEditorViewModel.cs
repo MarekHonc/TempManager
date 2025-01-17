@@ -65,6 +65,8 @@ namespace TempManager.Web.Areas.Admin.Models
 		/// </summary>
 		public void Update(User user)
 		{
+			this.EditableRooms ??= new Dictionary<int, string>();
+
 			user.SetIsAdmin(this.IsAdmin);
 
 			// Oprávnění vůči místnostem.
