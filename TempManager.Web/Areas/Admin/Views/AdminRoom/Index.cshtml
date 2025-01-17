@@ -18,6 +18,7 @@
 			<thead>
 				<tr>
 					<th>@AdminResources.Name</th>
+					<th>X/Y</th>
 					<th>@AdminResources.ExternalId</th>
 					<th></th>
 				</tr>
@@ -27,6 +28,12 @@
 				{
 					<tr>
 						<td>@item.Name</td>
+						<td>
+							@if (item.XPosition.HasValue)
+							{
+								<text>@item.XPosition/@item.YPosition</text>
+							}
+						</td>
 						<td>@item.ExternalId</td>
 						<td>
 							@Html.ActionLink(AdminResources.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })

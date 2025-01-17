@@ -84,6 +84,7 @@ namespace TempManager.Web.HostedServices
 				this.logger.LogInformation($"Floor {value.Key.FriendlyId}: {value.Value.Length} rooms synced.");
 
 				// A pošlu na web sockety.
+				// TODO: nefunguje na produkci.
 				await this.hubContext.Clients.Group(value.Key.FriendlyId).SendAsync("ReceiveMessage", value.Value);
 			}
 		}

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
 using TempManager.BL.Services;
 using TempManager.Common;
 using TempManager.Web.Code;
@@ -12,14 +11,12 @@ namespace TempManager.Web.Controllers
 	/// </summary>
 	public class HomeController : BaseController
 	{
-		private readonly ICompositeViewEngine viewEngine;
 		private readonly CookieManager cookieManager;
 
-		public HomeController(IFloorService floorService, IUserService userService, ICompositeViewEngine viewEngine, CookieManager cookieManager)
+		public HomeController(IFloorService floorService, IUserService userService, CookieManager cookieManager)
 			: base(floorService, userService)
 		{
 			this.cookieManager = cookieManager;
-			this.viewEngine = viewEngine;
 		}
 
 		/// <summary>
@@ -70,7 +67,7 @@ namespace TempManager.Web.Controllers
 				return View("NotInitialized");
 
 			// Inicializace modelu.
-			model.Init(this.cookieManager, this.viewEngine);
+			model.Init(this.cookieManager);
 
 			return View("Index", model);
 		}

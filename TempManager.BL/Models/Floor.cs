@@ -10,15 +10,15 @@
 			this.Id = floor.Id;
 			this.FriendlyId = floor.FriendlyId;
 			this.Name = floor.Name;
-			this.MapViewName = floor.MapViewName;
+			this.MapName = floor.MapViewName;
 		}
 
-		internal Floor(int id, string friendlyId, string name, string mapViewName)
+		internal Floor(int id, string friendlyId, string name, string mapName)
 		{
 			this.Id = id;
 			this.FriendlyId = friendlyId;
 			this.Name = name;
-			this.MapViewName = mapViewName;
+			this.MapName = mapName;
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@
 		/// <summary>
 		/// Vrací název šablony, která se má zobrazit při zobrazení typu "mapa".
 		/// </summary>
-		public string MapViewName
+		public string MapName
 		{
 			get;
 		}

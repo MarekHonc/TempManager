@@ -59,6 +59,7 @@ namespace TempManager.Web.Areas.Admin.Models
 
 		/// <summary>
 		/// Vrací nebo nastavuje název šablony s mapou.
+		/// TODO: Upload mapy?
 		/// </summary>
 		[Display(Name = "MapViewName", ResourceType = typeof(AdminResources))]
 		[StringLength(30, ErrorMessageResourceName = "StringLength", ErrorMessageResourceType = typeof(AdminResources))]

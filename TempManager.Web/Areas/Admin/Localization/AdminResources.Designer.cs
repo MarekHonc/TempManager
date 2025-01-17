@@ -187,6 +187,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to X a Y pozice musí být nastavena nebo prázdná.
+        /// </summary>
+        public static string PositionMustBeSet {
+            get {
+                return ResourceManager.GetString("PositionMustBeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pole &apos;{0}&apos; je povinné.
         /// </summary>
         public static string Required {
@@ -363,6 +372,24 @@ namespace TempManager.Web.Areas.Admin.Localization {
         public static string Visible {
             get {
                 return ResourceManager.GetString("Visible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X pozice na mapě.
+        /// </summary>
+        public static string X {
+            get {
+                return ResourceManager.GetString("X", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y pozice na mapě.
+        /// </summary>
+        public static string Y {
+            get {
+                return ResourceManager.GetString("Y", resourceCulture);
             }
         }
     }

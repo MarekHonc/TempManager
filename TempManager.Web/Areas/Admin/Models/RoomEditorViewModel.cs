@@ -7,7 +7,7 @@ namespace TempManager.Web.Areas.Admin.Models
 	/// <summary>
 	/// Model pro editaci místnosti.
 	/// </summary>
-	public class RoomEditorViewModel : AdminBaseViewModel
+	public class RoomEditorViewModel : AdminBaseViewModel, IValidatableObject
 	{
 		public RoomEditorViewModel()
 		{
@@ -44,6 +44,26 @@ namespace TempManager.Web.Areas.Admin.Models
 		}
 
 		/// <summary>
+		/// Vrací nebo nastavuje X pozici na mapě.
+		/// </summary>
+		[Display(Name = "X", ResourceType = typeof(AdminResources))]
+		public double? X
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Vrací nebo nastavuje Y pozici na mapě.
+		/// </summary>
+		[Display(Name = "Y", ResourceType = typeof(AdminResources))]
+		public double? Y
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje uživatele, kteří mají oprávnění nastavovat teploty v místnosti.
 		/// </summary>
 		public Dictionary<int, string> AuthorizedUsers
@@ -60,6 +80,7 @@ namespace TempManager.Web.Areas.Admin.Models
 			this.AuthorizedUsers ??= new Dictionary<int, string>();
 
 			room.SetName(this.Name);
+			room.SetPosition(this.X, this.Y);
 
 			// Oprávnění vůči místnostem.
 			foreach (var userToRoom in room.UsersToRoom)
@@ -82,6 +103,13 @@ namespace TempManager.Web.Areas.Admin.Models
 
 				room.UsersToRoom.Add(userToRoom);
 			}
+		}
+
+		/// <inheritdoc />
+		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+		{
+			if ((this.X.HasValue && !this.Y.HasValue) || (!this.X.HasValue && this.Y.HasValue))
+				yield return new ValidationResult(AdminResources.PositionMustBeSet, new[] { nameof(this.X), nameof(this.Y) });
 		}
 	}
 }

@@ -148,7 +148,7 @@ namespace TempManager.DL.Entities
 		public static void CreateBindings(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<User>()
-				.HasIndex(u => u.Uid)
+				.HasIndex(u => u.UserName)
 				.IsUnique();
 		}
 	}

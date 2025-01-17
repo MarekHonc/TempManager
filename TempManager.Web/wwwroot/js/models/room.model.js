@@ -94,6 +94,19 @@ function roomModel(room, initData) {
 	 */
 	self.valveOpen = ko.observable(room.valveOpen);
 
+	/**
+	 * X pozice na mapě.
+	 */
+	self.x = ko.observable(room.x);
+
+	/**
+	 * Y pozice na mapě.
+	 */
+	self.y = ko.observable(room.y);
+
+	/**
+	 * Updatuje hodnoty pro zobrazení.
+	 */
 	self.update = function (room) {
 		self.temperature(room.temperature);
 		self.temperatureFormatted(room.temperatureFormatted);

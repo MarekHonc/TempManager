@@ -58,6 +58,24 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Vrací nebo nastavuje x pozici na mapě.
+		/// </summary>
+		public double? XPosition
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
+		/// Vrací nebo nastavuje y pozici na mapě.
+		/// </summary>
+		public double? YPosition
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje podlaží, ve kterém se místnost nachází.
 		/// </summary>
 		public Floor Floor
@@ -81,6 +99,18 @@ namespace TempManager.DL.Entities
 		public void SetName(string name)
 		{
 			this.Name = name;
+		}
+
+		/// <summary>
+		/// Nastaví novou pozici na mapě.
+		/// </summary>
+		public void SetPosition(double? x, double? y)
+		{
+			if ((x.HasValue && !y.HasValue) || (!x.HasValue && y.HasValue))
+				throw new ArgumentException("X and Y must be set or unset!");
+
+			this.XPosition = x;
+			this.YPosition = y;
 		}
 
 		/// <summary>

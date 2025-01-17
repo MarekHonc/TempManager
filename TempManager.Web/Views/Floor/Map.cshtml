@@ -44,7 +44,16 @@
 	<div id="content">
 		@if (Model.FloorViewExists)
 		{
-			await Html.RenderPartialAsync("../Floor/" + Model.SelectedFloor.MapViewName, Model);
+			<img src="@Model.SelectedFloor.MapName" alt="@Model.SelectedFloor.Name">
+
+			<!-- ko foreach: filteredRooms -->
+			<!-- ko if: x() && y() -->
+			<div class="room text-center" data-bind="style: { top: y, left: x }">
+				<h5 class="mb-0" data-bind="text: name"></h5>
+				<span class="mb-0" data-bind="text: temperatureFormatted"></span>
+			</div>
+			<!-- /ko -->
+			<!-- /ko -->
 		}
 		else
 		{

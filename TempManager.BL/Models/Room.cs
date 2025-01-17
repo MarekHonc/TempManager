@@ -8,7 +8,7 @@ namespace TempManager.BL.Models
 	/// </summary>
 	public class Room
 	{
-		internal Room(int id, string name, string externalId, bool hasRightToEdit, bool isFavorite, double temperature, double rh, double desiredTemperature, bool valveOpen)
+		internal Room(int id, string name, string externalId, bool hasRightToEdit, bool isFavorite, double temperature, double rh, double desiredTemperature, bool valveOpen, double? x = null, double? y = null)
 		{
 			this.Id = id;
 			this.Name = name;
@@ -19,6 +19,8 @@ namespace TempManager.BL.Models
 			this.Rh = rh;
 			this.DesiredTemperature = desiredTemperature;
 			this.ValveOpen = valveOpen;
+			this.X = x;
+			this.Y = y;
 		}
 
 		/// <summary>
@@ -100,6 +102,22 @@ namespace TempManager.BL.Models
 		}
 
 		/// <summary>
+		/// Vrací X pozici na mapě.
+		/// </summary>
+		public double? X
+		{
+			get;
+		}
+
+		/// <summary>
+		/// Vrací Y pozici na mapě.
+		/// </summary>
+		public double? Y
+		{
+			get;
+		}
+
+		/// <summary>
 		/// Vrací dto pro místnost, která rovnou nese všechny potřebné informace (tj. hodnoty, oprávnění, ...).
 		/// </summary>
 		internal static Room Create(DL.Entities.Room room, RoomValue roomValue, bool isAdmin, UserToRoom userToRoom)
@@ -122,7 +140,9 @@ namespace TempManager.BL.Models
 				roomValue.Temperature,
 				roomValue.Rh,
 				roomValue.DesiredTemperature,
-				roomValue.ValveOpen
+				roomValue.ValveOpen,
+				room.XPosition,
+				room.YPosition
 			);
 		}
 
