@@ -228,4 +228,10 @@
   <data name="Y" xml:space="preserve">
     <value>Y pozice na mapě</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ano</value>
+  </data>
 </root>

@@ -6,32 +6,35 @@
 	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@AdminResources.UserRights</h1>
+<h2>@AdminResources.UserRights</h2>
 
-<table class="table">
-	<thead>
-	<tr>
-		<th>@AdminResources.UserName</th>
-		<th>@AdminResources.FirstName</th>
-		<th>@AdminResources.LastName</th>
-		<th>@AdminResources.Uid</th>
-		<th>@AdminResources.IsAdmin</th>
-		<th></th>
-	</tr>
-	</thead>
-	<tbody>
-	@foreach (var item in Model.Items)
-	{
-		<tr>
-			<td>@item.UserName</td>
-			<td>@item.FirstName</td>
-			<td>@item.LastName</td>
-			<td>@item.Uid</td>
-			<td>@item.IsAdmin</td>
-			<td>
-				@Html.ActionLink(AdminResources.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning"})
-			</td>
-		</tr>
-	}
-	</tbody>
-</table>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<caption>@AdminResources.UserRights</caption>
+		<thead>
+			<tr>
+				<th>@AdminResources.UserName</th>
+				<th>@AdminResources.FirstName</th>
+				<th>@AdminResources.LastName</th>
+				<th>@AdminResources.Uid</th>
+				<th>@AdminResources.IsAdmin</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.Items)
+			{
+				<tr>
+					<td>@item.UserName</td>
+					<td>@item.FirstName</td>
+					<td>@item.LastName</td>
+					<td>@item.Uid</td>
+					<td>@(item.IsAdmin ? AdminResources.Yes : AdminResources.No)</td>
+					<td>
+						@Html.ActionLink(AdminResources.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

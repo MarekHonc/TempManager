@@ -9,7 +9,9 @@ namespace TempManager.DL.Queries
 	{
 		protected override IQueryable<Floor> CreateQuery(TempManagerContext dbContext)
 		{
-			return dbContext.Floors.Where(f => !f.IsHidden);
+			return dbContext.Floors
+				.Where(f => !f.IsHidden)
+				.OrderBy(f => f.Name);
 		}
 	}
 }

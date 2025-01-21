@@ -1,0 +1,40 @@
+﻿@import "variables.less";
+
+#nav-fixed {
+	position: fixed;
+	top: 15px;
+	left: 15px;
+	z-index: 10;
+
+	.navbar-toggler {
+		background-color: #f6f6f6;
+	}
+
+	#view-switcher {
+		position: fixed;
+		top: 15px;
+		right: 15px;
+		z-index: 10;
+	}
+}
+
+#nav-banner {
+	font-weight: bolder;
+	background-color: @mainColor;
+}
+
+.sliding-menu {
+	background-color: @mainColor;
+
+	.list-group-item {
+		text-align: center;
+		font-weight: bold;
+		color: white;
+		background-color: transparent;
+		border: 0;
+
+		&.active, &:hover {
+			background-color: @mainColorDarker;
+		}
+	}
+}

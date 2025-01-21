@@ -10,6 +10,14 @@ function autoCompleteViewModel(initData) {
 	 */
 	self.data = ko.observableDictionary();
 
+	/**
+	 * Odebere záznam ze slovníku.
+	 */
+	self.remove = function (entry) {
+		// TODO: Dodělat
+	}
+	
+	// Inicializace slovníku.
 	for (const [key, value] of Object.entries(initData.values)) {
 		self.data.set(key, value);
 	}

@@ -17,6 +17,7 @@ namespace TempManager.Web.Areas.Admin.Models
 		{
 			this.Id = user.Id;
 			this.UserName = user.UserName;
+			this.FullName = $"{user.FirstName} {user.LastName}";
 			this.IsAdmin = user.IsAdmin;
 			this.EditableRooms = user.UserToRooms
 				.Where(utr => utr.HasRightToEdit)
@@ -36,6 +37,15 @@ namespace TempManager.Web.Areas.Admin.Models
 		/// Vrací nebo nastavuje název uživatele.
 		/// </summary>
 		public string UserName
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Vrací nebo nastavuje celé jméno uživatele.
+		/// </summary>
+		public string FullName
 		{
 			get;
 			set;

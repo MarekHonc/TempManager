@@ -6,37 +6,41 @@
 	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@AdminResources.Floors</h1>
+<h2>@AdminResources.Floors</h2>
 
-<hr />
-
-<table class="table">
-	<thead>
-		<tr>
-			<th></th>
-			<th>@AdminResources.Name</th>
-			<th>@AdminResources.FriendlyId</th>
-			<th>@AdminResources.ExternalId</th>
-			<th>@AdminResources.MapViewName</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model.Items)
-		{
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<caption>@AdminResources.Floors</caption>
+		<thead>
 			<tr>
-				<td>@Html.CheckBoxFor(m => item.IsHidden, new { @class = "hidden", data_floor=item.Id })</td>
-				<td>@item.Name</td>
-				<td>@item.FriendlyId</td>
-				<td>@item.ExternalId</td>
-				<td>@item.MapViewName</td>
-				<td>
-					@Html.ActionLink(AdminResources.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning"})
-				</td>
+				<th></th>
+				<th>@AdminResources.Name</th>
+				<th>@AdminResources.FriendlyId</th>
+				<th>@AdminResources.ExternalId</th>
+				<th>@AdminResources.MapViewName</th>
+				<th></th>
 			</tr>
-		}
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.Items)
+			{
+				<tr>
+					<td>
+						@*TODO: Dodělat očičko*@
+						<span class="@(item.IsHidden ? "hidden" : "visible")"></span>
+					</td>
+					<td>@item.Name</td>
+					<td>@item.FriendlyId</td>
+					<td>@item.ExternalId</td>
+					<td>@item.MapViewName</td>
+					<td>
+						@Html.ActionLink(AdminResources.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
 
 <script type="text/javascript">
 	$(document).ready(function() {

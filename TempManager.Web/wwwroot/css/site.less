@@ -1,0 +1,111 @@
+﻿@import "variables.less";
+
+@import "icons.less";
+@import "navigation.less";
+@import "loader.less";
+
+html {
+	position: relative;
+	min-height: 100%;
+	font-size: 14px;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f8f9fa;
+	margin-bottom: 60px;
+}
+
+h1, h2, h3, a {
+	color: @mainColor;
+}
+
+a:hover {
+	color: @mainColorDarker;
+}
+
+.btn-primary {
+	background-color: @mainColor;
+	border-color: @mainColor;
+
+	&:hover {
+		background-color: @mainColorDarker;
+		border-color: @mainColorDarker;
+	}
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+	box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.table {
+	tr {
+		height: 50px;
+		vertical-align: middle;
+	}
+
+	th {
+		background-color: @mainColor;
+		border: 0px;
+		color: white;
+	}
+
+	th, td {
+		padding: 1em;
+	}
+
+	.temperature {
+		text-align: right;
+
+		input {
+			text-align: right;
+		}
+	}
+
+	.center {
+		text-align: center;
+
+		&.icon {
+			width: 45px;
+		}
+	}
+}
+
+#map-app {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	position: relative;
+	touch-action: none;
+	cursor: grab;
+
+	#content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform-origin: top left;
+		transform: translate(0px, 0px) scale(1);
+
+		img {
+			user-select: none;
+			pointer-events: none;
+		}
+
+		.room {
+			position: absolute;
+			z-index: 9;
+			background-color: white;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	html {
+		font-size: 16px;
+	}
+}

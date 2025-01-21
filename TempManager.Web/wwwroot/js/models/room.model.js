@@ -47,6 +47,13 @@ function roomModel(room, initData) {
 	const debouncedHandleFavoriteChange = _.debounce(handleFavoriteChange, 500, false);
 
 	/**
+	 * Přidá / odebere danou místnost z oblíbených.
+	 */
+	self.toggleFavorite = function () {
+		self.isFavorite(!self.isFavorite());
+	}
+
+	/**
 	 * Aktuální templota.
 	 */
 	self.temperature = ko.observable(room.temperature);

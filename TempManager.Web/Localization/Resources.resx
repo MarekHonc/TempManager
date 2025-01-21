@@ -130,7 +130,7 @@
     <value>CO2</value>
   </data>
   <data name="DesiredTempereture" xml:space="preserve">
-    <value>Nastavení teploty</value>
+    <value>Nastavení teploty [&amp;deg;C]</value>
   </data>
   <data name="Feedback" xml:space="preserve">
     <value>Zpětná vazba</value>
@@ -193,6 +193,6 @@
     <value>Odeslat</value>
   </data>
   <data name="Temperature" xml:space="preserve">
-    <value>Teplota</value>
+    <value>Teplota [&amp;deg;C]</value>
   </data>
 </root>

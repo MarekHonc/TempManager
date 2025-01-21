@@ -7,38 +7,38 @@
 }
 
 <div class="row d-flex justify-content-center">
-	<div class="col-md-6">
-		<h1>@Model.Name</h1>
-		
-		<hr />
+	<div class="col-md-6 card">
+		<div class="card-body">
+			<h3 class="card-title">@Model.Name</h3>
 
-		<form asp-action="Edit" asp-controller="AdminFloor" asp-area="Admin" method="POST">
-			<div class="text-danger">
-				@Html.ValidationSummary(excludePropertyErrors: false)
-			</div>
-			<input type="hidden" asp-for="Id"/>
-			<div class="form-group mb-3">
-				@Html.LabelFor(m => m.Name, new { @class = "control-label" })
-				@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-			</div>
-			<div class="form-group mb-3">
-				@Html.LabelFor(m => m.FriendlyId, new { @class = "control-label" })
-				@Html.TextBoxFor(m => m.FriendlyId, new { @class = "form-control" })
-			</div>
-			<div class="form-group mb-3">
-				@Html.LabelFor(m => m.MapViewName, new { @class = "control-label" })
-				@Html.TextBoxFor(m => m.MapViewName, new { @class = "form-control" })
-			</div>
-			<div class="form-group form-check mb-3">
-				<label class="form-check-label">
-					@Html.CheckBoxFor(m => m.IsVisible, new { @class = "form-check-input" })
-					@Html.DisplayNameFor(m => m.IsVisible)
-				</label>
-			</div>
-			<div class="form-group float-end">
-				@Html.ActionLink(AdminResources.Back, "Index", "AdminFloor", null, new { @class = "m-2" })
-				<input type="submit" value="@AdminResources.Save" class="btn btn-primary"/>
-			</div>
-		</form>
+			<form asp-action="Edit" asp-controller="AdminFloor" asp-area="Admin" method="POST">
+				<div class="text-danger">
+					@Html.ValidationSummary(excludePropertyErrors: false)
+				</div>
+				<input type="hidden" asp-for="Id" />
+				<div class="form-group mb-3">
+					@Html.LabelFor(m => m.Name, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+				</div>
+				<div class="form-group mb-3">
+					@Html.LabelFor(m => m.FriendlyId, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.FriendlyId, new { @class = "form-control" })
+				</div>
+				<div class="form-group mb-3">
+					@Html.LabelFor(m => m.MapViewName, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.MapViewName, new { @class = "form-control" })
+				</div>
+				<div class="form-group form-check mb-3">
+					<label class="form-check-label">
+						@Html.CheckBoxFor(m => m.IsVisible, new { @class = "form-check-input" })
+						@Html.DisplayNameFor(m => m.IsVisible)
+					</label>
+				</div>
+				<div class="form-group float-end">
+					@Html.ActionLink(AdminResources.Back, "Index", "AdminFloor", null, new { @class = "m-2" })
+					<input type="submit" value="@AdminResources.Save" class="btn btn-primary" />
+				</div>
+			</form>
+		</div>
 	</div>
 </div>

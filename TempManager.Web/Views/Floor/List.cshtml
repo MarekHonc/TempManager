@@ -4,18 +4,18 @@
 <div id="list-app" class="container mt-5">
 	@await Html.PartialAsync("_Loader")
 
-	<div class="row">
-		<h3 class="col-8">
-			@Model.SelectedFloor.Name
-		</h3>
-		<div class="col-4">
-			<div class="form-check">
+	<div class="row justify-content-between">
+		<h3 class="col-auto">@Model.SelectedFloor.Name</h3>
+		<div class="col-auto row align-items-center">
+			<div class="col-auto">
 				<input class="form-check-input" data-bind="checked: onlyFavorites" type="checkbox" id="only-favorites">
 				<label class="form-check-label" for="only-favorites">
 					@Resources.OnlyFavorites
 				</label>
 			</div>
-			<input data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="form-control" type="search" placeholder="@Resources.Search" aria-label="@Resources.Search">
+			<div class="col-auto">
+				<input data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="form-control" type="search" placeholder="@Resources.Search" aria-label="@Resources.Search">
+			</div>
 		</div>
 	</div>
 	<!-- ko if: filteredRooms().length == 0 -->
@@ -24,35 +24,38 @@
 	</div>
 	<!-- /ko-->
 	<!-- ko if: filteredRooms().length > 0 -->
-	<table class="table">
-		<thead>
-		<tr>
-			<th>@Resources.Room</th>
-			<th>@Resources.Temperature</th>
-			<th>@Resources.DesiredTempereture</th>
-			<th>@Resources.Rh</th>
-			<th></th>
-			<th></th>
-		</tr>
-		</thead>
-		<tbody>
-		<!-- ko foreach: filteredRooms -->
-		<tr>
-			<th data-bind="text: name"></th>
-			<th data-bind="text: temperatureFormatted"></th>
-			<!-- ko if: hasRightToEdit -->
-			<th><input data-bind="value: desiredTemperature().inputValue, enabled: hasRightToEdit" type="number" class="form-control" /></th>
-			<!-- /ko -->
-			<!-- ko ifnot: hasRightToEdit -->
-			<th data-bind="text: desiredTemperature().dsValue"></th>
-			<!-- /ko -->
-			<th data-bind="text: rh"></th>
-			<th><span class="form-check"><input type="checkbox" data-bind="checked: valveOpen" class="form-check-input" disabled="disabled" /></span></th>
-			<th><span class="form-check"><input type="checkbox" data-bind="checked: isFavorite" class="form-check-input" /></span></th>
-		</tr>
-		<!-- /ko -->
-		</tbody>
-	</table>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<caption>@Model.SelectedFloor.Name</caption>
+			<thead>
+				<tr>
+					<th>@Resources.Room</th>
+					<th class="temperature">@Html.Raw(Resources.Temperature)</th>
+					<th class="temperature">@Html.Raw(Resources.DesiredTempereture)</th>
+					<th>@Resources.Rh</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- ko foreach: filteredRooms -->
+				<tr>
+					<td data-bind="text: name"></td>
+					<td class="temperature" data-bind="text: temperatureFormatted"></td>
+					<!-- ko if: hasRightToEdit -->
+					<td class="temperature"><input data-bind="value: desiredTemperature().inputValue, enabled: hasRightToEdit" type="number" class="form-control" /></td>
+					<!-- /ko -->
+					<!-- ko ifnot: hasRightToEdit -->
+					<td class="temperature" data-bind="text: desiredTemperature().dsValue"></td>
+					<!-- /ko -->
+					<td data-bind="text: rh"></td>
+					<td class="center icon"><span data-bind="css: { 'heat': valveOpen(), 'freeze': !valveOpen() }"></span></td>
+					<td class="center icon"><span class="star" data-bind="css: { 'filled': isFavorite }, click: toggleFavorite"></span></td>
+				</tr>
+				<!-- /ko -->
+			</tbody>
+		</table>
+	</div>
 	<!-- /ko -->
 </div>
 

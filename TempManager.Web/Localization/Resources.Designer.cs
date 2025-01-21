@@ -97,7 +97,7 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nastavení teploty.
+        ///   Looks up a localized string similar to Nastavení teploty [&amp;deg;C].
         /// </summary>
         public static string DesiredTempereture {
             get {
@@ -286,7 +286,7 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teplota.
+        ///   Looks up a localized string similar to Teplota [&amp;deg;C].
         /// </summary>
         public static string Temperature {
             get {
