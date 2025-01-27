@@ -13,9 +13,7 @@ namespace TempManager.Web.Areas.Admin.Controllers
 	[Area("Admin")]
 	public class AdminBaseController : BaseController
 	{
-		// TODO: řazení gridů
-
-		protected RepositoriesFactory repositoriesFactory;
+		protected readonly RepositoriesFactory repositoriesFactory;
 
 		public AdminBaseController(RepositoriesFactory repositoriesFactory, IFloorService floorService, IUserService userService)
 			: base(floorService, userService)

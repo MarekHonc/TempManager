@@ -20,10 +20,20 @@
 }
 else
 {
-	<div class="navbar-dark p-3" id="nav-banner">
+	<div class="navbar-dark p-3 d-flex justify-content-between" id="nav-banner">
 		<button class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" href="#main-nav" role="button">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+		
+		<div class="dropdown">
+			<div class="user-icon" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+
+			</div>
+			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+				<li><a class="dropdown-item" href="@Url.Action("SwitchView", "Home", new { viewType = FloorViewType.Map })">@Resources.Map</a></li>
+				<li><a class="dropdown-item" href="#">.....</a></li> @* TODO: logout *@
+			</ul>
+		</div>
 	</div>
 }
 

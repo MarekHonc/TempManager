@@ -14,7 +14,7 @@ function autoCompleteViewModel(initData) {
 	 * Odebere záznam ze slovníku.
 	 */
 	self.remove = function (entry) {
-		// TODO: Dodělat
+		self.data.remove(entry.key());
 	}
 	
 	// Inicializace slovníku.

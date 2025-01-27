@@ -13,12 +13,11 @@
 		<caption>@AdminResources.Floors</caption>
 		<thead>
 			<tr>
-				<th></th>
+				<th class="w50"></th>
 				<th>@AdminResources.Name</th>
 				<th>@AdminResources.FriendlyId</th>
 				<th>@AdminResources.ExternalId</th>
 				<th>@AdminResources.MapViewName</th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -26,16 +25,14 @@
 			{
 				<tr>
 					<td>
-						@*TODO: Dodělat očičko*@
-						<span class="@(item.IsHidden ? "hidden" : "visible")"></span>
+						<span data-floor="@item.Id" class="eye admin-icon @(item.IsHidden ? "hidden" : "visible")"></span>
 					</td>
-					<td>@item.Name</td>
+					<td>
+						@Html.ActionLink(item.Name, "Edit", new { id = item.Id })
+					</td>
 					<td>@item.FriendlyId</td>
 					<td>@item.ExternalId</td>
 					<td>@item.MapViewName</td>
-					<td>
-						@Html.ActionLink(AdminResources.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
-					</td>
 				</tr>
 			}
 		</tbody>
@@ -44,13 +41,19 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$(".hidden").on("change", function() {
+		$(".eye").on("click", function() {
+			var $this = $(this);
+
 			$.ajax({
 				method: "POST",
 				url: "@Url.Action("SetVisible", "AdminFloor")",
 				data: {
-					floorId: $(this).attr("data-floor"),
-					isVisible: !$(this).prop("checked")
+					floorId: $this.attr("data-floor"),
+					isVisible: $this.hasClass("hidden")
+				},
+				success: function() {
+					$this.toggleClass("hidden");
+					$this.toggleClass("visible");
 				}
 			});
 		});

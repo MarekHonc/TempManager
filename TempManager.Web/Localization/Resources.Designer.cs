@@ -115,7 +115,7 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seznam.
+        ///   Looks up a localized string similar to Zobrazit seznam.
         /// </summary>
         public static string List {
             get {
@@ -133,7 +133,7 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mapa.
+        ///   Looks up a localized string similar to Zobrazit mapu.
         /// </summary>
         public static string Map {
             get {

@@ -79,7 +79,6 @@ namespace TempManager.Web.Code
 
 				var attributes = new ShibbolethAttributeValueCollection()
 				{
-					// TODO: Opravit uid v db
 					new ShibbolethAttributeValue("uid", "uid1234"),
 					new ShibbolethAttributeValue("givenName", "Marek"),
 					new ShibbolethAttributeValue("sn", "Honc"),

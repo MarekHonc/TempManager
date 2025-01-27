@@ -26,7 +26,7 @@ namespace TempManager.DL.Repositories
 		/// <inheritdoc cref="FetchAll"/>
 		public async Task<IReadOnlyCollection<T>> FetchAll()
 		{
-			return await this.context.Set<T>().ToListAsync();
+			return await this.context.Set<T>().Order().ToListAsync();
 		}
 
 		/// <inheritdoc cref="IRepository{T}.IsAny()"/>

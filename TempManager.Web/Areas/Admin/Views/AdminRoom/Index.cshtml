@@ -34,14 +34,15 @@
 						<th>@AdminResources.Name</th>
 						<th>X/Y</th>
 						<th>@AdminResources.ExternalId</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					@foreach (var item in group)
 					{
 						<tr>
-							<td>@item.Name</td>
+							<td>
+								@Html.ActionLink(item.Name, "Edit", new { id = item.Id })
+							</td>
 							<td>
 								@if (item.XPosition.HasValue)
 								{
@@ -49,9 +50,6 @@
 								}
 							</td>
 							<td>@item.ExternalId</td>
-							<td>
-								@Html.ActionLink(AdminResources.Edit, "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
-							</td>
 						</tr>
 					}
 				</tbody>
