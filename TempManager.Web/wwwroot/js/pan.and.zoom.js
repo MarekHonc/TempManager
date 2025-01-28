@@ -18,8 +18,8 @@ function panAndZoom(containerElementId, contentElementId) {
 	container.addEventListener('wheel', (e) => {
 		e.preventDefault();
 		const rect = content.getBoundingClientRect();
-		const mouseX = e.clientX - rect.left;
-		const mouseY = e.clientY - rect.top;
+		const mouseX = e.clientX;// - rect.left;
+		const mouseY = e.clientY;// - rect.top;
 
 		const delta = -e.deltaY * 0.001;
 		const newScale = Math.min(Math.max(0.5, scale + delta), 3);
@@ -88,8 +88,8 @@ function panAndZoom(containerElementId, contentElementId) {
 
 			// Calculate the midpoint of the two fingers
 			const rect = content.getBoundingClientRect();
-			const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
-			const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+			const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;// - rect.left;
+			const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;// - rect.top;
 
 			const scaleDiff = newScale / scale;
 			originX = midX - scaleDiff * (midX - originX);

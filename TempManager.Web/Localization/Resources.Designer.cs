@@ -133,6 +133,15 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Odhlásit.
+        /// </summary>
+        public static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zobrazit mapu.
         /// </summary>
         public static string Map {

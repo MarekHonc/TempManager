@@ -3,7 +3,7 @@
 @model TempManager.Web.Areas.Admin.Models.AdminBaseViewModel
 
 <nav class="navbar navbar-expand-md navbar-dark mb-3 pb-3" id="nav-banner">
-	<div class="container">
+	<div class="container position-relative">
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -28,6 +28,10 @@
 					<a class="nav-link @(Model.AdminWebLocation == AdminWebLocation.UserRights ? "active" : string.Empty)" href="@Url.Action("Index", "AdminUserRights")">@AdminResources.UserRights</a>
 				</li>
 			</ul>
+		</div>
+		
+		<div class="position-absolute top-0 end-0">
+			@await Html.PartialAsync("_UserMenu", Model)
 		</div>
 	</div>
 </nav>

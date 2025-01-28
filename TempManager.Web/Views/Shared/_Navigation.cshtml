@@ -6,16 +6,17 @@
 	var mainModel = Model as MainViewModel;
 }
 
-@if (mainModel != null && mainModel.FloorViewType == FloorViewType.Map)
+@* Mapa jako jediná má jiné zobrazení. *@
+@if (mainModel is { FloorViewType: FloorViewType.Map })
 {
-	<div class="navbar-light" id="nav-fixed">
+	<div class="navbar-dark" id="nav-fixed">
 		<button class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" href="#main-nav" role="button">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 	</div>
 
 	<div id="view-switcher">
-		<a href="@Url.Action("SwitchView", "Home", new { viewType = FloorViewType.List })">@Resources.List</a>
+		@await Html.PartialAsync("_UserMenu", Model)
 	</div>
 }
 else
@@ -25,15 +26,7 @@ else
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		
-		<div class="dropdown">
-			<div class="user-icon" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-
-			</div>
-			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-				<li><a class="dropdown-item" href="@Url.Action("SwitchView", "Home", new { viewType = FloorViewType.Map })">@Resources.Map</a></li>
-				<li><a class="dropdown-item" href="#">.....</a></li> @* TODO: logout *@
-			</ul>
-		</div>
+		@await Html.PartialAsync("_UserMenu", Model)
 	</div>
 }
 

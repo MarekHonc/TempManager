@@ -141,6 +141,9 @@
   <data name="Loading" xml:space="preserve">
     <value>Načítání</value>
   </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Odhlásit</value>
+  </data>
   <data name="Map" xml:space="preserve">
     <value>Zobrazit mapu</value>
   </data>

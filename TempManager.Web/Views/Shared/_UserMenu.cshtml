@@ -1,0 +1,24 @@
+﻿@using TempManager.Web.Localization
+@using TempManager.Common
+@model BaseViewModel
+
+@{
+	var mainModel = Model as MainViewModel;
+	var isMap = mainModel?.FloorViewType == FloorViewType.Map;
+}
+
+<div class="dropdown">
+	<div class="user-icon @(isMap ? "dark" : string.Empty)" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false"></div>
+	<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+		@if (mainModel != null)
+		{
+			<li>
+				<a class="dropdown-item" href="@Url.Action("SwitchView", "Home", new { viewType = isMap ? FloorViewType.List : FloorViewType.Map })">
+					@(isMap ? Resources.List : Resources.Map)
+				</a>
+			</li>
+		}
+		@* ReSharper disable once Html.PathError *@
+		<li><a class="dropdown-item" href="/Shibboleth.sso/Logout">@Resources.LogOut</a></li>
+	</ul>
+</div>
