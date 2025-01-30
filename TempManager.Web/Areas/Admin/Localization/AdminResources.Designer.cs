@@ -187,6 +187,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Další stránka.
+        /// </summary>
+        public static string NextPage {
+            get {
+                return ResourceManager.GetString("NextPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ne.
         /// </summary>
         public static string No {
@@ -295,7 +304,52 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Požadovaná teplota.
+        ///   Looks up a localized string similar to Neúspěch.
+        /// </summary>
+        public static string SetTemperatureResult_Failed {
+            get {
+                return ResourceManager.GetString("SetTemperatureResult_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neúspěch - přepsáno externě.
+        /// </summary>
+        public static string SetTemperatureResult_FailedTemperatureOverridenExternally {
+            get {
+                return ResourceManager.GetString("SetTemperatureResult_FailedTemperatureOverridenExternally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neúspěch - přepsáno v aplikaci.
+        /// </summary>
+        public static string SetTemperatureResult_FailedTemperatureOverridenInternally {
+            get {
+                return ResourceManager.GetString("SetTemperatureResult_FailedTemperatureOverridenInternally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ve frontě.
+        /// </summary>
+        public static string SetTemperatureResult_Pending {
+            get {
+                return ResourceManager.GetString("SetTemperatureResult_Pending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Úspěch.
+        /// </summary>
+        public static string SetTemperatureResult_Success {
+            get {
+                return ResourceManager.GetString("SetTemperatureResult_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Požadovaná teplota [°C].
         /// </summary>
         public static string SetTemperatureTo {
             get {

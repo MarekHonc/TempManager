@@ -15,6 +15,10 @@ function autoCompleteViewModel(initData) {
 	 */
 	self.remove = function (entry) {
 		self.data.remove(entry.key());
+
+		if (initData.removeCallback) {
+			initData.removeCallback(entry.key());
+		}
 	}
 	
 	// Inicializace slovníku.
@@ -41,6 +45,10 @@ function autoCompleteViewModel(initData) {
 		select: function (event, ui) {
 			event.preventDefault();
 			self.data.set(ui.item.id, ui.item.name);
+
+			if (initData.selectCallback) {
+				initData.selectCallback(ui.item.id);
+			}
 		}
 	}).each(function (i, input) {
 		$(input).data("ui-autocomplete")._renderItem = function (ul, item) {

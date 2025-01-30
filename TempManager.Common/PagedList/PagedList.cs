@@ -131,5 +131,38 @@
 				this.TotalItemCount = totalCount ?? source.Count();
 			}
 		}
+
+		/// <summary>
+		/// Vytvoří stránkovaný list z předaných parametrů. (Items už je skutečná kolekce uložená jako konkrétní stránka)
+		/// </summary>
+		/// <param name="items"></param>
+		/// <param name="page">Číslo stránky - počítané od 1</param>
+		/// <param name="pageSize"></param>
+		/// <param name="totalCountFactory">Kód, který je schopný zjistit celkový počet položek (volá se jen, když není aktuálně získaný počet položek menší, než pageSize).</param>
+		/// <returns></returns>
+		public static IPagedList<T> Fake(IEnumerable<T> items, int page, int pageSize, Func<int> totalCountFactory)
+		{
+			var list = new PagedList<T>()
+			{
+				PageIndex = page - 1,
+				PageSize = pageSize,
+			};
+
+			list.AddRange(items.Take(pageSize));
+
+			// pokud je položek méně než celá stránka, tak celkový počet jednoduše spočítám.
+			if (list.Count < pageSize) // je to poslední stránka
+			{
+				// celkový počet je index aktuální stránka (např. stránka 2 => 1)KRÁT velikost stránky(např. 10) PLUS počet na aktuální stránce (např. 7) = celkem 17 položek
+				list.TotalItemCount = (list.PageIndex * pageSize) + list.Count;
+			}
+			// počet je jako celá stránka - musím se na něj zvlášť dotázat
+			else
+			{
+				list.TotalItemCount = totalCountFactory();
+			}
+
+			return list;
+		}
 	}
 }

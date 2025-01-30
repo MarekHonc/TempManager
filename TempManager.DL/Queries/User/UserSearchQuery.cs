@@ -21,8 +21,7 @@ namespace TempManager.DL.Queries
 					u.UserName.Contains(this.search) ||
 					u.FirstName.Contains(this.search) ||
 					u.LastName.Contains(this.search)
-				) &&
-				!u.IsAdmin
+				)
 			);
 		}
 	}

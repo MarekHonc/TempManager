@@ -214,7 +214,7 @@
     <value>Místnost</value>
   </data>
   <data name="SetTemperatureTo" xml:space="preserve">
-    <value>Požadovaná teplota</value>
+    <value>Požadovaná teplota [°C]</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>Uživatel</value>
@@ -233,5 +233,23 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ano</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Další stránka</value>
+  </data>
+  <data name="SetTemperatureResult_Failed" xml:space="preserve">
+    <value>Neúspěch</value>
+  </data>
+  <data name="SetTemperatureResult_FailedTemperatureOverridenExternally" xml:space="preserve">
+    <value>Neúspěch - přepsáno externě</value>
+  </data>
+  <data name="SetTemperatureResult_FailedTemperatureOverridenInternally" xml:space="preserve">
+    <value>Neúspěch - přepsáno v aplikaci</value>
+  </data>
+  <data name="SetTemperatureResult_Pending" xml:space="preserve">
+    <value>Ve frontě</value>
+  </data>
+  <data name="SetTemperatureResult_Success" xml:space="preserve">
+    <value>Úspěch</value>
   </data>
 </root>
