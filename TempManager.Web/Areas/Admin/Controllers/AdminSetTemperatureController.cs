@@ -14,7 +14,7 @@ namespace TempManager.Web.Areas.Admin.Controllers
 	/// </summary>
 	public class AdminSetTemperatureController : AdminBaseController
 	{
-		private const int pageSize = 4;
+		private const int pageSize = 10;
 
 		public AdminSetTemperatureController(RepositoriesFactory repositoriesFactory, IFloorService floorService, IUserService userService)
 			: base(repositoriesFactory, floorService, userService)
