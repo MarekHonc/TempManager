@@ -70,6 +70,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CO2.
+        /// </summary>
+        public static string CO2 {
+            get {
+                return ResourceManager.GetString("CO2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Datum.
         /// </summary>
         public static string Date {
@@ -232,6 +241,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rh.
+        /// </summary>
+        public static string Rh {
+            get {
+                return ResourceManager.GetString("Rh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Místnost.
         /// </summary>
         public static string Room {
@@ -367,7 +385,7 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teplota.
+        ///   Looks up a localized string similar to Teplota [°C].
         /// </summary>
         public static string Temperature {
             get {

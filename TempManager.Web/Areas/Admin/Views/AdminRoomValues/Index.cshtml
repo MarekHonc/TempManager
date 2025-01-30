@@ -1,32 +1,90 @@
 ﻿@using TempManager.Web.Areas.Admin.Localization
-@model TempManager.Web.Areas.Admin.Models.AdminPagedListViewModel<TempManager.DL.Entities.FloorHistory>
+@model TempManager.Web.Areas.Admin.Models.AdminBaseViewModel
 
 @{
 	ViewData["Title"] = AdminResources.RoomValues;
 	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
+@section Scripts
+{
+	<script src="~/js/models/auto.comlete.model.js"></script>
+	<script src="~/js/models/app.room.values.model.js"></script>
+}
+
 <h2>@AdminResources.RoomValues</h2>
 
-@* TODO: Filtry + paging + zobrazení hodnot *@
+<div id="room-values-app">
+	<div class="row d-flex flex-row-reverse">
+		<div class="col-auto mb-3">
+			<div class="card">
+				<div class="card-body d-flex justify-content-between">
+					<select data-bind="options: floors, optionsText: 'floorName', value: selectedFloor" class="form-select"></select>
+				</div>
+			</div>
+		</div>
+		<div class="col-auto mb-3">
+			<div class="card">
+				<div class="card-body d-flex justify-content-between">
+					<input data-bind="visible: !roomId()" id="auto-complete-room" class="form-control" placeholder="@AdminResources.SearchRooms" />
+					<!-- ko with: roomAutoComplete -->
+					<!-- ko foreach: data.items -->
+					<span class="form-control" data-bind="text: value"></span>
+					<button data-bind="click: function() { $parent.remove($data); }" class="btn btn-close align-self-center"></button>
+					<!-- /ko -->
+					<!-- /ko -->
+				</div>
+			</div>
+		</div>
+	</div>
 
-<div class="table-responsive">
-	<table class="table table-bordered table-striped">
-		<caption>@AdminResources.RoomValues</caption>
-		<thead>
-			<tr>
-				<th>@AdminResources.Date</th>
-				<th>@AdminResources.RoomValues</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var item in Model.Items)
-			{
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<caption>@AdminResources.RoomValues</caption>
+			<thead>
 				<tr>
-					<td>@item.Date</td>
-					<td>@Html.Raw(string.Join("<br/>", item.RoomValues.Select(r => $"{r.ExternalRoomId}: {r.Temperature};")))</td>
+					<th>@AdminResources.Date</th>
+					<th>@AdminResources.Room</th>
+					<th class="temperature">@AdminResources.Temperature</th>
+					<th>@AdminResources.CO2</th>
+					<th>@AdminResources.Rh</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<!-- ko foreach: filteredRows -->
+				<tr>
+					<td data-bind="text: date"></td>
+					<td data-bind="text: room"></td>
+					<td data-bind="text: temperature" class="temperature"></td>
+					<td data-bind="text: co2"></td>
+					<td data-bind="text: rh"></td>
+				</tr>
+				<!-- /ko -->
+			</tbody>
+		</table>
+	</div>
+	<!-- ko if: hasNext -->
+	<div class="row text-center">
+		<a href="_" data-bind="click: loadNext">@AdminResources.NextPage</a>
+	</div>
+	<!-- /ko -->
 </div>
+
+<div id="auto-complete-holder"></div>
+
+<script type="text/javascript">
+	let floors = [
+	@foreach (var floor in Model.Floors)
+	{ <text>
+		new floorModel({ id: @floor.Id, name: "@floor.Name" }),
+	</text> }
+	];
+
+	let model = new roomValuesModel({
+		floors: floors,
+		selectedFloorId: @Model.SelectedFloor.Id,
+		url: "@Url.Action("List", "AdminRoomValues")",
+		roomAutoCompleteUrl: "@Url.Action("AutoCompleteRoom", "AdminUserRights")"
+	});
+	ko.applyBindings(model, document.getElementById("room-values-app"));
+</script>

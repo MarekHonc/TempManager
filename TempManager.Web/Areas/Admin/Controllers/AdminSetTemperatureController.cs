@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Services;
 using TempManager.Common;
+using TempManager.Common.Extensions;
 using TempManager.DL.Entities;
 using TempManager.DL.Queries;
 using TempManager.DL.Repositories;
@@ -45,7 +46,7 @@ namespace TempManager.Web.Areas.Admin.Controllers
 			{
 				items = history.Select(r => new
 				{
-					date = r.Date.ToLocalTime().ToString("dd. MM. yyyy hh:mm"),
+					date = r.Date.ToShortDateTime(),
 					userName = r.User.UserName,
 					roomName = r.Room.Name,
 					newTemperature = r.NewTemperature,

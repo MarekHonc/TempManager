@@ -45,6 +45,8 @@ namespace TempManager.Web.HostedServices
 		{
 			this.logger.LogInformation($"{nameof(ValueSyncService)} service stopped.");
 
+			// TODO Hangfire? todle je punk
+
 			// Nastavím timeru že se již neopakuje.
 			this.timer?.Change(Timeout.Infinite, 0);
 

@@ -169,7 +169,7 @@
     <value>Maximální délka pole '{0}' je '{1}'</value>
   </data>
   <data name="Temperature" xml:space="preserve">
-    <value>Teplota</value>
+    <value>Teplota [°C]</value>
   </data>
   <data name="UserRights" xml:space="preserve">
     <value>Oprávnění</value>
@@ -251,5 +251,11 @@
   </data>
   <data name="SetTemperatureResult_Success" xml:space="preserve">
     <value>Úspěch</value>
+  </data>
+  <data name="CO2" xml:space="preserve">
+    <value>CO2</value>
+  </data>
+  <data name="Rh" xml:space="preserve">
+    <value>Rh</value>
   </data>
 </root>

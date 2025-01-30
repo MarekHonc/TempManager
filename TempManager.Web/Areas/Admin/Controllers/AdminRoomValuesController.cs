@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Services;
 using TempManager.Common;
+using TempManager.Common.Extensions;
 using TempManager.DL.Entities;
 using TempManager.DL.Queries;
 using TempManager.DL.Repositories;
@@ -29,10 +30,46 @@ namespace TempManager.Web.Areas.Admin.Controllers
 			// Vytvořím model.
 			var model = await FetchModel(
 				AdminWebLocation.RoomValues,
-				new AdminPagedListViewModel<FloorHistory>(await GetList(floor.Id))
+				new AdminBaseViewModel()
 			);
 
 			return View(model);
+		}
+
+		/// <summary>
+		/// Vrací konkrétní stránku historie.
+		/// </summary>
+		public async Task<IActionResult> List(int floorId, int page)
+		{
+			var history = await GetList(floorId, page);
+			var rooms = await this.repositoriesFactory.RoomRepository.GetExternalIdLookUp();
+			var result = new List<object>();
+
+			// "Zplošním" kolekci.
+			foreach (var measure in history)
+			{
+				foreach (var roomValue in measure.RoomValues)
+				{
+					rooms.TryGetValue(roomValue.ExternalRoomId, out var room);
+
+					result.Add(new
+					{
+						date = measure.Date.ToShortDateTime(),
+						room = room?.Name,
+						id = room?.Id,
+						temperature = roomValue.Temperature,
+						co2 = roomValue.CO2,
+						rh = roomValue.Rh
+					});
+				}
+			}
+
+			return Json(new
+			{
+				items = result,
+				hasNext = history.HasNextPage,
+				page = history.PageNumber
+			});
 		}
 
 		/// <summary>
