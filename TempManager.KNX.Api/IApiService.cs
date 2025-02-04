@@ -18,11 +18,11 @@
 		/// <summary>
 		/// Vrací hodnoty proměnné z API.
 		/// </summary>
-		Task<ApiValue[]> GetValues(ApiVariable variable);
+		Task<ApiValue[]> GetValues(ApiVariable variable, bool filterEmpty = true);
 
 		/// <summary>
-		/// Promítne změny do API.
+		/// Nastaví novou teplotu na PLC.
 		/// </summary>
-		Task<bool> PutValues(ApiVariable variable, ApiValue[] newVariables);
+		Task<bool> SetTemperatures(ApiVariable variable, ApiSetTemperature newTemperatures);
 	}
 }

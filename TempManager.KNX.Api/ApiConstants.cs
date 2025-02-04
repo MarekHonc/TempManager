@@ -21,8 +21,8 @@
 		public const string GetVariableValue = "GetObject?{0}";
 
 		/// <summary>
-		/// End-point pro nastavení hodnoty v PLC.
+		/// End-point pro nastavení teploty v PLC.
 		/// </summary>
-		public const string PutObject = "PutObject";
+		public const string SetTemperature = "SetObject?{0}[{1}].tempW={2}";
 	}
 }

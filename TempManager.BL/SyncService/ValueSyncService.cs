@@ -122,11 +122,12 @@ namespace TempManager.BL.SyncService
 				{
 					// Zjištěné hodnoty.
 					var roomValues = new List<(DL.Entities.Room room, DL.Entities.JsonTypes.RoomValue value)>();
-					var changesToPromote = new List<SetTemperature>();
 
 					// Každou místnost synchronizuji.
-					foreach (var apiRoom in apiRooms)
+					for (var index = 0; index < apiRooms.Length; index++)
 					{
+						var apiRoom = apiRooms[index];
+
 						// Pokud patro neexistuje, tak ho vytvořím.
 						if (!existingRooms.TryGetValue(apiRoom.Name, out DL.Entities.Room room))
 						{
@@ -154,8 +155,20 @@ namespace TempManager.BL.SyncService
 									// Teplota je +- 0.01 stejná, pokusím se udělat promote změny.
 									if (Math.Abs(current.OldTemperature - apiRoom.DesiredTemperature) < IsSameThreshold)
 									{
-										changesToPromote.Add(current);
-										apiRoom.SetDesiredTemperature(current.NewTemperature);
+										// Promítnu do API.
+										var success = await this.apiService.SetTemperatures(
+											apiVariable,
+											new ApiSetTemperature(index, current.NewTemperature)
+										);
+
+										// Nastavím výsledek.
+										current.SetResult(success ? SetTemperatureResult.Success : SetTemperatureResult.Failed);
+
+										// Nakonec přihodím i do aktuálních dat, ať se promítne co nejdřív.
+										if (success)
+										{
+											apiRoom.SetDesiredTemperature(current.NewTemperature);
+										}
 									}
 									// Někdo mi změnil externě, ignoruji.
 									else
@@ -208,16 +221,8 @@ namespace TempManager.BL.SyncService
 
 					// Historii uložím.
 					await this.repositoriesFactory.FloorHistoryRepository.Add(
-						DL.Entities.FloorHistory.Create(floor.Value, syncTime, toSave)
+						FloorHistory.Create(floor.Value, syncTime, toSave)
 					);
-
-					// Pokud mám promítnout změny.
-					if (changesToPromote.Count > 0)
-					{
-						var success = await this.apiService.PutValues(apiVariable, apiRooms);
-						var desiredState = success ? SetTemperatureResult.Success : SetTemperatureResult.Failed;
-						changesToPromote.ForEach(ch => ch.SetResult(desiredState));
-					}
 				}
 
 				// Uložím změny.

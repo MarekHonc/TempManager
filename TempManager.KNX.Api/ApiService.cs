@@ -60,15 +60,20 @@ namespace TempManager.KNX.Api
 		/// <summary>
 		/// Vrací hodnoty proměnné z API.
 		/// </summary>
-		public async Task<ApiValue[]> GetValues(ApiVariable variable)
+		public async Task<ApiValue[]> GetValues(ApiVariable variable, bool filterEmpty = true)
 		{
 			var endPoint = string.Format(ApiConstants.GetVariableValue, variable.Name);
 			Func<string, ApiValue[]> parseResponse = (json) =>
 			{
 				var data = JsonConvert.DeserializeObject<Dictionary<string, ApiValue[]>>(json);
-				var filteredCollection = data[variable.Name].Where(d => !string.IsNullOrEmpty(d.Name)).ToArray();
 
-				return filteredCollection;
+				if (filterEmpty)
+				{
+					var filteredCollection = data[variable.Name].Where(d => !string.IsNullOrEmpty(d.Name)).ToArray();
+					return filteredCollection;
+				}
+
+				return data[variable.Name];
 			};
 
 			// Stáhnu výsledek a zkontroluji, zda api něco vrátilo.
@@ -82,12 +87,19 @@ namespace TempManager.KNX.Api
 		/// <summary>
 		/// Promítne změny do API.
 		/// </summary>
-		public Task<bool> PutValues(ApiVariable variable, ApiValue[] newVariables)
+		public async Task<bool> SetTemperatures(ApiVariable variable, ApiSetTemperature newTemperature)
 		{
-			//var result = await Put(variable, newVariables);
+			// Poskládám endpoint.
+			var endpoint = string.Format(
+				ApiConstants.SetTemperature,
+				variable.Name,
+				(newTemperature.ArrayIndex + 1),
+				Math.Round(newTemperature.DesiredTemperature, 2)
+			);
 
-			// TODO: update... Na tom PLC mi to nějak nefachčí...
-			return Task.FromResult(true);
+			// Udělám GET -> chci nahrát pouze 1 hodnotu, při úspěchu vrací prázdnou 200.
+			var result = await GetResponse<bool>(endpoint, (json) => true);
+			return result;
 		}
 
 		#region private helpers
@@ -131,46 +143,6 @@ namespace TempManager.KNX.Api
 				return parseResponse(jsonResult);
 			}
 		}
-
-		private async Task<T> Put<T>(string endPoint, Func<string, T> parseResponse)
-		{
-			using (var httpClient = new HttpClient())
-			{
-				// Header
-				var authorization = new AuthenticationHeaderValue(
-					"Basic", Base64Encode($"{this.apiSettings.UserName}:{this.apiSettings.Password}")
-				);
-
-				// Výchozí nastavení.
-				httpClient.BaseAddress = new Uri(this.apiSettings.Url);
-				httpClient.DefaultRequestHeaders.Authorization = authorization;
-
-				HttpResponseMessage response;
-
-				// Samotné provedení požadavku.
-				try
-				{
-					string jsonString = JsonConvert.SerializeObject(endPoint);
-					HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-					response = await httpClient.PutAsync(endPoint, content);
-				}
-				catch
-				{
-					return default(T);
-				}
-
-				// Cokoli jiného než 200 vracím výchozí hodnotu.
-				if (!response.IsSuccessStatusCode)
-					return default(T);
-
-				// Přečtu odpověď jako string.
-				var jsonResult = await response.Content.ReadAsStringAsync();
-
-				// A transformuji na požadovaný objekt.
-				return parseResponse(jsonResult);
-			}
-		}
-
 
 		/// <summary>
 		/// Vrací předaný string konvertovaný do base 64.
