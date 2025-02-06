@@ -9,6 +9,7 @@
 		Rooms,
 		UserRights,
 		SetTemperature,
-		RoomValues
+		RoomValues,
+		Feedback
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Interfaces;
@@ -34,6 +35,16 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Vrací nebo nastavuje kdy byla zpětná vazba pořízena.
+		/// </summary>
+		[Required]
+		public DateTimeOffset RatedAt
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje hodnocení na škále 1-10.
 		/// </summary>
 		public int Rating
@@ -45,6 +56,7 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Vrací nebo nastavuje text hodnocení.
 		/// </summary>
+		[Required]
 		public string Note
 		{
 			get;
@@ -71,6 +83,8 @@ namespace TempManager.DL.Entities
 
 			return new Feedback()
 			{
+				// TODO: Na produkci se 16:09 ukazuje jako 03:09
+				RatedAt = DateTimeOffset.UtcNow,
 				UserId = userId,
 				Rating = rating,
 				Note = note

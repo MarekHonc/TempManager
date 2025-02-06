@@ -106,6 +106,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zpětná vazba.
+        /// </summary>
+        public static string Feedback {
+            get {
+                return ResourceManager.GetString("Feedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jméno.
         /// </summary>
         public static string FirstName {
@@ -214,11 +223,29 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Poznámka.
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to X a Y pozice musí být nastavena nebo prázdná.
         /// </summary>
         public static string PositionMustBeSet {
             get {
                 return ResourceManager.GetString("PositionMustBeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hodnocení.
+        /// </summary>
+        public static string Rating {
+            get {
+                return ResourceManager.GetString("Rating", resourceCulture);
             }
         }
         

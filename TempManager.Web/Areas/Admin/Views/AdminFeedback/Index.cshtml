@@ -1,0 +1,54 @@
+﻿@using TempManager.Web.Areas.Admin.Localization
+@model TempManager.Web.Areas.Admin.Models.AdminBaseViewModel
+
+@{
+	ViewData["Title"] = AdminResources.Feedback;
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+{
+	<script src="~/js/models/app.feedback.model.js"></script>
+}
+
+<h2>@AdminResources.Feedback</h2>
+
+<div id="feedback-app">
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<caption>@AdminResources.Feedback</caption>
+			<thead>
+				<tr>
+					<th>@AdminResources.Date</th>
+					<th>@AdminResources.User</th>
+					<th>@AdminResources.Rating</th>
+					<th>@AdminResources.Note</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- ko foreach: rows -->
+				<tr>
+					<td data-bind="text: date"></td>
+					<td data-bind="text: userName"></td>
+					<td data-bind="text: rating"></td>
+					<td data-bind="text: note"></td>
+				</tr>
+				<!-- /ko -->
+			</tbody>
+		</table>
+	</div>
+	<!-- ko if: hasNext -->
+	<div class="row text-center">
+		<a href="_" data-bind="click: loadNext">@AdminResources.NextPage</a>
+	</div>
+	<!-- /ko -->
+</div>
+
+<div id="auto-complete-holder"></div>
+
+<script type="text/javascript">
+	let model = new feedbackModel({
+		url: "@Url.Action("List", "AdminFeedback")"
+	});
+	ko.applyBindings(model, document.getElementById("feedback-app"));
+</script>

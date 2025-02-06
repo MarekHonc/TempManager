@@ -258,4 +258,13 @@
   <data name="Rh" xml:space="preserve">
     <value>Rh</value>
   </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Zpětná vazba</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Poznámka</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Hodnocení</value>
+  </data>
 </root>
