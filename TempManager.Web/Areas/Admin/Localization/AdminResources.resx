@@ -169,7 +169,7 @@
     <value>Maximální délka pole '{0}' je '{1}'</value>
   </data>
   <data name="Temperature" xml:space="preserve">
-    <value>Teplota [°C]</value>
+    <value>Teplota [&amp;deg;C]</value>
   </data>
   <data name="UserRights" xml:space="preserve">
     <value>Oprávnění</value>
@@ -199,7 +199,7 @@
     <value>Uživatelské jméno</value>
   </data>
   <data name="UserRightsTitle" xml:space="preserve">
-    <value>Oprávenění {0}</value>
+    <value>Oprávnění {0}</value>
   </data>
   <data name="SearchRooms" xml:space="preserve">
     <value>Vyhledat místnosti</value>
@@ -214,7 +214,7 @@
     <value>Místnost</value>
   </data>
   <data name="SetTemperatureTo" xml:space="preserve">
-    <value>Požadovaná teplota [°C]</value>
+    <value>Požadovaná teplota [&amp;deg;C]</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>Uživatel</value>
@@ -256,7 +256,7 @@
     <value>CO2</value>
   </data>
   <data name="Rh" xml:space="preserve">
-    <value>Rh</value>
+    <value>Vlhkost [%]</value>
   </data>
   <data name="Feedback" xml:space="preserve">
     <value>Zpětná vazba</value>

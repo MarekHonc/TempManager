@@ -135,8 +135,11 @@
   <data name="Feedback" xml:space="preserve">
     <value>Zpětná vazba</value>
   </data>
+  <data name="Floor" xml:space="preserve">
+    <value>Podlaží</value>
+  </data>
   <data name="List" xml:space="preserve">
-    <value>Zobrazit seznam</value>
+    <value>Seznam</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Načítání</value>
@@ -145,7 +148,7 @@
     <value>Odhlásit</value>
   </data>
   <data name="Map" xml:space="preserve">
-    <value>Zobrazit mapu</value>
+    <value>Mapa</value>
   </data>
   <data name="NoMap" xml:space="preserve">
     <value>Není k dispozici žádná mapa</value>
@@ -184,10 +187,13 @@
     <value>Hodnota {0} je povinná</value>
   </data>
   <data name="Rh" xml:space="preserve">
-    <value>Rh</value>
+    <value>Vlhkost [%]</value>
   </data>
   <data name="Room" xml:space="preserve">
     <value>Místnost</value>
+  </data>
+  <data name="Rooms" xml:space="preserve">
+    <value>Místnosti</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Hledat</value>

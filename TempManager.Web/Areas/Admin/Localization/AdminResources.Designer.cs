@@ -268,7 +268,7 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rh.
+        ///   Looks up a localized string similar to Vlhkost [%].
         /// </summary>
         public static string Rh {
             get {
@@ -394,7 +394,7 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Požadovaná teplota [°C].
+        ///   Looks up a localized string similar to Požadovaná teplota [&amp;deg;C].
         /// </summary>
         public static string SetTemperatureTo {
             get {
@@ -412,7 +412,7 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teplota [°C].
+        ///   Looks up a localized string similar to Teplota [&amp;deg;C].
         /// </summary>
         public static string Temperature {
             get {
@@ -457,7 +457,7 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oprávenění {0}.
+        ///   Looks up a localized string similar to Oprávnění {0}.
         /// </summary>
         public static string UserRightsTitle {
             get {

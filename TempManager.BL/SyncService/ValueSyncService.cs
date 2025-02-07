@@ -11,7 +11,7 @@ namespace TempManager.BL.SyncService
 	/// <summary>
 	/// Job na pozadí, který synchronizuje hodnoty z API vůči lokální databázi.
 	/// </summary>
-	public class ValueSyncService
+	public class ValueSyncService : IValueSyncService
 	{
 		private const double IsSameThreshold = 0.01;
 
@@ -234,6 +234,17 @@ namespace TempManager.BL.SyncService
 
 			// A vracím aktuální hodnoty.
 			return result;
+		}
+
+		/// <summary>
+		/// Vrací datum a čas poslední synchronizace.
+		/// </summary>
+		public async Task<DateTimeOffset> GetLatestSyncTime()
+		{
+			var query = new FloorHistoryLatestQuery();
+			var result = await this.repositoriesFactory.FloorHistoryRepository.FetchOne(query);
+
+			return result?.Date ?? DateTimeOffset.MinValue;
 		}
 	}
 }

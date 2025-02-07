@@ -18,7 +18,7 @@ namespace TempManager.BL.Services.Implementations.Direct
 			apiService = ApiServiceFactory.GetService(apiSettings);
 		}
 
-		public async Task<Room[]> GetRooms(int floorId)
+		public async Task<Room[]> GetRooms(int? floorId)
 		{
 			if (!await apiService.Ping())
 				throw new Exception("Direct connection - api must be up!");
@@ -33,6 +33,7 @@ namespace TempManager.BL.Services.Implementations.Direct
 				var r = new Room(
 					int.Parse(Regex.Match(room.Name, @"\d+").Value),
 					room.Name,
+					string.Empty,
 					room.Name,
 					true,
 					false,

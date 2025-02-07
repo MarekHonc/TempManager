@@ -1,7 +1,16 @@
 ﻿@using TempManager.Web.Localization
 @model MainViewModel
 
-<script src="~/js/pan.and.zoom.js"></script>
+@if (Model.IsOnline)
+{
+	ViewData["Title"] = Resources.Offline_Title;
+	await Html.RenderPartialAsync("../Home/Offilne", Model);
+	return;
+}
+
+@{
+	ViewData["Title"] = Model.SelectedFloor.Name;
+}
 
 <style>
 	body {
@@ -45,9 +54,9 @@
 
 	@* Inicializace modelu *@
 	var model = new appModel({
-		roomsUrl: "@Url.Action("GetRooms", "Floor", new { friendlyId = Model.SelectedFloor.FriendlyId })",
-		saveFavoriteUrl: "@Url.Action("SaveToFavorite", "Floor")",
-		setTemperatureUrl: "@Url.Action("SetTemperature", "Floor")",
+		roomsUrl: "@Url.Action("GetRooms", "Map", new { friendlyId = Model.SelectedFloor.FriendlyId })",
+		saveFavoriteUrl: "@Url.Action("SaveToFavorite", "Room")",
+		setTemperatureUrl: "@Url.Action("SetTemperature", "Room")",
 		group: "@Model.SelectedFloor.FriendlyId"
 	});
 

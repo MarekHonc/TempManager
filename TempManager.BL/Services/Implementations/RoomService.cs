@@ -19,7 +19,7 @@ namespace TempManager.BL.Services
 		}
 
 		/// <inheritdoc cref="GetRooms"/>
-		public async Task<Room[]> GetRooms(int floorId)
+		public async Task<Room[]> GetRooms(int? floorId = null)
 		{
 			var user = await this.userService.GetCurrentUser();
 
@@ -29,22 +29,27 @@ namespace TempManager.BL.Services
 			var userRightDictionary = userRights.ToDictionary(k => k.RoomId);
 
 			// Získám místnosti.
-			var roomsQuery = new RoomsByFloorIdQuery(floorId);
+			var roomsQuery = new RoomsByFloorIdQuery(floorId)
+				.Include(nameof(DL.Entities.Room.Floor));
+
 			var rooms = (await this.repositoriesFactory.RoomRepository.Fetch(roomsQuery))
 				.ToDictionary(k => k.ExternalId, v => v);
 
 			// Získám poslední hodnoty.
 			var historyQuery = new FloorHistoryLatestQuery(floorId);
-			var history = await this.repositoriesFactory.FloorHistoryRepository.FetchOne(historyQuery);
+			var historyResult = await this.repositoriesFactory.FloorHistoryRepository.Fetch(historyQuery);
+			var history = historyResult
+				.SelectMany(r => r.RoomValues)
+				.ToArray();
 
-			if (history == null)
+			if (history.Length == 0)
 				return [];
 
 			// A jdu poskládat výsledek.
-			var result = new Room[history.RoomValues.Count];
+			var result = new Room[history.Length];
 			var index = 0;
 
-			foreach (var roomValue in history.RoomValues)
+			foreach (var roomValue in history)
 			{
 				// Našel jsem místnost.
 				if (rooms.TryGetValue(roomValue.ExternalRoomId, out var room))

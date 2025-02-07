@@ -2,21 +2,13 @@
 @using TempManager.Common
 @model BaseViewModel
 
-@{
-	var mainModel = Model as MainViewModel;
-}
-
 @* Mapa jako jediná má jiné zobrazení. *@
-@if (mainModel is { FloorViewType: FloorViewType.Map })
+@if (Model.WebLocation == WebLocation.Map)
 {
 	<div class="navbar-dark" id="nav-fixed">
 		<button class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" href="#main-nav" role="button">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-	</div>
-
-	<div id="view-switcher">
-		@await Html.PartialAsync("_UserMenu", Model)
 	</div>
 }
 else
@@ -25,8 +17,6 @@ else
 		<button class="navbar-toggler btn" type="button" data-bs-toggle="offcanvas" href="#main-nav" role="button">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		
-		@await Html.PartialAsync("_UserMenu", Model)
 	</div>
 }
 
@@ -36,32 +26,55 @@ else
 	</div>
 	<div class="offcanvas-body">
 		<div class="list-group list-group-flush">
-			@foreach (var floor in Model.Floors)
-			{
-				var isSelected = Model.WebLocation == WebLocation.Floor && floor.FriendlyId == Model.SelectedFloor.FriendlyId;
-
-				<a href="@Url.Action("Floor", "Home", new { floor.FriendlyId })"
-				class="list-group-item list-group-item-action @(isSelected ? "active" : string.Empty)" @(isSelected ? "aria-current=\"true\"" : string.Empty)>
-					@floor.Name
-				</a>
+			@{
+				var isListSelected = Model.WebLocation == WebLocation.List;
 			}
+
+			<a href="@Url.Action("Index", "List")"
+			   class="list-group-item list-group-item-action @(isListSelected ? "active" : string.Empty)" @(isListSelected ? "aria-current=\"true\"" : string.Empty)>
+				@Resources.List
+			</a>
+
+			@{
+				var isMapSelected = Model.WebLocation == WebLocation.Map;
+			}
+
+			<a href="#floors" data-bs-toggle="collapse" role="button" aria-expanded="@(isMapSelected ? "true" : "false")" aria-controls="floors"
+			   class="list-group-item list-group-item-action">
+				@Resources.Map
+			</a>
+
+			<div class="collapse @(isMapSelected ? "show" : string.Empty)" id="floors">
+				@foreach (var floor in Model.Floors)
+				{
+					var isFloorSelected = isMapSelected && floor.FriendlyId == Model.SelectedFloor.FriendlyId;
+
+					<a href="@Url.Action("Index", "Map", new { floor.FriendlyId })"
+					   class="list-group-item list-group-item-action @(isFloorSelected ? "active" : string.Empty)" @(isFloorSelected ? "aria-current=\"true\"" : string.Empty)>
+						@floor.Name
+					</a>
+				}
+			</div>
 
 			@{
 				var isFeedbackSelected = Model.WebLocation == WebLocation.FeedBackForm;
 			}
 
 			<a href="@Url.Action("Index", "Feedback")"
-			class="list-group-item list-group-item-action @(isFeedbackSelected ? "active" : string.Empty)" @(isFeedbackSelected ? "aria-current=\"true\"" : string.Empty)>
+			   class="list-group-item list-group-item-action @(isFeedbackSelected ? "active" : string.Empty)" @(isFeedbackSelected ? "aria-current=\"true\"" : string.Empty)>
 				@Resources.Feedback
 			</a>
 
 			@if (Model.CurrentUser.IsAdmin)
 			{
 				<a href="@Url.Action("Index", "AdminFloor", new { area = "Admin" })"
-				class="list-group-item list-group-item-action">
+				   class="list-group-item list-group-item-action">
 					@Resources.Admin
 				</a>
 			}
+
+			@* ReSharper disable once Html.PathError *@
+			<a class="list-group-item list-group-item-action" href="/Shibboleth.sso/Logout">@Resources.LogOut</a>
 		</div>
 	</div>
 </div>

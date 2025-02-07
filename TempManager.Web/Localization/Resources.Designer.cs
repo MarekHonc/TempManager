@@ -115,7 +115,16 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zobrazit seznam.
+        ///   Looks up a localized string similar to Podlaží.
+        /// </summary>
+        public static string Floor {
+            get {
+                return ResourceManager.GetString("Floor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seznam.
         /// </summary>
         public static string List {
             get {
@@ -142,7 +151,7 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zobrazit mapu.
+        ///   Looks up a localized string similar to Mapa.
         /// </summary>
         public static string Map {
             get {
@@ -259,7 +268,7 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rh.
+        ///   Looks up a localized string similar to Vlhkost [%].
         /// </summary>
         public static string Rh {
             get {
@@ -273,6 +282,15 @@ namespace TempManager.Web.Localization {
         public static string Room {
             get {
                 return ResourceManager.GetString("Room", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Místnosti.
+        /// </summary>
+        public static string Rooms {
+            get {
+                return ResourceManager.GetString("Rooms", resourceCulture);
             }
         }
         

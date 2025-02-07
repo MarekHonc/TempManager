@@ -1,4 +1,5 @@
 ﻿@using TempManager.Common
+@using TempManager.Web.Localization
 @using TempManager.Web.Areas.Admin.Localization
 @model TempManager.Web.Areas.Admin.Models.AdminBaseViewModel
 
@@ -33,8 +34,11 @@
 			</ul>
 		</div>
 		
-		<div class="position-absolute top-0 end-0">
-			@await Html.PartialAsync("_UserMenu", Model)
-		</div>
+		<ul class="navbar-nav position-absolute top-0 end-0">
+			<li class="nav-item">
+				@* ReSharper disable once Html.PathError *@
+				<a class="nav-link" href="/Shibboleth.sso/Logout">@Resources.LogOut</a>
+			</li>
+		</ul>
 	</div>
 </nav>

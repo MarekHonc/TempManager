@@ -1,39 +1,14 @@
 ﻿@using TempManager.Common
-@using TempManager.Web.Localization
 @model MainViewModel
 
-@section Scripts
+@switch (Model.WebLocation)
 {
-	<script src="~/lib/underscore.js/underscore.min.js"></script>
-	<script src="~/lib/knockout/knockout-latest.min.js"></script>
-	<script src="~/lib/microsoft-signalr/signalr.min.js"></script>
-	<script src="~/js/observable.dictionary.js"></script>
-	<script src="~/js/knockout.custom.js"></script>
-
-	<script src="~/js/models/room.model.js"></script>
-	<script src="~/js/models/app.model.js"></script>
-}
-
-
-@if (Model.IsOnline)
-{
-	ViewData["Title"] = Model.SelectedFloor.Name;
-
-	switch (Model.FloorViewType)
-	{
-		case FloorViewType.Map:
-			await Html.RenderPartialAsync("../Floor/Map", Model);
-			break;
-		case FloorViewType.List:
-			await Html.RenderPartialAsync("../Floor/List", Model);
-			break;
-		default:
-			throw new Exception($"View type {Model.FloorViewType} is not supported!");
-	}
-}
-else
-{
-	ViewData["Title"] = Resources.Offline_Title;
-
-	await Html.RenderPartialAsync("Offilne", Model);
+	case WebLocation.Map:
+		await Html.RenderPartialAsync("../Map/Index", Model);
+		break;
+	case WebLocation.List:
+		await Html.RenderPartialAsync("../List/Index", Model);
+		break;
+	default:
+		throw new Exception($"Web location {Model.WebLocation} is not supported!");
 }

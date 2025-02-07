@@ -69,7 +69,7 @@ namespace TempManager.Web.HostedServices
 			using (var scope = this.serviceProvider.CreateScope())
 			{
 				// Získání závislostí.
-				var syncService = scope.ServiceProvider.GetService<ValueSyncService>();
+				var syncService = scope.ServiceProvider.GetService<IValueSyncService>();
 
 				// 1. synchronizuji podlaží.
 				var floors = await syncService.SyncFloors();
@@ -87,6 +87,7 @@ namespace TempManager.Web.HostedServices
 
 				// A pošlu na web sockety.
 				// TODO: nefunguje na produkci.
+				// TODO: Teď to nebude fungovat protože groups.... možná roomy?
 				await this.hubContext.Clients.Group(value.Key.FriendlyId).SendAsync("ReceiveMessage", value.Value);
 			}
 		}

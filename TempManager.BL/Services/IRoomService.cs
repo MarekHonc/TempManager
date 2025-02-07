@@ -8,9 +8,9 @@ namespace TempManager.BL.Services
 	public interface IRoomService
 	{
 		/// <summary>
-		/// Vrací místnosti pro dané podlaží.
+		/// Vrací místnosti na které má aktuálně přihlášený uživatel právo.
 		/// </summary>
-		Task<Room[]> GetRooms(int floorId);
+		Task<Room[]> GetRooms(int? floorId = null);
 
 		/// <summary>
 		/// Nastaví teplotu v dané místnosti.

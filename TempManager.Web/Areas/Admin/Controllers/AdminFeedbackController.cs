@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Services;
+using TempManager.BL.SyncService;
 using TempManager.Common;
 using TempManager.Common.Extensions;
 using TempManager.DL.Entities;
@@ -16,8 +17,8 @@ namespace TempManager.Web.Areas.Admin.Controllers
 	{
 		private readonly int pageSize = 20;
 
-		public AdminFeedbackController(RepositoriesFactory repositoriesFactory, IFloorService floorService, IUserService userService)
-			: base(repositoriesFactory, floorService, userService)
+		public AdminFeedbackController(RepositoriesFactory repositoriesFactory, IFloorService floorService, IUserService userService, IValueSyncService syncService)
+			: base(repositoriesFactory, floorService, userService, syncService)
 		{
 		}
 

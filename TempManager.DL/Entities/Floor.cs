@@ -121,7 +121,7 @@ namespace TempManager.DL.Entities
 				ExternalId = externalId,
 				FriendlyId = externalId,
 				Name = externalId,
-				IsHidden = false
+				IsHidden = true
 			};
 
 			// Vracím nové podlaží.

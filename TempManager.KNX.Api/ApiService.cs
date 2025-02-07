@@ -65,15 +65,23 @@ namespace TempManager.KNX.Api
 			var endPoint = string.Format(ApiConstants.GetVariableValue, variable.Name);
 			Func<string, ApiValue[]> parseResponse = (json) =>
 			{
-				var data = JsonConvert.DeserializeObject<Dictionary<string, ApiValue[]>>(json);
-
-				if (filterEmpty)
+				try
 				{
-					var filteredCollection = data[variable.Name].Where(d => !string.IsNullOrEmpty(d.Name)).ToArray();
-					return filteredCollection;
-				}
+					var data = JsonConvert.DeserializeObject<Dictionary<string, ApiValue[]>>(json);
 
-				return data[variable.Name];
+					if (filterEmpty)
+					{
+						var filteredCollection =
+							data[variable.Name].Where(d => !string.IsNullOrEmpty(d.Name)).ToArray();
+						return filteredCollection;
+					}
+
+					return data[variable.Name] ?? Array.Empty<ApiValue>();
+				}
+				catch
+				{
+					return Array.Empty<ApiValue>();
+				}
 			};
 
 			// Stáhnu výsledek a zkontroluji, zda api něco vrátilo.

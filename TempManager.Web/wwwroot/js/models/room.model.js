@@ -15,6 +15,11 @@ function roomModel(room, initData) {
 	self.name = ko.observable(room.name);
 
 	/**
+	 * Název podlaží.
+	 */
+	self.floorName = ko.observable(room.floorName);
+
+	/**
 	 * Externí identifikátor místnosti.
 	 */
 	self.externalId = ko.observable(room.externalId);
@@ -54,11 +59,6 @@ function roomModel(room, initData) {
 	}
 
 	/**
-	 * Aktuální templota.
-	 */
-	self.temperature = ko.observable(room.temperature);
-
-	/**
 	 * Zformátovaná teplota.
 	 */
 	self.temperatureFormatted = ko.observable(room.temperatureFormatted);
@@ -71,10 +71,18 @@ function roomModel(room, initData) {
 	/**
 	 * Nastavená teplota.
 	 */
-	self.desiredTemperature = ko.observable(new valueHolder(room.desiredTemperature, room.desiredTemperature));
+	self.desiredTemperature = ko.observable(new valueHolder(room.desiredTemperatureFormatted, room.desiredTemperatureFormatted));
 	self.desiredTemperature().inputValue.subscribe(function (newValue) {
 		debouncedhandleTemperatureChange();
 	});
+
+	/**
+	 * Nastaví novou teplotu -> přidá nebo odebere krok podle předaného směru.
+	 */
+	self.changeTemperature = function (direction) {
+		let odlTemperature = parseFloat(self.desiredTemperature().inputValue());
+		self.desiredTemperature().inputValue(odlTemperature + direction * 0.5);
+	}
 
 	/**
 	 * Zpracování změny teploty.
@@ -115,13 +123,12 @@ function roomModel(room, initData) {
 	 * Updatuje hodnoty pro zobrazení.
 	 */
 	self.update = function (room) {
-		self.temperature(room.temperature);
 		self.temperatureFormatted(room.temperatureFormatted);
 		self.rh(room.rh);
 		self.valveOpen(room.valveOpen);
 
-		self.desiredTemperature().dsValue(room.desiredTemperature);
-		self.desiredTemperature().inputValue(room.desiredTemperature);
+		self.desiredTemperature().dsValue(room.desiredTemperatureFormatted);
+		self.desiredTemperature().inputValue(room.desiredTemperatureFormatted);
 	}
 }
 

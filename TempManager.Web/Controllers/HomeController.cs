@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Services;
+using TempManager.BL.SyncService;
 using TempManager.Common;
 using TempManager.Web.Code;
-using TempManager.Web.Models;
 
 namespace TempManager.Web.Controllers
 {
@@ -13,8 +13,8 @@ namespace TempManager.Web.Controllers
 	{
 		private readonly CookieManager cookieManager;
 
-		public HomeController(IFloorService floorService, IUserService userService, CookieManager cookieManager)
-			: base(floorService, userService)
+		public HomeController(IFloorService floorService, IUserService userService, CookieManager cookieManager, IValueSyncService syncService)
+			: base(floorService, userService, syncService)
 		{
 			this.cookieManager = cookieManager;
 		}
@@ -25,51 +25,24 @@ namespace TempManager.Web.Controllers
 		[Route("/")]
 		public async Task<IActionResult> Index()
 		{
-			return await GetView();
-		}
+			// Podle poslední zobrazené hodnoty natáhnu model.
+			var lastValue = this.cookieManager.Get(CookieManager.FloorViewTypeCookieName, FloorViewType.List);
+			IActionResult result = null;
 
-		/// <summary>
-		/// Vrací stránku pro zobrazení konkrétního podlaží.
-		/// </summary>
-		[Route("/Floor/{friendlyId}")]
-		public async Task<IActionResult> Floor(string friendlyId)
-		{
-			// Vytáhnu podlaží.
-			var floor = await this.floorService.GetByFriendlyId(friendlyId);
-			if (floor == null)
-				return NotFound($"Floor {friendlyId} does not exist!");
+			// Podle typu inicializuji model.
+			switch (lastValue)
+			{
+				case FloorViewType.List:
+					result = await GetMainView(WebLocation.List);
+					break;
+				case FloorViewType.Map:
+					result = await GetMainView(WebLocation.Map);
+					break;
+				default:
+					throw new Exception($"{lastValue} view type is not supported!");
+			}
 
-			// Uložím jako poslední zobrazené.
-			await this.floorService.SaveLastSelectedFloor(floor.Id);
-
-			// A vrátím konkrétní view.
-			return await GetView();
-		}
-
-		/// <summary>
-		/// Pøepne zobrazení v daném prohlížeèi pro klienta.
-		/// </summary>
-		public IActionResult SwitchView(FloorViewType viewType)
-		{
-			this.cookieManager.Save(CookieManager.FloorViewTypeCookieName, viewType);
-			return RedirectToAction(nameof(Index));
-		}
-
-		/// <summary>
-		/// Vrací konkrétní zobrazení pro aplikaci.
-		/// </summary>
-		private async Task<IActionResult> GetView()
-		{
-			var model = await FetchModel(WebLocation.Floor, new MainViewModel());
-
-			// Pokud nemám ani jedno podlaží, apka není inicializovaná.
-			if (model.Floors.Length == 0)
-				return View("NotInitialized");
-
-			// Inicializace modelu.
-			model.Init(this.cookieManager);
-
-			return View("Index", model);
+			return result;
 		}
 	}
 }

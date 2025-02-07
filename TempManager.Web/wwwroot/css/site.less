@@ -61,9 +61,20 @@ a:hover {
 
 	.temperature {
 		text-align: right;
+	}
 
-		input {
-			text-align: right;
+	.temperature-control {
+		color: @mainColor;
+		font-size: 20px;
+		font-weight: bold;
+		padding: 5px;
+		width: 20px;
+		cursor: pointer;
+		display: inline-block;
+		user-select: none;
+
+		&:hover {
+			color: @mainColorDarker
 		}
 	}
 

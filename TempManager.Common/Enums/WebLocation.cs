@@ -6,9 +6,14 @@
 	public enum WebLocation
 	{
 		/// <summary>
-		/// Zobrazení podlaží.
+		/// Zobrazení seznamu místností.
 		/// </summary>
-		Floor,
+		List,
+
+		/// <summary>
+		/// Zobrazení mapy budovy.
+		/// </summary>
+		Map,
 
 		/// <summary>
 		/// Zobrazení feedback formuláře.

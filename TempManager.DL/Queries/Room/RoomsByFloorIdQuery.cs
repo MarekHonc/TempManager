@@ -7,16 +7,26 @@ namespace TempManager.DL.Queries
 	/// </summary>
 	public class RoomsByFloorIdQuery : QueryObjectBase<Room>
 	{
-		private readonly int floorId;
+		private readonly int? floorId;
 
-		public RoomsByFloorIdQuery(int floorId)
+		public RoomsByFloorIdQuery(int? floorId)
 		{
 			this.floorId = floorId;
 		}
 
 		protected override IQueryable<Room> CreateQuery(TempManagerContext dbContext)
 		{
-			return dbContext.Rooms.Where(r => r.FloorId == this.floorId);
+			var query = dbContext.Rooms
+				.Where(r => !r.Floor.IsHidden);
+
+			if (this.floorId.HasValue)
+			{
+				query = query.Where(r => r.FloorId == this.floorId);
+			}
+
+			return query
+				.OrderBy(r => r.Floor.Name)
+				.ThenBy(r => r.Name);
 		}
 	}
 }

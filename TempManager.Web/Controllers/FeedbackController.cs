@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Services;
+using TempManager.BL.SyncService;
 using TempManager.Common;
 using TempManager.Web.Models;
 
@@ -12,8 +13,8 @@ namespace TempManager.Web.Controllers
 	{
 		private readonly IFeedbackService feedbackService;
 
-		public FeedbackController(IFloorService floorService, IUserService userService, IFeedbackService feedbackService)
-			: base(floorService, userService)
+		public FeedbackController(IFloorService floorService, IUserService userService, IFeedbackService feedbackService, IValueSyncService syncService)
+			: base(floorService, userService, syncService)
 		{
 			this.feedbackService = feedbackService;
 		}

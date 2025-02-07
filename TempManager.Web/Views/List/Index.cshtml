@@ -1,11 +1,22 @@
 ﻿@using TempManager.Web.Localization
 @model MainViewModel
 
+@if (Model.IsOnline)
+{
+	ViewData["Title"] = Resources.Offline_Title;
+	await Html.RenderPartialAsync("../Home/Offilne", Model);
+	return;
+}
+
+@{
+	ViewData["Title"] = Resources.List;
+}
+
 <div id="list-app" class="container mt-5">
 	@await Html.PartialAsync("_Loader")
 
 	<div class="row justify-content-between">
-		<h3 class="col-auto">@Model.SelectedFloor.Name</h3>
+		<h3 class="col-auto">@Resources.Rooms</h3>
 		<div class="col-auto row align-items-center">
 			<div class="col-auto">
 				<input class="form-check-input" data-bind="checked: onlyFavorites" type="checkbox" id="only-favorites">
@@ -26,13 +37,14 @@
 	<!-- ko if: filteredRooms().length > 0 -->
 	<div class="table-responsive">
 		<table class="table table-bordered table-striped">
-			<caption>@Model.SelectedFloor.Name</caption>
+			<caption>@Resources.Rooms</caption>
 			<thead>
 				<tr>
 					<th>@Resources.Room</th>
+					<th>@Resources.Floor</th>
 					<th class="temperature">@Html.Raw(Resources.Temperature)</th>
 					<th class="temperature">@Html.Raw(Resources.DesiredTempereture)</th>
-					<th>@Resources.Rh</th>
+					<th class="temperature">@Resources.Rh</th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -41,14 +53,19 @@
 				<!-- ko foreach: filteredRooms -->
 				<tr>
 					<td data-bind="text: name"></td>
+					<td data-bind="text: floorName"></td>
 					<td class="temperature" data-bind="text: temperatureFormatted"></td>
 					<!-- ko if: hasRightToEdit -->
-					<td class="temperature"><input data-bind="value: desiredTemperature().inputValue, enabled: hasRightToEdit" type="number" class="form-control" /></td>
+					<td class="temperature setter">
+						<span data-bind="click: function() { changeTemperature(-1); }" class="temperature-control">-</span>
+						<span data-bind="text: desiredTemperature().inputValue, enabled: hasRightToEdit"></span>
+						<span data-bind="click: function() { changeTemperature(1); }" class="temperature-control">+</span>
+					</td>
 					<!-- /ko -->
 					<!-- ko ifnot: hasRightToEdit -->
 					<td class="temperature" data-bind="text: desiredTemperature().dsValue"></td>
 					<!-- /ko -->
-					<td data-bind="text: rh"></td>
+					<td class="temperature" data-bind="text: rh"></td>
 					<td class="center icon"><span data-bind="css: { 'heat': valveOpen(), 'freeze': !valveOpen() }"></span></td>
 					<td class="center icon"><span class="star" data-bind="css: { 'filled': isFavorite }, click: toggleFavorite"></span></td>
 				</tr>
@@ -61,10 +78,10 @@
 
 <script type="text/javascript">
 	var model = new appModel({
-		roomsUrl: "@Url.Action("GetRooms", "Floor", new { friendlyId = Model.SelectedFloor.FriendlyId })",
-		saveFavoriteUrl: "@Url.Action("SaveToFavorite", "Floor")",
-		setTemperatureUrl: "@Url.Action("SetTemperature", "Floor")",
-		group: "@Model.SelectedFloor.FriendlyId"
+		roomsUrl: "@Url.Action("GetRooms", "List")",
+		saveFavoriteUrl: "@Url.Action("SaveToFavorite", "Room")",
+		setTemperatureUrl: "@Url.Action("SetTemperature", "Room")",
+		group: "List"
 	});
 
 	ko.applyBindings(model, document.getElementById("list-app"));

@@ -160,8 +160,18 @@ a:hover {
 .table .temperature {
   text-align: right;
 }
-.table .temperature input {
-  text-align: right;
+.table .temperature-control {
+  color: #2A6872;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px;
+  width: 20px;
+  cursor: pointer;
+  display: inline-block;
+  user-select: none;
+}
+.table .temperature-control:hover {
+  color: #1E4A52;
 }
 .table .center {
   text-align: center;

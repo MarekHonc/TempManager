@@ -1,5 +1,4 @@
-﻿using TempManager.Common;
-using TempManager.Web.Code;
+﻿using TempManager.BL.SyncService;
 
 namespace TempManager.Web.Models
 {
@@ -8,19 +7,12 @@ namespace TempManager.Web.Models
 	/// </summary>
 	public class MainViewModel : BaseViewModel
 	{
+		private const int isOnlineThreshHoldMinutes = 10;
+
 		/// <summary>
 		/// Vrací, zda-li aplikace aktivně přijímá data.
 		/// </summary>
 		public bool IsOnline
-		{
-			get;
-			private set;
-		}
-
-		/// <summary>
-		/// Vrací aktuální typ zobrazení.
-		/// </summary>
-		public FloorViewType FloorViewType
 		{
 			get;
 			private set;
@@ -34,13 +26,12 @@ namespace TempManager.Web.Models
 		/// <summary>
 		/// Inicializuje model.
 		/// </summary>
-		public void Init(CookieManager cookieManager)
+		public async Task Init(IValueSyncService syncService)
 		{
-			// TODO: reálná kontrola.
-			this.IsOnline = true;
+			var latestSync = await syncService.GetLatestSyncTime();
 
-			// Načtu správné zobrazení podle cookies.
-			this.FloorViewType = cookieManager.Get(CookieManager.FloorViewTypeCookieName, FloorViewType.List);
+			// Online jsem pokud je spolední synchronizace před měně než 10 minutami.
+			this.IsOnline = latestSync >= DateTimeOffset.UtcNow.AddMinutes(isOnlineThreshHoldMinutes);
 		}
 	}
 }

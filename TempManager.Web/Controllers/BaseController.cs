@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Services;
+using TempManager.BL.SyncService;
 using TempManager.Common;
 using TempManager.Web.Code;
 using TempManager.Web.Models;
@@ -11,16 +12,18 @@ namespace TempManager.Web.Controllers
 	/// Bázový kontroler pro aplikaci.
 	/// </summary>
 	[Authorize]
-	[ShibbolethAuthorizeAttribute]
+	[ShibbolethAuthorize]
 	public class BaseController : Controller
 	{
-		protected IFloorService floorService;
-		protected IUserService userService;
+		protected readonly IFloorService floorService;
+		protected readonly IUserService userService;
+		protected readonly IValueSyncService syncService;
 
-		public BaseController(IFloorService floorService, IUserService userService)
+		public BaseController(IFloorService floorService, IUserService userService, IValueSyncService syncService)
 		{
 			this.floorService = floorService;
 			this.userService = userService;
+			this.syncService = syncService;
 		}
 
 		/// <summary>
@@ -39,6 +42,24 @@ namespace TempManager.Web.Controllers
 			model.WebLocation = webLocation;
 
 			return model;
+		}
+
+		/// <summary>
+		/// Vrací konkrétní zobrazení pro aplikaci.
+		/// </summary>
+		protected async Task<IActionResult> GetMainView(WebLocation webLocation, string viewName = "Index")
+		{
+			var model = await FetchModel(webLocation, new MainViewModel());
+
+			// Pokud nemám ani jedno podlaží, apka není inicializovaná.
+			if (model.Floors.Length == 0)
+				return View("../Home/NotInitialized");
+
+			// Inicializace modelu.
+			await model.Init(syncService);
+
+			// Vracím požadované view.
+			return View(viewName, model);
 		}
 	}
 }

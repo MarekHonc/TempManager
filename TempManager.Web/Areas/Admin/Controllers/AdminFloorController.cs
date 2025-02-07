@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Services;
+using TempManager.BL.SyncService;
 using TempManager.Common;
 using TempManager.DL.Entities;
 using TempManager.DL.Repositories;
@@ -12,8 +13,8 @@ namespace TempManager.Web.Areas.Admin.Controllers
 	/// </summary>
 	public class AdminFloorController : AdminBaseController
 	{
-		public AdminFloorController(RepositoriesFactory repositoriesFactory, IFloorService floorService, IUserService userService)
-			: base(repositoriesFactory, floorService, userService)
+		public AdminFloorController(RepositoriesFactory repositoriesFactory, IFloorService floorService, IUserService userService, IValueSyncService syncService)
+			: base(repositoriesFactory, floorService, userService, syncService)
 		{
 		}
 

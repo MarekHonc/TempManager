@@ -8,10 +8,11 @@ namespace TempManager.BL.Models
 	/// </summary>
 	public class Room
 	{
-		internal Room(int id, string name, string externalId, bool hasRightToEdit, bool isFavorite, double temperature, double rh, double desiredTemperature, bool valveOpen, double? x = null, double? y = null)
+		internal Room(int id, string name, string floorName, string externalId, bool hasRightToEdit, bool isFavorite, double temperature, double rh, double desiredTemperature, bool valveOpen, double? x = null, double? y = null)
 		{
 			this.Id = id;
 			this.Name = name;
+			this.FloorName = floorName;
 			this.ExternalId = externalId;
 			this.HasRightToEdit = hasRightToEdit;
 			this.IsFavorite = isFavorite;
@@ -35,6 +36,14 @@ namespace TempManager.BL.Models
 		/// Vrací název místnosti.
 		/// </summary>
 		public string Name
+		{
+			get;
+		}
+
+		/// <summary>
+		/// Vrací název podlaží.
+		/// </summary>
+		public string FloorName
 		{
 			get;
 		}
@@ -94,6 +103,11 @@ namespace TempManager.BL.Models
 		}
 
 		/// <summary>
+		/// Vrací zformátovanou teplotu.
+		/// </summary>
+		public string DesiredTemperatureFormatted => DesiredTemperature.ToString("0.00");
+
+		/// <summary>
 		/// Vrací zda-li je ventil otevřen.
 		/// </summary>
 		public bool ValveOpen
@@ -134,6 +148,7 @@ namespace TempManager.BL.Models
 			return new Room(
 				room.Id,
 				room.Name,
+				room.Floor.Name,
 				room.ExternalId,
 				isAdmin || userToRoom?.HasRightToEdit == true,
 				userToRoom?.IsFavorite == true,
@@ -155,6 +170,7 @@ namespace TempManager.BL.Models
 			return new Room(
 				id: 0,
 				roomValue.ExternalRoomId,
+				string.Empty,
 				roomValue.ExternalRoomId,
 				hasRightToEdit: false,
 				isFavorite: false,
