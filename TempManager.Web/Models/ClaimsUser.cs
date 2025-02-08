@@ -17,7 +17,7 @@ namespace TempManager.Web.Models
 			this.UserName = claims.FindFirst(ShibbolethClaimsType.EMAIL).Value;
 			this.FirstName = claims.FindFirst(ShibbolethClaimsType.FIRSTNAME).Value;
 			this.LastName = claims.FindFirst(ShibbolethClaimsType.LASTNAME).Value;
-			this.Affiliations = claims.FindFirst(ShibbolethClaimsType.AFFILIATION).Value.Split(";");
+			this.Affiliations = claims.FindAll(ShibbolethClaimsType.AFFILIATION).Select(c => c.Value).ToArray();
 		}
 
 		/// <inheritdoc cref="IClaimsUser.Uid"/>

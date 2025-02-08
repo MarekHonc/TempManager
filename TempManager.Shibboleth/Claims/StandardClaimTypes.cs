@@ -9,7 +9,6 @@ namespace TempManager.Shibboleth
 	{
 		/// <summary>
 		/// Mapování skupiny/affiliace -> jde to na roli?
-		/// TODO: zkontrolovat.
 		/// </summary>
 		public const string Group = ClaimTypes.Role;
 
