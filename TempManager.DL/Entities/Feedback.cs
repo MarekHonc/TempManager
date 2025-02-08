@@ -84,6 +84,7 @@ namespace TempManager.DL.Entities
 			return new Feedback()
 			{
 				// TODO: Na produkci se 16:09 ukazuje jako 03:09
+				// TODO: Hvězdičky v editoru zadávání + děkovná stránka lepší
 				RatedAt = DateTimeOffset.UtcNow,
 				UserId = userId,
 				Rating = rating,
