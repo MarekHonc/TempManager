@@ -9,6 +9,9 @@ namespace TempManager.BL.Services
 	/// </summary>
 	public class RoomService : IRoomService
 	{
+		public const int MaxTemperature = 30;
+		public const int MinTemperature = 15;
+
 		private readonly RepositoriesFactory repositoriesFactory;
 		private readonly IUserService userService;
 
@@ -74,6 +77,10 @@ namespace TempManager.BL.Services
 		/// </summary>
 		public async Task<bool> SetTemperature(int roomId, double newTemperature)
 		{
+			// Kontrola rozmezí teploty.
+			if (newTemperature < MinTemperature || newTemperature > MaxTemperature)
+				return false;
+
 			var user = await this.userService.GetCurrentUser();
 			var room = await this.repositoriesFactory.RoomRepository.FetchById(roomId);
 

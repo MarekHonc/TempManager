@@ -1,63 +1,65 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-	"libraries": [
-		{
-			"provider": "cdnjs",
-			"library": "knockout@3.5.1",
-			"destination": "wwwroot/lib/knockout/",
-			"files": [
-				"knockout-latest.js",
-				"knockout-latest.min.js"
-			]
-		},
-		{
-			"provider": "cdnjs",
-			"library": "jquery@3.7.1",
-			"destination": "wwwroot/lib/jquery/",
-			"files": [
-				"jquery.min.js",
-				"jquery.js"
-			]
-		},
-		{
-			"provider": "cdnjs",
-			"library": "bootstrap@5.1.0",
-			"destination": "wwwroot/lib/bootstrap/",
-			"files": [
-				"js/bootstrap.bundle.min.js",
-				"js/bootstrap.bundle.js",
-				"css/bootstrap-grid.css",
-				"css/bootstrap-reboot.css",
-				"css/bootstrap-utilities.css",
-				"css/bootstrap.css",
-				"css/bootstrap.min.css"
-			]
-		},
-		{
-			"provider": "cdnjs",
-			"library": "underscore.js@1.13.7",
-			"destination": "wwwroot/lib/underscore.js/",
-			"files": [
-				"underscore.js",
-				"underscore.min.js"
-			]
-		},
-		{
-			"provider": "cdnjs",
-			"library": "jqueryui@1.14.1",
-			"destination": "wwwroot/lib/jqueryui/",
-			"files": [
-				"jquery-ui.min.js",
-				"themes/base/jquery-ui.css",
-				"themes/base/jquery-ui.min.css",
-				"jquery-ui.js"
-			]
-		},
-		{
-			"provider": "cdnjs",
-			"library": "microsoft-signalr@8.0.7",
-			"destination": "wwwroot/lib/microsoft-signalr/"
-		}
-	]
+  "libraries": [
+    {
+      "library": "knockout@3.5.1",
+      "destination": "wwwroot/lib/knockout/",
+      "files": [
+        "knockout-latest.js",
+        "knockout-latest.min.js"
+      ]
+    },
+    {
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "jquery.min.js",
+        "jquery.js"
+      ]
+    },
+    {
+      "library": "bootstrap@5.1.0",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "js/bootstrap.bundle.min.js",
+        "js/bootstrap.bundle.js",
+        "css/bootstrap-grid.css",
+        "css/bootstrap-reboot.css",
+        "css/bootstrap-utilities.css",
+        "css/bootstrap.css",
+        "css/bootstrap.min.css"
+      ]
+    },
+    {
+      "library": "underscore.js@1.13.7",
+      "destination": "wwwroot/lib/underscore.js/",
+      "files": [
+        "underscore.js",
+        "underscore.min.js"
+      ]
+    },
+    {
+      "library": "jqueryui@1.14.1",
+      "destination": "wwwroot/lib/jqueryui/",
+      "files": [
+        "jquery-ui.min.js",
+        "themes/base/jquery-ui.css",
+        "themes/base/jquery-ui.min.css",
+        "jquery-ui.js"
+      ]
+    },
+    {
+      "library": "microsoft-signalr@8.0.7",
+      "destination": "wwwroot/lib/microsoft-signalr/"
+    },
+    {
+      "library": "numeral.js@2.0.6",
+      "destination": "wwwroot/lib/numeral.js/",
+      "files": [
+        "numeral.min.js",
+        "locales.min.js"
+      ]
+    }
+  ]
 }

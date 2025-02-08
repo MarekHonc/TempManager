@@ -61,7 +61,7 @@ function roomModel(room, initData) {
 	/**
 	 * Zformátovaná teplota.
 	 */
-	self.temperatureFormatted = ko.observable(room.temperatureFormatted);
+	self.temperature = ko.numericObservable(room.temperature);
 
 	/**
 	 * Hodnota RH.
@@ -71,7 +71,7 @@ function roomModel(room, initData) {
 	/**
 	 * Nastavená teplota.
 	 */
-	self.desiredTemperature = ko.observable(new valueHolder(room.desiredTemperatureFormatted, room.desiredTemperatureFormatted));
+	self.desiredTemperature = ko.observable(new valueHolder(room.desiredTemperature, room.desiredTemperature));
 	self.desiredTemperature().inputValue.subscribe(function (newValue) {
 		debouncedhandleTemperatureChange();
 	});
@@ -80,9 +80,28 @@ function roomModel(room, initData) {
 	 * Nastaví novou teplotu -> přidá nebo odebere krok podle předaného směru.
 	 */
 	self.changeTemperature = function (direction) {
-		let odlTemperature = parseFloat(self.desiredTemperature().inputValue());
-		self.desiredTemperature().inputValue(odlTemperature + direction * 0.5);
+		var odlTemperature = self.desiredTemperature().inputValue.number();
+		var newValue = odlTemperature + direction * initData.step;
+
+		if (newValue > initData.maxValue || newValue < initData.minValue)
+			return;
+
+		self.desiredTemperature().inputValue(newValue);
 	}
+
+	/**
+	 * Vrací zda-li teplota může být snížena.
+	 */
+	self.canDecreaseTemperature = ko.pureComputed(function () {
+		return self.desiredTemperature().inputValue.number() > initData.minValue;
+	});
+
+	/**
+	 * Vrací zda-li teplota může být zvýšena.
+	 */
+	self.canIncreaseTemperature = ko.pureComputed(function () {
+		return self.desiredTemperature().inputValue.number() < initData.maxValue;
+	});
 
 	/**
 	 * Zpracování změny teploty.
@@ -123,12 +142,12 @@ function roomModel(room, initData) {
 	 * Updatuje hodnoty pro zobrazení.
 	 */
 	self.update = function (room) {
-		self.temperatureFormatted(room.temperatureFormatted);
+		self.temperature(room.temperature);
 		self.rh(room.rh);
 		self.valveOpen(room.valveOpen);
 
-		self.desiredTemperature().dsValue(room.desiredTemperatureFormatted);
-		self.desiredTemperature().inputValue(room.desiredTemperatureFormatted);
+		self.desiredTemperature().dsValue(room.desiredTemperature);
+		self.desiredTemperature().inputValue(room.desiredTemperature);
 	}
 }
 
@@ -141,10 +160,10 @@ function valueHolder(dsValue, inputValue) {
 	/**
 	 * Hodnota ze serveru.
 	 */
-	self.dsValue = ko.observable(dsValue);
+	self.dsValue = ko.numericObservable(dsValue);
 
 	/**
 	 * Hodnota z klienta.
 	 */
-	self.inputValue = ko.observable(inputValue);
+	self.inputValue = ko.numericObservable(inputValue);
 }

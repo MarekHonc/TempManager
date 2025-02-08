@@ -191,7 +191,7 @@ namespace TempManager.BL.SyncService
 							apiRoom.Rh,
 							apiRoom.CO2,
 							apiRoom.DesiredTemperature,
-							apiRoom.ValveOpen
+							apiRoom.ValveOpen > 0
 						);
 
 						// A vložím do hotnot.

@@ -40,7 +40,7 @@ namespace TempManager.BL.Services.Implementations.Direct
 					room.Temp,
 					room.Rh,
 					room.DesiredTemperature,
-					room.ValveOpen
+					room.ValveOpen > 0
 				);
 
 				result.Add(r);

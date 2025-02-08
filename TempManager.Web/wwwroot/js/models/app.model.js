@@ -9,6 +9,9 @@ function appModel(initData) {
 	if (!initData.saveFavoriteUrl) throw "Missing saveFavoriteUrl";
 	if (!initData.setTemperatureUrl) throw "Missing setTemperatureUrl";
 	if (!initData.group) throw "Missing group";
+	if (!initData.step) initData.step = 0;
+	if (!initData.minValue) initData.minValue = 0;
+	if (!initData.maxValue) initData.maxValue = 0;
 
 	/**
 	 * Příznak, zda-li probíhá načítání.

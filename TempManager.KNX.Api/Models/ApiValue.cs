@@ -58,10 +58,10 @@ namespace TempManager.KNX.Api
 		}
 
 		/// <summary>
-		/// Vrací zda-li je ventil otevřen.
+		/// Vrací na kolik % je ventil otevřen.
 		/// </summary>
 		[JsonProperty("ventil")]
-		public bool ValveOpen
+		public double ValveOpen
 		{
 			get;
 			internal set;

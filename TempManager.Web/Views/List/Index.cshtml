@@ -1,4 +1,5 @@
-﻿@using TempManager.Web.Localization
+﻿@using TempManager.BL.Services
+@using TempManager.Web.Localization
 @model MainViewModel
 
 @if (Model.IsOnline)
@@ -54,12 +55,14 @@
 				<tr>
 					<td data-bind="text: name"></td>
 					<td data-bind="text: floorName"></td>
-					<td class="temperature" data-bind="text: temperatureFormatted"></td>
+					<td class="temperature" data-bind="text: temperature"></td>
 					<!-- ko if: hasRightToEdit -->
 					<td class="temperature setter">
-						<span data-bind="click: function() { changeTemperature(-1); }" class="temperature-control">-</span>
-						<span data-bind="text: desiredTemperature().inputValue, enabled: hasRightToEdit"></span>
-						<span data-bind="click: function() { changeTemperature(1); }" class="temperature-control">+</span>
+						<span class="inner">
+							<span data-bind="click: function() { changeTemperature(-1); }, css: { 'disabled' : !canDecreaseTemperature() }" class="temperature-control minus"></span>
+							<span data-bind="text: desiredTemperature().inputValue, enabled: hasRightToEdit"></span>
+							<span data-bind="click: function() { changeTemperature(1); }, css: { 'disabled' : !canIncreaseTemperature() }" class="temperature-control plus"></span>
+						</span>
 					</td>
 					<!-- /ko -->
 					<!-- ko ifnot: hasRightToEdit -->
@@ -81,7 +84,10 @@
 		roomsUrl: "@Url.Action("GetRooms", "List")",
 		saveFavoriteUrl: "@Url.Action("SaveToFavorite", "Room")",
 		setTemperatureUrl: "@Url.Action("SetTemperature", "Room")",
-		group: "List"
+		group: "List",
+		step: 0.5,
+		minValue: @RoomService.MinTemperature,
+		maxValue: @RoomService.MaxTemperature,
 	});
 
 	ko.applyBindings(model, document.getElementById("list-app"));
