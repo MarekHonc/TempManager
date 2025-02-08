@@ -44,12 +44,17 @@ function roomModel(room, initData) {
 			data: {
 				roomId: self.id(),
 				isFavorite: self.isFavorite()
+			},
+			success: function () {
+				toastr["success"](initData.localization.successDescription, initData.localization.success);
+			},
+			error: function () {
+				toastr["error"](initData.localization.errorDescription, initData.localization.error);
 			}
-			// TODO: success + fail
 		});
 	}
 
-	const debouncedHandleFavoriteChange = _.debounce(handleFavoriteChange, 500, false);
+	const debouncedHandleFavoriteChange = _.debounce(handleFavoriteChange, 200, false);
 
 	/**
 	 * Přidá / odebere danou místnost z oblíbených.
@@ -115,13 +120,23 @@ function roomModel(room, initData) {
 			url: initData.setTemperatureUrl,
 			data: {
 				roomId: self.id(),
-				desiredTemperature: self.desiredTemperature().inputValue()
+				desiredTemperature: self.desiredTemperature().inputValue.number()
+			},
+			success: function (data) {
+				if (data) {
+					toastr["success"](initData.localization.successDescription, initData.localization.success);
+				}
+				else {
+					toastr["error"](initData.localization.errorDescription, initData.localization.error);
+				}
+			},
+			error: function () {;
+				toastr["error"](initData.localization.errorDescription, initData.localization.error);
 			}
-			// TODO: success + fail
 		});
 	}
 
-	const debouncedhandleTemperatureChange = _.debounce(handleTemperatureChange, 500, false);
+	const debouncedhandleTemperatureChange = _.debounce(handleTemperatureChange, 200, false);
 
 	/**
 	 * Příznak - vytápí se nebo ne.

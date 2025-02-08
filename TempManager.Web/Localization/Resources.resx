@@ -132,6 +132,12 @@
   <data name="DesiredTempereture" xml:space="preserve">
     <value>Nastavení teploty [&amp;deg;C]</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Nastala chyba</value>
+  </data>
+  <data name="ErrorDescription" xml:space="preserve">
+    <value>Zkuste akci opakovat později</value>
+  </data>
   <data name="Feedback" xml:space="preserve">
     <value>Zpětná vazba</value>
   </data>
@@ -200,6 +206,12 @@
   </data>
   <data name="Send" xml:space="preserve">
     <value>Odeslat</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Uloženo</value>
+  </data>
+  <data name="SuccessDescription" xml:space="preserve">
+    <value>Operace byla úspěšně uložena</value>
   </data>
   <data name="Temperature" xml:space="preserve">
     <value>Teplota [&amp;deg;C]</value>

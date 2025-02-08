@@ -1,12 +1,15 @@
 ﻿@using TempManager.Common
+@using TempManager.Web.Localization
 @model MainViewModel
 
 @switch (Model.WebLocation)
 {
 	case WebLocation.Map:
+		ViewData["Title"] = Resources.Map;
 		await Html.RenderPartialAsync("../Map/Index", Model);
 		break;
 	case WebLocation.List:
+		ViewData["Title"] = Resources.List;
 		await Html.RenderPartialAsync("../List/Index", Model);
 		break;
 	default:

@@ -106,6 +106,24 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nastala chyba.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zkuste akci opakovat později.
+        /// </summary>
+        public static string ErrorDescription {
+            get {
+                return ResourceManager.GetString("ErrorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zpětná vazba.
         /// </summary>
         public static string Feedback {
@@ -309,6 +327,24 @@ namespace TempManager.Web.Localization {
         public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uloženo.
+        /// </summary>
+        public static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operace byla úspěšně uložena.
+        /// </summary>
+        public static string SuccessDescription {
+            get {
+                return ResourceManager.GetString("SuccessDescription", resourceCulture);
             }
         }
         

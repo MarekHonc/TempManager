@@ -66,7 +66,13 @@
 					</td>
 					<!-- /ko -->
 					<!-- ko ifnot: hasRightToEdit -->
-					<td class="temperature" data-bind="text: desiredTemperature().dsValue"></td>
+					<td class="temperature setter">
+						<span class="inner">
+							<span class="temperature-control minus disabled"></span>
+							<span data-bind="text: desiredTemperature().dsValue"></span>
+							<span class="temperature-control plus disabled"></span>
+						</span>
+					</td>
 					<!-- /ko -->
 					<td class="temperature" data-bind="text: rh"></td>
 					<td class="center icon"><span data-bind="css: { 'heat': valveOpen(), 'freeze': !valveOpen() }"></span></td>
@@ -88,6 +94,12 @@
 		step: 0.5,
 		minValue: @RoomService.MinTemperature,
 		maxValue: @RoomService.MaxTemperature,
+		localization: {
+			success: "@Html.Raw(Resources.Success)",
+			successDescription: "@Html.Raw(Resources.SuccessDescription)",
+			error: "@Html.Raw(Resources.Error)",
+			errorDescription: "@Html.Raw(Resources.ErrorDescription)"
+		}
 	});
 
 	ko.applyBindings(model, document.getElementById("list-app"));
