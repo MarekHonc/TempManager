@@ -7,7 +7,7 @@
 	{
 		public static string ToShortDateTime(this DateTimeOffset dateTime)
 		{
-			return dateTime.ToLocalTime().ToString("dd. MM. yyyy hh:mm");
+			return dateTime.ToLocalTime().ToString("dd. MM. yyyy HH:mm");
 		}
 	}
 }
