@@ -117,7 +117,9 @@ a:hover {
 }
 .btn:focus,
 .btn:active:focus,
-.btn.active:focus {
+.btn.active:focus,
+.form-control:focus,
+.form-check-input:focus {
   outline: none !important;
   box-shadow: none !important;
 }
