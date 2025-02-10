@@ -97,6 +97,15 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pro přidání oprávnění kontaktujte správce &lt;a href=&quot;mailto:{0}&quot;&gt;{0}&lt;/a&gt;..
+        /// </summary>
+        public static string ContactAdministrator {
+            get {
+                return ResourceManager.GetString("ContactAdministrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nastavení teploty [&amp;deg;C].
         /// </summary>
         public static string DesiredTempereture {

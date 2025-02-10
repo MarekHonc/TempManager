@@ -129,6 +129,9 @@
   <data name="CO2" xml:space="preserve">
     <value>CO2</value>
   </data>
+  <data name="ContactAdministrator" xml:space="preserve">
+    <value>Pro přidání oprávnění kontaktujte správce &lt;a href="mailto:{0}"&gt;{0}&lt;/a&gt;.</value>
+  </data>
   <data name="DesiredTempereture" xml:space="preserve">
     <value>Nastavení teploty [&amp;deg;C]</value>
   </data>

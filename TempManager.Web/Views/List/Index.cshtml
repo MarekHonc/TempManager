@@ -1,5 +1,7 @@
 ﻿@using TempManager.BL.Services
 @using TempManager.Web.Localization
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @model MainViewModel
 
 @if (Model.IsOnline)
@@ -34,7 +36,16 @@
 	</div>
 	<!-- ko if: filteredRooms().length == 0 -->
 	<div class="row">
-		<p>@Resources.NoRooms</p>
+		<div class="col-12">
+			<div class="alert alert-secondary" role="alert">
+				<div>@Resources.NoRooms</div>
+				<!-- ko if: rooms.items().length == 0 -->
+				<div>
+					@Html.Raw(string.Format(Resources.ContactAdministrator, Configuration["AdminEmail"]))
+				</div>
+				<!-- /ko -->
+			</div>
+		</div>
 	</div>
 	<!-- /ko-->
 	<!-- ko if: filteredRooms().length > 0 -->
