@@ -6,7 +6,6 @@ namespace TempManager.Web.Code
 {
 	/// <summary>
 	/// Atribut který se stará o ověření práv vůči hodnotám ze shibboleth.
-	/// TODO: Na admin + dashboard se dostanu přes url.... není to podmíněno atributem.
 	/// </summary>
 	public class ShibbolethAuthorizeAttribute : ActionFilterAttribute
 	{

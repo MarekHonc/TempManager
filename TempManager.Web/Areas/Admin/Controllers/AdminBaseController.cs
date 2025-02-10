@@ -3,6 +3,7 @@ using TempManager.BL.Services;
 using TempManager.BL.SyncService;
 using TempManager.Common;
 using TempManager.DL.Repositories;
+using TempManager.Web.Areas.Admin.Code;
 using TempManager.Web.Areas.Admin.Models;
 using TempManager.Web.Controllers;
 
@@ -12,6 +13,7 @@ namespace TempManager.Web.Areas.Admin.Controllers
 	/// Bázový kontroler pro admin akce.
 	/// </summary>
 	[Area("Admin")]
+	[AdminShibbolethAuthorize]
 	public class AdminBaseController : BaseController
 	{
 		protected readonly RepositoriesFactory repositoriesFactory;

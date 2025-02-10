@@ -9,6 +9,7 @@ using TempManager.DL;
 using TempManager.DL.Repositories;
 using TempManager.KNX.Api;
 using TempManager.Shibboleth;
+using TempManager.Web.Areas.Admin.Code;
 using TempManager.Web.HostedServices;
 using TempManager.Web.Models;
 
@@ -117,10 +118,10 @@ namespace TempManager.Web.Code
 		/// </summary>
 		public static void ScheduleJobs(this WebApplication app)
 		{
+			// TODO: padá to na 500 - nějaký content type
 			app.UseHangfireDashboard("/services", new DashboardOptions()
 			{
-				// TODO: Zabezpečit na admin práva
-				Authorization = new[] { new DashboardAuthorizationFilter() },
+				Authorization = new[] { new AdminShibbolethAuthorizeAttribute() },
 			});
 
 			// Naplánování úloh přes DI
@@ -133,14 +134,6 @@ namespace TempManager.Web.Code
 
 				RecurringJob.AddOrUpdate(nameof(SyncJob), () => syncJob.Run(), "* * * * *");
 				RecurringJob.AddOrUpdate(nameof(CleanerJob), () => cleanerJob.Run(), "0 0 * * *");
-			}
-		}
-
-		public class DashboardAuthorizationFilter : IDashboardAuthorizationFilter
-		{
-			public bool Authorize(DashboardContext context)
-			{
-				return true; // Povolit přístup všem
 			}
 		}
 	}
