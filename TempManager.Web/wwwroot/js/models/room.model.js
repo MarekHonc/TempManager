@@ -30,6 +30,11 @@ function roomModel(room, initData) {
 	self.hasRightToEdit = ko.observable(room.hasRightToEdit);
 
 	/**
+	 * Příznak, zda-li při získávání dat v místnosti nastal error.
+	 */
+	self.isError = ko.observable(room.isError);
+
+	/**
 	 * Uložení v oblíbených.
 	 */
 	self.isFavorite = ko.observable(room.isFavorite);
@@ -160,6 +165,7 @@ function roomModel(room, initData) {
 		self.temperature(room.temperature);
 		self.rh(room.rh);
 		self.valveOpen(room.valveOpen);
+		self.isError(room.isError);
 
 		self.desiredTemperature().dsValue(room.desiredTemperature);
 		self.desiredTemperature().inputValue(room.desiredTemperature);

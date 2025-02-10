@@ -267,4 +267,13 @@
   <data name="Rating" xml:space="preserve">
     <value>Hodnocení</value>
   </data>
+  <data name="CanViewAllRooms" xml:space="preserve">
+    <value>Oprávnění na všechny místnosti</value>
+  </data>
+  <data name="CanRead" xml:space="preserve">
+    <value>Zobrazení</value>
+  </data>
+  <data name="CanWrite" xml:space="preserve">
+    <value>Zápis</value>
+  </data>
 </root>

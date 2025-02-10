@@ -144,6 +144,10 @@ a:hover {
 .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
+.error {
+  color: #721c24 !important;
+  background-color: #f8d7da !important;
+}
 .table tr {
   height: 50px;
   vertical-align: middle;

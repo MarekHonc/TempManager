@@ -214,7 +214,7 @@ namespace TempManager.BL.SyncService
 						rooms[i] = Room.Create(
 							current.room,
 							current.value,
-							isAdmin: false,
+							canViewAllRooms: false,
 							userToRoom: null
 						);
 					}

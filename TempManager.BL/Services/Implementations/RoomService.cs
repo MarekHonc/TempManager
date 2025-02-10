@@ -32,38 +32,35 @@ namespace TempManager.BL.Services
 			var userRightDictionary = userRights.ToDictionary(k => k.RoomId);
 
 			// Získám místnosti.
-			var roomsQuery = new RoomsByFloorIdQuery(floorId)
+			// Získávám buď všechny pokud na to uživatel právo nebo jen konkrétní -> vyplněním idčka uživatele.
+			var roomsQuery = new RoomsByFloorIdQuery(floorId, user.CanViewAllRooms ? null : user.Id)
 				.Include(nameof(DL.Entities.Room.Floor));
 
-			var rooms = (await this.repositoriesFactory.RoomRepository.Fetch(roomsQuery))
-				.ToDictionary(k => k.ExternalId, v => v);
+			var rooms = (await this.repositoriesFactory.RoomRepository.Fetch(roomsQuery));
 
 			// Získám poslední hodnoty.
 			var historyQuery = new FloorHistoryLatestQuery(floorId);
 			var historyResult = await this.repositoriesFactory.FloorHistoryRepository.Fetch(historyQuery);
 			var history = historyResult
 				.SelectMany(r => r.RoomValues)
-				.ToArray();
-
-			if (history.Length == 0)
-				return [];
+				.ToDictionary(r => r.ExternalRoomId);
 
 			// A jdu poskládat výsledek.
-			var result = new Room[history.Length];
+			var result = new Room[rooms.Count];
 			var index = 0;
 
-			foreach (var roomValue in history)
+			foreach (var room in rooms)
 			{
 				// Našel jsem místnost.
-				if (rooms.TryGetValue(roomValue.ExternalRoomId, out var room))
+				if (history.TryGetValue(room.ExternalId, out var roomValue))
 				{
 					// Kouknu i na práva.
 					userRightDictionary.TryGetValue(room.Id, out var userToRoom);
-					result[index] = Room.Create(room, roomValue, isAdmin: user.IsAdmin, userToRoom: userToRoom);
+					result[index] = Room.Create(room, roomValue, canViewAllRooms: user.CanViewAllRooms, userToRoom: userToRoom);
 				}
 				else
 				{
-					result[index] = Room.Create(roomValue);
+					result[index] = Room.Error(room);
 				}
 
 				index++;
@@ -85,7 +82,7 @@ namespace TempManager.BL.Services
 			var room = await this.repositoriesFactory.RoomRepository.FetchById(roomId);
 
 			// Pokud není admin.
-			if (!user.IsAdmin)
+			if (!user.CanViewAllRooms)
 			{
 				var userRightsQuery = new UserToRoomForUserQuery(user.Id, room.Id);
 				var userRights = await this.repositoriesFactory.UserToRoomRepository.FetchOne(userRightsQuery);
@@ -138,7 +135,7 @@ namespace TempManager.BL.Services
 			}
 			else
 			{
-				userToRoom = DL.Entities.UserToRoom.Create(user.Id, roomId, isFavorite, hasRight: false);
+				userToRoom = DL.Entities.UserToRoom.Create(user.Id, roomId, isFavorite, hasRightToEdit: false, hasRightToView: false);
 				await this.repositoriesFactory.UserToRoomRepository.Add(userToRoom);
 			}
 

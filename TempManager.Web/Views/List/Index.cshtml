@@ -52,7 +52,7 @@
 			</thead>
 			<tbody>
 				<!-- ko foreach: filteredRooms -->
-				<tr>
+				<tr data-bind="css: { 'error' : isError }">
 					<td data-bind="text: name"></td>
 					<td data-bind="text: floorName"></td>
 					<td class="temperature" data-bind="text: temperature"></td>

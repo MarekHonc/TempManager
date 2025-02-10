@@ -53,6 +53,15 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Vrací nebo nastavuje zda-li má uživatel právo vidět teplotu v místnosti.
+		/// </summary>
+		public bool HasRightToView
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje, zda-li má uživatel označenou místnost jako oblíbenou.
 		/// </summary>
 		public bool IsFavorite
@@ -98,22 +107,24 @@ namespace TempManager.DL.Entities
 		/// <summary>
 		/// Nastaví, zda-li má uživatel místnost právo editovat.
 		/// </summary>
-		public void SetHasRight(bool hasRight)
+		public void SetHasRight(bool hasRightToEdit, bool hasRightToView)
 		{
-			this.HasRightToEdit = hasRight;
+			this.HasRightToEdit = hasRightToEdit;
+			this.HasRightToView = hasRightToView;
 		}
 
 		/// <summary>
 		/// Vytvoří entitu vhodnou k uložení.
 		/// </summary>
-		public static UserToRoom Create(int userId, int roomId, bool isFavorite, bool hasRight)
+		public static UserToRoom Create(int userId, int roomId, bool isFavorite, bool hasRightToEdit, bool hasRightToView)
 		{
 			return new UserToRoom()
 			{
 				UserId = userId,
 				RoomId = roomId,
 				IsFavorite = isFavorite,
-				HasRightToEdit = hasRight
+				HasRightToEdit = hasRightToEdit,
+				HasRightToView = hasRightToView
 			};
 		}
 	}

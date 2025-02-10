@@ -9,7 +9,7 @@
 
 @section Scripts
 {
-	<script src="~/js/models/auto.comlete.model.js"></script>
+	<script src="~/js/models/auto.complete.rights.model.js"></script>
 }
 
 <div class="row d-flex justify-content-center">
@@ -40,14 +40,26 @@
 
 					<!-- ko foreach: data.items -->
 					<input type="hidden" data-bind="value: key, attr: { name: '@(Html.NameFor(m => m.AuthorizedUsers))[-1].Key'.replace('-1', $index()) }" />
-					<input type="hidden" data-bind="value: value, attr: { name: '@(Html.NameFor(m => m.AuthorizedUsers))[-1].Value'.replace('-1', $index()) }" />
+					<input type="hidden" data-bind="value: value().title, attr: { name: '@(Html.NameFor(m => m.AuthorizedUsers))[-1].Value.Title'.replace('-1', $index()) }" />
+					<input type="hidden" data-bind="value: value().canEdit, attr: { name: '@(Html.NameFor(m => m.AuthorizedUsers))[-1].Value.CanEdit'.replace('-1', $index()) }" />
+					<input type="hidden" data-bind="value: value().canView, attr: { name: '@(Html.NameFor(m => m.AuthorizedUsers))[-1].Value.CanView'.replace('-1', $index()) }" />
 
 					<div class="row mt-1">
 						<div class="col-12">
 							<div class="card">
 								<div class="card-body d-flex justify-content-between">
-									<span data-bind="text: value"></span>
-									<button data-bind="click: function() { $parent.remove($data); }" class="btn btn-close"></button>
+									<div class="d-flex flex-column">
+										<strong data-bind="text: value().title"></strong>
+										<label class="form-check-label">
+											<input type="checkbox" data-bind="checked: value().canView" class="form-check-input" />
+											@AdminResources.CanRead
+										</label>
+										<label class="form-check-label">
+											<input type="checkbox" data-bind="checked: value().canEdit" class="form-check-input" />
+											@AdminResources.CanWrite
+										</label>
+									</div>
+									<button type="button" data-bind="click: function() { $parent.remove($data); }" class="btn btn-close"></button>
 								</div>
 							</div>
 						</div>
@@ -66,7 +78,7 @@
 <div id="auto-complete-holder"></div>
 
 <script type="text/javascript">
-	let model = new autoCompleteViewModel({
+	let model = new autoCompleteRightViewModel({
 		values: @Html.Raw(Model.AuthorizedUsers.ToJson()),
 		autoComplete: "#auto-complete",
 		autoCompleteHolder: "#auto-complete-holder",

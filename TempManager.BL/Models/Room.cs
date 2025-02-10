@@ -8,7 +8,7 @@ namespace TempManager.BL.Models
 	/// </summary>
 	public class Room
 	{
-		internal Room(int id, string name, string floorName, string externalId, bool hasRightToEdit, bool isFavorite, double temperature, double rh, double desiredTemperature, bool valveOpen, double? x = null, double? y = null)
+		internal Room(int id, string name, string floorName, string externalId, bool hasRightToEdit, bool isFavorite, double temperature, double rh, double desiredTemperature, bool valveOpen, double? x = null, double? y = null, bool isError = false)
 		{
 			this.Id = id;
 			this.Name = name;
@@ -22,6 +22,7 @@ namespace TempManager.BL.Models
 			this.ValveOpen = valveOpen;
 			this.X = x;
 			this.Y = y;
+			this.IsError = isError;
 		}
 
 		/// <summary>
@@ -82,11 +83,6 @@ namespace TempManager.BL.Models
 		}
 
 		/// <summary>
-		/// Vrací zformátovanou teplotu.
-		/// </summary>
-		public string TemperatureFormatted => Temperature.ToString("0.00");
-
-		/// <summary>
 		/// Vrací hodnotu rh v místnosti.
 		/// </summary>
 		public double Rh
@@ -101,11 +97,6 @@ namespace TempManager.BL.Models
 		{
 			get;
 		}
-
-		/// <summary>
-		/// Vrací zformátovanou teplotu.
-		/// </summary>
-		public string DesiredTemperatureFormatted => DesiredTemperature.ToString("0.00");
 
 		/// <summary>
 		/// Vrací zda-li je ventil otevřen.
@@ -132,16 +123,25 @@ namespace TempManager.BL.Models
 		}
 
 		/// <summary>
+		/// Vrací zda-li při získání hodnot místnosti nastal error.
+		/// </summary>
+		public bool IsError
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Vrací dto pro místnost, která rovnou nese všechny potřebné informace (tj. hodnoty, oprávnění, ...).
 		/// </summary>
-		internal static Room Create(DL.Entities.Room room, RoomValue roomValue, bool isAdmin, UserToRoom userToRoom)
+		internal static Room Create(DL.Entities.Room room, RoomValue roomValue, bool canViewAllRooms, UserToRoom userToRoom)
 		{
 			// Rychlá kontrola, že data jsou spolu svázané.
 			if (room.ExternalId != roomValue.ExternalRoomId)
 				throw new ArgumentException($"Room id: {room.ExternalId} cannot have values from room id: {roomValue.ExternalRoomId}!", nameof(room));
 
 			// Rychlá kontrola i na provázání práv.
-			if (!isAdmin && userToRoom != null && room.Id != userToRoom.RoomId)
+			if (!canViewAllRooms && userToRoom != null && room.Id != userToRoom.RoomId)
 				throw new ArgumentException($"Room id: {room.ExternalId} cannot have values from room id: {roomValue.ExternalRoomId}!", nameof(room));
 
 			// Vracím novou instanci objektu.
@@ -150,7 +150,7 @@ namespace TempManager.BL.Models
 				room.Name,
 				room.Floor.Name,
 				room.ExternalId,
-				isAdmin || userToRoom?.HasRightToEdit == true,
+				canViewAllRooms || userToRoom?.HasRightToEdit == true,
 				userToRoom?.IsFavorite == true,
 				roomValue.Temperature,
 				roomValue.Rh,
@@ -158,6 +158,29 @@ namespace TempManager.BL.Models
 				roomValue.ValveOpen,
 				room.XPosition,
 				room.YPosition
+			);
+		}
+
+		/// <summary>
+		/// Vytvoří místnost s "chybou" tj. bez hodnot.
+		/// </summary>
+		internal static Room Error(DL.Entities.Room room)
+		{
+			// Vracím novou instanci objektu.
+			return new Room(
+				room.Id,
+				room.Name,
+				room.Floor.Name,
+				room.ExternalId,
+				hasRightToEdit: false,
+				isFavorite: false,
+				temperature: 0,
+				rh: 0,
+				desiredTemperature: 0,
+				valveOpen: false,
+				room.XPosition,
+				room.YPosition,
+				isError: true
 			);
 		}
 

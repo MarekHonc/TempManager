@@ -13,6 +13,7 @@
 			this.LastName = user.LastName;
 			this.Uid = user.Uid;
 			this.IsAdmin = user.IsAdmin;
+			this.CanViewAllRooms = user.CanViewAllRooms;
 		}
 
 		/// <summary>
@@ -59,6 +60,14 @@
 		/// Vrací zda-li je uživatel admin.
 		/// </summary>
 		public bool IsAdmin
+		{
+			get;
+		}
+
+		/// <summary>
+		/// Vrací zda-li uživatel vidí všechny místnosti.
+		/// </summary>
+		public bool CanViewAllRooms
 		{
 			get;
 		}

@@ -17,9 +17,12 @@ namespace TempManager.Web.Areas.Admin.Models
 		{
 			this.Id = room.Id;
 			this.Name = room.Name;
-			this.AuthorizedUsers = room.UsersToRoom
-				.Where(utr => utr.HasRightToEdit)
-				.ToDictionary(k => k.UserId, v => v.User.UserName);
+			this.X = room.XPosition;
+			this.Y = room.YPosition;
+			this.AuthorizedUsers = room.UsersToRoom.ToDictionary(
+				k => k.UserId,
+				v => new UserRightEditorViewModel(v.User.UserName, v.HasRightToEdit, v.HasRightToView)
+			);
 		}
 
 		/// <summary>
@@ -66,7 +69,7 @@ namespace TempManager.Web.Areas.Admin.Models
 		/// <summary>
 		/// Vrací nebo nastavuje uživatele, kteří mají oprávnění nastavovat teploty v místnosti.
 		/// </summary>
-		public Dictionary<int, string> AuthorizedUsers
+		public Dictionary<int, UserRightEditorViewModel> AuthorizedUsers
 		{
 			get;
 			set;
@@ -77,7 +80,7 @@ namespace TempManager.Web.Areas.Admin.Models
 		/// </summary>
 		public void Update(Room room)
 		{
-			this.AuthorizedUsers ??= new Dictionary<int, string>();
+			this.AuthorizedUsers ??= new Dictionary<int, UserRightEditorViewModel>();
 
 			room.SetName(this.Name);
 			room.SetPosition(this.X, this.Y);
@@ -85,21 +88,27 @@ namespace TempManager.Web.Areas.Admin.Models
 			// Oprávnění vůči místnostem.
 			foreach (var userToRoom in room.UsersToRoom)
 			{
-				if (this.AuthorizedUsers.TryGetValue(userToRoom.UserId, out _))
+				if (this.AuthorizedUsers.TryGetValue(userToRoom.UserId, out var editable))
 				{
-					userToRoom.SetHasRight(true);
+					userToRoom.SetHasRight(editable.CanEdit, editable.CanView);
 					this.AuthorizedUsers.Remove(userToRoom.UserId);
 				}
 				else
 				{
-					userToRoom.SetHasRight(false);
+					userToRoom.SetHasRight(false, false);
 				}
 			}
 
 			// Tady mi zbydou pouze nově přidaní uživatelé.
 			foreach (var userId in this.AuthorizedUsers)
 			{
-				var userToRoom = UserToRoom.Create(userId.Key, this.Id, isFavorite: false, hasRight: true);
+				var userToRoom = UserToRoom.Create(
+					userId.Key,
+					this.Id,
+					isFavorite: false,
+					hasRightToEdit: userId.Value.CanEdit,
+					hasRightToView: userId.Value.CanView
+				);
 
 				room.UsersToRoom.Add(userToRoom);
 			}

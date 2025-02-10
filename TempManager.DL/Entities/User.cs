@@ -78,6 +78,15 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Vrací nebo nastavuje zda-li uživatel může vidět všechny místnosti.
+		/// </summary>
+		public bool CanViewAllRooms
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje id aktuálně vybraného podlaží.
 		/// </summary>
 		[ForeignKey(nameof(SelectedFloor))]
@@ -119,6 +128,14 @@ namespace TempManager.DL.Entities
 		public void SetIsAdmin(bool isAdmin)
 		{
 			this.IsAdmin = isAdmin;
+		}
+
+		/// <summary>
+		/// Nastaví danému uživateli zda-li může vidět všechny místnosti.
+		/// </summary>
+		public void SetCanViewAllRooms(bool canViewAllRooms)
+		{
+			this.CanViewAllRooms = canViewAllRooms;
 		}
 
 		/// <summary>

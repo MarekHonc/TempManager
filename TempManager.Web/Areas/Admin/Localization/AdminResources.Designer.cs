@@ -70,6 +70,33 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zobrazení.
+        /// </summary>
+        public static string CanRead {
+            get {
+                return ResourceManager.GetString("CanRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oprávnění na všechny místnosti.
+        /// </summary>
+        public static string CanViewAllRooms {
+            get {
+                return ResourceManager.GetString("CanViewAllRooms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zápis.
+        /// </summary>
+        public static string CanWrite {
+            get {
+                return ResourceManager.GetString("CanWrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CO2.
         /// </summary>
         public static string CO2 {
