@@ -23,6 +23,6 @@
 		/// <summary>
 		/// End-point pro nastavení teploty v PLC.
 		/// </summary>
-		public const string SetTemperature = "SetObject?{0}[{1}].tempW={2}";
+		public const string SetTemperature = "SetObject?NovaHodnota={0}&Mistnost=\"{1}\"";
 	}
 }

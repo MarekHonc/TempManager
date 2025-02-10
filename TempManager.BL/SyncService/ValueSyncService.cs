@@ -157,8 +157,7 @@ namespace TempManager.BL.SyncService
 									{
 										// Promítnu do API.
 										var success = await this.apiService.SetTemperatures(
-											apiVariable,
-											new ApiSetTemperature(index, current.NewTemperature)
+											new ApiSetTemperature(current.NewTemperature, current.Room.ExternalId)
 										);
 
 										// Nastavím výsledek.

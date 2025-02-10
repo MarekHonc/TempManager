@@ -39,7 +39,8 @@ namespace TempManager.ApiConsoleTest
 
 					if (useSetTemperature)
 					{
-						setTemperatures.Add(new ApiSetTemperature(index, (index % 10) + 20));
+						// Nenastavuji, jelikož zapisuji bokem a vlastně nemám jak testovat, nechci náhodně topit duh...
+						// setTemperatures.Add(new ApiSetTemperature(index, (index % 10) + 20));
 					}
 
 
@@ -47,11 +48,11 @@ namespace TempManager.ApiConsoleTest
 				}
 			}
 
-			foreach (var setTemperature in setTemperatures)
-			{
-				Console.WriteLine($"Set temperature at {setTemperature.ArrayIndex} to {setTemperature.DesiredTemperature}");
-				await api.SetTemperatures(toSet, setTemperature);
-			}
+			//foreach (var setTemperature in setTemperatures)
+			//{
+			//	Console.WriteLine($"Set temperature at {setTemperature.ArrayIndex} to {setTemperature.DesiredTemperature}");
+			//	await api.SetTemperatures(toSet, setTemperature);
+			//}
 		}
 	}
 }

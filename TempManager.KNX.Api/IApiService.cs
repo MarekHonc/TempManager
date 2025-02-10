@@ -23,6 +23,6 @@
 		/// <summary>
 		/// Nastaví novou teplotu na PLC.
 		/// </summary>
-		Task<bool> SetTemperatures(ApiVariable variable, ApiSetTemperature newTemperatures);
+		Task<bool> SetTemperatures(ApiSetTemperature newTemperatures);
 	}
 }

@@ -1,28 +1,45 @@
-﻿namespace TempManager.KNX.Api
+﻿using System.Globalization;
+
+namespace TempManager.KNX.Api
 {
 	/// <summary>
 	/// Třída pro nastavení hodnoty na API.
 	/// </summary>
 	public class ApiSetTemperature
 	{
-		public ApiSetTemperature(int arrayIndex, double desiredTemperature)
+		private readonly string roomExternalId;
+
+		public ApiSetTemperature(double desiredTemperature, string roomExternalId)
 		{
-			this.ArrayIndex = arrayIndex;
-			this.DesiredTemperature = desiredTemperature;
+			this.roomExternalId = roomExternalId;
+			this.DesiredTemperature = desiredTemperature.ToString("0.00", CultureInfo.InvariantCulture);
 		}
 
 		/// <summary>
-		/// Vrací index v poli na kterém se teplota nachází.
+		/// Vrací kódové označení místnosti.
 		/// </summary>
-		public int ArrayIndex
+		public string RoomCode
 		{
-			get;
+			get
+			{
+				// Pokud je prázdné -> vracím null.
+				if (string.IsNullOrEmpty(this.roomExternalId))
+					return null;
+
+				// Rozdělím po mezerách, pokud nevyšlo, vracím null.
+				var split = this.roomExternalId.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+				if (split.Length == 0)
+					return null;
+
+				// Jinak kód = místnost.
+				return split[0];
+			}
 		}
 
 		/// <summary>
 		/// Vrací teplotu, která bude nastavena.
 		/// </summary>
-		public double DesiredTemperature
+		public string DesiredTemperature
 		{
 			get;
 		}

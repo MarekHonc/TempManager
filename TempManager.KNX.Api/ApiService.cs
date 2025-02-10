@@ -1,6 +1,5 @@
 ﻿using System.Net.Http.Headers;
 using Newtonsoft.Json;
-using System.Text;
 
 namespace TempManager.KNX.Api
 {
@@ -95,19 +94,26 @@ namespace TempManager.KNX.Api
 		/// <summary>
 		/// Promítne změny do API.
 		/// </summary>
-		public async Task<bool> SetTemperatures(ApiVariable variable, ApiSetTemperature newTemperature)
+		public async Task<bool> SetTemperatures(ApiSetTemperature newTemperature)
 		{
+			if (string.IsNullOrEmpty(newTemperature.RoomCode))
+				return false;
+
 			// Poskládám endpoint.
 			var endpoint = string.Format(
 				ApiConstants.SetTemperature,
-				variable.Name,
-				(newTemperature.ArrayIndex + 1),
-				Math.Round(newTemperature.DesiredTemperature, 2)
+				newTemperature.DesiredTemperature,
+				newTemperature.RoomCode
 			);
 
+#if RELEASE
 			// Udělám GET -> chci nahrát pouze 1 hodnotu, při úspěchu vrací prázdnou 200.
 			var result = await GetResponse<bool>(endpoint, (json) => true);
 			return result;
+#else
+			// Pro debug vracím true
+			return await Task.FromResult(true);
+#endif
 		}
 
 		#region private helpers

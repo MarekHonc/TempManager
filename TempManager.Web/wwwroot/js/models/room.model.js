@@ -125,7 +125,7 @@ function roomModel(room, initData) {
 			url: initData.setTemperatureUrl,
 			data: {
 				roomId: self.id(),
-				desiredTemperature: self.desiredTemperature().inputValue.number()
+				desiredTemperature: self.desiredTemperature().inputValue()
 			},
 			success: function (data) {
 				if (data) {
