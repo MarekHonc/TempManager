@@ -89,8 +89,6 @@ namespace TempManager.DL
 			FloorHistory.CreateBindings(modelBuilder);
 			Room.CreateBindings(modelBuilder);
 			User.CreateBindings(modelBuilder);
-
-			// TODO: retance nad floor history + set temperature
 		}
 
 		/// <summary>
