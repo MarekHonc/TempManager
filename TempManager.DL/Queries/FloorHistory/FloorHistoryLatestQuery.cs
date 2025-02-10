@@ -8,10 +8,12 @@ namespace TempManager.DL.Queries
 	public class FloorHistoryLatestQuery : QueryObjectBase<FloorHistory>
 	{
 		private readonly int? floorId;
+		private readonly bool onlyLatest;
 
-		public FloorHistoryLatestQuery(int? floorId = null)
+		public FloorHistoryLatestQuery(int? floorId, bool onlyLatest)
 		{
 			this.floorId = floorId;
+			this.onlyLatest = onlyLatest;
 		}
 
 		protected override IQueryable<FloorHistory> CreateQuery(TempManagerContext dbContext)
@@ -24,11 +26,18 @@ namespace TempManager.DL.Queries
 				query = query.Where(f => f.FloorId == this.floorId);
 			}
 
-			var grouped = query
-				.GroupBy(h => h.FloorId)
-				.Select(g => g.OrderByDescending(f => f.Date).FirstOrDefault());
+			// Pokud chci pouze poslední hodnoty pro podlaží.
+			// Kvůli dělení po podlaží nelze použít .FetchOne
+			if (onlyLatest)
+			{
+				var grouped = query
+					.GroupBy(h => h.FloorId)
+					.Select(g => g.OrderByDescending(f => f.Date).FirstOrDefault());
 
-			return grouped;
+				return grouped;
+			}
+
+			return query.OrderByDescending(f => f.Date);
 		}
 	}
 }

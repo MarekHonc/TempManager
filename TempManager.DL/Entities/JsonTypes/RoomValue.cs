@@ -9,7 +9,7 @@
 		{
 		}
 
-		public RoomValue(string externalRoomId, double temperature, double rh, double co2, double desiredTemperature, bool valveOpen)
+		public RoomValue(string externalRoomId, double temperature, double rh, double co2, double desiredTemperature, double valveOpen)
 		{
 			this.ExternalRoomId = externalRoomId;
 			this.Temperature = temperature;
@@ -67,7 +67,7 @@
 		/// <summary>
 		/// Vrací nebo nastavuje zda-li je ventil otevřen.
 		/// </summary>
-		public bool ValveOpen
+		public double ValveOpen
 		{
 			get;
 			set;

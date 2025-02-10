@@ -59,9 +59,11 @@ namespace TempManager.Web.Areas.Admin.Controllers
 						date = measure.Date.ToShortDateTime(),
 						room = room?.Name,
 						id = room?.Id,
-						temperature = roomValue.Temperature,
-						co2 = roomValue.CO2,
-						rh = roomValue.Rh
+						temperature = roomValue.Temperature.ToString("0.00"),
+						desiredTemperature = roomValue.DesiredTemperature.ToString("0.00"),
+						co2 = roomValue.CO2.ToString("0.00"),
+						rh = roomValue.Rh.ToString("N0"),
+						valveOpen = roomValue.ValveOpen.ToString("N0")
 					});
 				}
 			}
@@ -79,7 +81,7 @@ namespace TempManager.Web.Areas.Admin.Controllers
 		/// </summary>
 		private async Task<IPagedList<FloorHistory>> GetList(int floorId, int page = 1)
 		{
-			var query = new FloorHistoryLatestQuery(floorId);
+			var query = new FloorHistoryLatestQuery(floorId, onlyLatest: false);
 			var result = await this.repositoriesFactory.FloorHistoryRepository.FetchPage(query, page, pageSize);
 
 			return result;

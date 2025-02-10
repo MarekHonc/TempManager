@@ -191,7 +191,7 @@ namespace TempManager.BL.SyncService
 							apiRoom.Rh,
 							apiRoom.CO2,
 							apiRoom.DesiredTemperature,
-							apiRoom.ValveOpen > 0
+							apiRoom.ValveOpen
 						);
 
 						// A vložím do hotnot.
@@ -241,7 +241,7 @@ namespace TempManager.BL.SyncService
 		/// </summary>
 		public async Task<DateTimeOffset> GetLatestSyncTime()
 		{
-			var query = new FloorHistoryLatestQuery();
+			var query = new FloorHistoryLatestQuery(floorId: null, onlyLatest: true);
 			var result = await this.repositoriesFactory.FloorHistoryRepository.FetchOne(query);
 
 			return result?.Date ?? DateTimeOffset.MinValue;

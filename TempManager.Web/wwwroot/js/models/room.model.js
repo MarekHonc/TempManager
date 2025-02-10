@@ -146,7 +146,7 @@ function roomModel(room, initData) {
 	/**
 	 * Příznak - vytápí se nebo ne.
 	 */
-	self.valveOpen = ko.observable(room.valveOpen);
+	self.valveOpen = ko.numericObservable(room.valveOpen, "0");
 
 	/**
 	 * X pozice na mapě.

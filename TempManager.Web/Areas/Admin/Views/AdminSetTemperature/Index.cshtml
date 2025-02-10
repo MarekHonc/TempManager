@@ -52,7 +52,7 @@
 					<th>@AdminResources.Date</th>
 					<th>@AdminResources.User</th>
 					<th>@AdminResources.Room</th>
-					<th class="temperature">@Html.Raw(AdminResources.SetTemperatureTo)</th>
+					<th class="numeric-value">@Html.Raw(AdminResources.SetTemperatureTo)</th>
 					<th>@AdminResources.Result</th>
 				</tr>
 			</thead>
@@ -62,7 +62,7 @@
 					<td data-bind="text: date"></td>
 					<td data-bind="text: userName"></td>
 					<td data-bind="text: roomName"></td>
-					<td class="temperature" data-bind="text: newTemperature"></td>
+					<td class="numeric-value" data-bind="text: newTemperature"></td>
 					<td data-bind="text: result"></td>
 				</tr>
 				<!-- /ko -->

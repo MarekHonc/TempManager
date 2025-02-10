@@ -39,7 +39,7 @@ namespace TempManager.BL.Services
 			var rooms = (await this.repositoriesFactory.RoomRepository.Fetch(roomsQuery));
 
 			// Získám poslední hodnoty.
-			var historyQuery = new FloorHistoryLatestQuery(floorId);
+			var historyQuery = new FloorHistoryLatestQuery(floorId, onlyLatest: true);
 			var historyResult = await this.repositoriesFactory.FloorHistoryRepository.Fetch(historyQuery);
 			var history = historyResult
 				.SelectMany(r => r.RoomValues)
@@ -94,7 +94,7 @@ namespace TempManager.BL.Services
 
 			// Stáhnu poslední hodnoty pro celé podlaží.
 			var values = await this.repositoriesFactory.FloorHistoryRepository.FetchOne(
-				new FloorHistoryLatestQuery(room.FloorId)
+				new FloorHistoryLatestQuery(room.FloorId, onlyLatest: true)
 			);
 
 			var latestTemp = values?.RoomValues.FirstOrDefault(r => r.ExternalRoomId == room.ExternalId);

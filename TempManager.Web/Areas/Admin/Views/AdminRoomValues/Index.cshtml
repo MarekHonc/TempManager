@@ -45,9 +45,11 @@
 				<tr>
 					<th>@AdminResources.Date</th>
 					<th>@AdminResources.Room</th>
-					<th class="temperature">@Html.Raw(AdminResources.Temperature)</th>
-					<th>@AdminResources.CO2</th>
-					<th>@AdminResources.Rh</th>
+					<th class="numeric-value">@Html.Raw(AdminResources.Temperature)</th>
+					<th class="numeric-value">@Html.Raw(AdminResources.SetTemperatureTo)</th>
+					<th class="numeric-value">@AdminResources.CO2</th>
+					<th class="numeric-value">@AdminResources.Rh</th>
+					<th class="numeric-value">@AdminResources.ValveOpen</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -55,9 +57,11 @@
 				<tr>
 					<td data-bind="text: date"></td>
 					<td data-bind="text: room"></td>
-					<td data-bind="text: temperature" class="temperature"></td>
-					<td data-bind="text: co2"></td>
-					<td data-bind="text: rh"></td>
+					<td class="numeric-value" data-bind="text: temperature"></td>
+					<td class="numeric-value" data-bind="text: desiredTemperature"></td>
+					<td class="numeric-value" data-bind="text: co2"></td>
+					<td class="numeric-value" data-bind="text: rh"></td>
+					<td class="numeric-value" data-bind="text: valveOpen"></td>
 				</tr>
 				<!-- /ko -->
 			</tbody>

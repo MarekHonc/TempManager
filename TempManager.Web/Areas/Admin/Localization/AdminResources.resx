@@ -276,4 +276,7 @@
   <data name="CanWrite" xml:space="preserve">
     <value>Zápis</value>
   </data>
+  <data name="ValveOpen" xml:space="preserve">
+    <value>Ventil [%]</value>
+  </data>
 </root>

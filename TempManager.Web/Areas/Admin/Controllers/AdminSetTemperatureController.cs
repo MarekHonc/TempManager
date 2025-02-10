@@ -50,7 +50,7 @@ namespace TempManager.Web.Areas.Admin.Controllers
 					date = r.Date.ToShortDateTime(),
 					userName = r.User.UserName,
 					roomName = r.Room.Name,
-					newTemperature = r.NewTemperature,
+					newTemperature = r.NewTemperature.ToString("0.00"),
 					result = GetLocalizedResult(r.Result)
 				}),
 				hasNext = history.HasNextPage,

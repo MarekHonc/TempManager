@@ -7,6 +7,8 @@ namespace TempManager.KNX.Api
 	/// </summary>
 	public class ApiValue
 	{
+		private double valveOpen;
+
 		/// <summary>
 		/// Vrací název místnosti.
 		/// </summary>
@@ -63,8 +65,8 @@ namespace TempManager.KNX.Api
 		[JsonProperty("ventil")]
 		public double ValveOpen
 		{
-			get;
-			internal set;
+			get => this.valveOpen;
+			internal set => this.valveOpen = value > 100 ? 100 : value;
 		}
 
 		/// <summary>

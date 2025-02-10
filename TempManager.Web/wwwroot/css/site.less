@@ -64,7 +64,7 @@ a:hover {
 		padding: 1em;
 	}
 
-	.temperature {
+	.numeric-value {
 		text-align: right;
 
 		&.setter {
@@ -73,7 +73,7 @@ a:hover {
 				align-items: center;
 				justify-content: right;
 
-				.temperature-control {
+				.control {
 					width: 20px;
 					height: 20px;
 					cursor: pointer;
@@ -143,5 +143,15 @@ a:hover {
 @media (min-width: 768px) {
 	html {
 		font-size: 16px;
+	}
+}
+
+@media (max-width: 768px) {
+	.hidden-md {
+		display: none;
+	}
+
+	.container {
+		max-width: 95%;
 	}
 }

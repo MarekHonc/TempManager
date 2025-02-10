@@ -8,7 +8,12 @@ namespace TempManager.BL.Models
 	/// </summary>
 	public class Room
 	{
-		internal Room(int id, string name, string floorName, string externalId, bool hasRightToEdit, bool isFavorite, double temperature, double rh, double desiredTemperature, bool valveOpen, double? x = null, double? y = null, bool isError = false)
+		internal Room(int id, string name, string floorName,
+			string externalId, bool hasRightToEdit, bool isFavorite,
+			double temperature, double rh, double desiredTemperature,
+			double valveOpen, double? x = null, double? y = null,
+			bool isError = false
+		)
 		{
 			this.Id = id;
 			this.Name = name;
@@ -101,7 +106,7 @@ namespace TempManager.BL.Models
 		/// <summary>
 		/// Vrací zda-li je ventil otevřen.
 		/// </summary>
-		public bool ValveOpen
+		public double ValveOpen
 		{
 			get;
 		}
@@ -177,7 +182,7 @@ namespace TempManager.BL.Models
 				temperature: 0,
 				rh: 0,
 				desiredTemperature: 0,
-				valveOpen: false,
+				valveOpen: 0,
 				room.XPosition,
 				room.YPosition,
 				isError: true

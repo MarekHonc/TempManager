@@ -18,15 +18,17 @@
 
 	<div class="row justify-content-between">
 		<h3 class="col-auto">@Resources.Rooms</h3>
-		<div class="col-auto row align-items-center">
-			<div class="col-auto">
-				<input class="form-check-input" data-bind="checked: onlyFavorites" type="checkbox" id="only-favorites">
-				<label class="form-check-label" for="only-favorites">
-					@Resources.OnlyFavorites
-				</label>
-			</div>
-			<div class="col-auto">
-				<input data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="form-control" type="search" placeholder="@Resources.Search" aria-label="@Resources.Search">
+		<div class="col-auto">
+			<div class="row align-items-center">
+				<div class="col-auto">
+					<input class="form-check-input" data-bind="checked: onlyFavorites" type="checkbox" id="only-favorites">
+					<label class="form-check-label" for="only-favorites">
+						@Resources.OnlyFavorites
+					</label>
+				</div>
+				<div class="col-auto">
+					<input data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="form-control" type="search" placeholder="@Resources.Search" aria-label="@Resources.Search">
+				</div>
 			</div>
 		</div>
 	</div>
@@ -42,10 +44,10 @@
 			<thead>
 				<tr>
 					<th>@Resources.Room</th>
-					<th>@Resources.Floor</th>
-					<th class="temperature">@Html.Raw(Resources.Temperature)</th>
-					<th class="temperature">@Html.Raw(Resources.DesiredTempereture)</th>
-					<th class="temperature">@Resources.Rh</th>
+					<th class="hidden-md">@Resources.Floor</th>
+					<th class="numeric-value">@Html.Raw(Resources.Temperature)</th>
+					<th class="numeric-value">@Html.Raw(Resources.DesiredTempereture)</th>
+					<th class="numeric-value">@Resources.Rh</th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -54,28 +56,28 @@
 				<!-- ko foreach: filteredRooms -->
 				<tr data-bind="css: { 'error' : isError }">
 					<td data-bind="text: name"></td>
-					<td data-bind="text: floorName"></td>
-					<td class="temperature" data-bind="text: temperature"></td>
+					<td class="hidden-md" data-bind="text: floorName"></td>
+					<td class="numeric-value" data-bind="text: temperature"></td>
 					<!-- ko if: hasRightToEdit -->
-					<td class="temperature setter">
+					<td class="numeric-value setter">
 						<span class="inner">
-							<span data-bind="click: function() { changeTemperature(-1); }, css: { 'disabled' : !canDecreaseTemperature() }" class="temperature-control minus"></span>
+							<span class="control minus" data-bind="click: function() { changeTemperature(-1); }, css: { 'disabled' : !canDecreaseTemperature() }"></span>
 							<span data-bind="text: desiredTemperature().inputValue, enabled: hasRightToEdit"></span>
-							<span data-bind="click: function() { changeTemperature(1); }, css: { 'disabled' : !canIncreaseTemperature() }" class="temperature-control plus"></span>
+							<span class="control plus" data-bind="click: function() { changeTemperature(1); }, css: { 'disabled' : !canIncreaseTemperature() }"></span>
 						</span>
 					</td>
 					<!-- /ko -->
 					<!-- ko ifnot: hasRightToEdit -->
-					<td class="temperature setter">
+					<td class="numeric-value setter">
 						<span class="inner">
-							<span class="temperature-control minus disabled"></span>
+							<span class="control minus disabled"></span>
 							<span data-bind="text: desiredTemperature().dsValue"></span>
-							<span class="temperature-control plus disabled"></span>
+							<span class="control plus disabled"></span>
 						</span>
 					</td>
 					<!-- /ko -->
-					<td class="temperature" data-bind="text: rh"></td>
-					<td class="center icon"><span data-bind="css: { 'heat': valveOpen(), 'freeze': !valveOpen() }"></span></td>
+					<td class="numeric-value" data-bind="text: rh"></td>
+					<td class="center icon" data-bind="text: valveOpen"></td>
 					<td class="center icon"><span class="star" data-bind="css: { 'filled': isFavorite }, click: toggleFavorite"></span></td>
 				</tr>
 				<!-- /ko -->
