@@ -1,4 +1,5 @@
-﻿using TempManager.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using TempManager.Common;
 using TempManager.DL.Entities;
 using TempManager.DL.Interfaces;
 
@@ -94,6 +95,40 @@ namespace TempManager.DL.Repositories
 			this.context.ChangeTracker.AutoDetectChangesEnabled = false;
 			return new SimpleDisposable(() => this.context.ChangeTracker.AutoDetectChangesEnabled = temp);
 		}
+
+		#region Retence
+
+		/// <summary>
+		/// Počet dní jak dlouho se uchovává historie nastavení teploty.
+		/// </summary>
+		private const int SetTemperatureHistoryKeepDays = 14;
+
+		/// <summary>
+		/// Počet dní jak dlouho se uchovávají naměřené hodnoty.
+		/// </summary>
+		private const int RoomValueKeepDays = 14;
+
+		/// <summary>
+		/// Smaže staré hodnoty.
+		/// </summary>
+		public async Task DeleteOldValues()
+		{
+			var now = DateTime.UtcNow;
+
+			// 1. Nastavení teploty.
+			var setTemperatureHistoryCutoffDate = now.AddDays(-SetTemperatureHistoryKeepDays);
+			await context.SetTemperatures
+				.Where(r => r.Date < setTemperatureHistoryCutoffDate)
+				.ExecuteDeleteAsync();
+
+			// 2. Naměřené hodnoty.
+			var roomValueCutoffDate = now.AddDays(-RoomValueKeepDays);
+			await context.FloorHistories
+				.Where(r => r.Date < roomValueCutoffDate)
+				.ExecuteDeleteAsync();
+		}
+
+		#endregion
 
 		/// <summary>
 		/// Uloží změny do databáze.

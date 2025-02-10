@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Hangfire;
+using Hangfire.Dashboard;
+using Hangfire.MemoryStorage;
+using Microsoft.EntityFrameworkCore;
 using TempManager.BL.Interfaces;
 using TempManager.BL.Services;
 using TempManager.BL.SyncService;
@@ -43,9 +46,22 @@ namespace TempManager.Web.Code
 			builder.Services.AddScoped<IRoomService, RoomService>();
 			builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
-			// Background task, který synchronizuje lokální storage s/do KNX.
-			builder.Services.AddHostedService<ValueSyncServiceWrapper>();
+			// Hangfire.
+			builder.Services.AddHangfire(config =>
+			{
+				config.SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+					.UseSimpleAssemblyNameTypeSerializer()
+					.UseRecommendedSerializerSettings()
+					.UseMemoryStorage()
+					.UseFilter(new AutomaticRetryAttribute { Attempts = 0 }) // Zakáže opakované pokusy
+					.UseFilter(new DisableConcurrentExecutionAttribute(timeoutInSeconds: 60)); // Globální zákaz souběhu
+			});
+			builder.Services.AddHangfireServer();
+
+			// Tasky na pozadí.
 			builder.Services.AddScoped<IValueSyncService, ValueSyncService>();
+			builder.Services.AddTransient<ISyncJob, SyncJob>();
+			builder.Services.AddTransient<ICleanerJob, CleanerJob>();
 
 			// Hub pro real time update hodnot.
 			builder.Services.AddSignalR();
@@ -94,6 +110,38 @@ namespace TempManager.Web.Code
 					}
 				};
 			});
+		}
+
+		/// <summary>
+		/// Naplánuje spuštění úloh na pozadí.
+		/// </summary>
+		public static void ScheduleJobs(this WebApplication app)
+		{
+			app.UseHangfireDashboard("/services", new DashboardOptions()
+			{
+				// TODO: Zabezpečit na admin práva
+				Authorization = new[] { new DashboardAuthorizationFilter() },
+			});
+
+			// Naplánování úloh přes DI
+			using (var scope = app.Services.CreateScope())
+			{
+				var serviceProvider = scope.ServiceProvider;
+
+				var syncJob = serviceProvider.GetRequiredService<ISyncJob>();
+				var cleanerJob = serviceProvider.GetRequiredService<ICleanerJob>();
+
+				RecurringJob.AddOrUpdate(nameof(SyncJob), () => syncJob.Run(), "* * * * *");
+				RecurringJob.AddOrUpdate(nameof(CleanerJob), () => cleanerJob.Run(), "0 0 * * *");
+			}
+		}
+
+		public class DashboardAuthorizationFilter : IDashboardAuthorizationFilter
+		{
+			public bool Authorize(DashboardContext context)
+			{
+				return true; // Povolit přístup všem
+			}
 		}
 	}
 }

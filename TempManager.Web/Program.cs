@@ -1,3 +1,4 @@
+using Hangfire;
 using Microsoft.AspNetCore.HttpOverrides;
 using TempManager.Web.Code;
 using TempManager.Web.Hubs;
@@ -47,21 +48,24 @@ namespace TempManager.Web
 
 			app.UseAuthorization();
 
+			app.MapHub<UpdateHub>("/updateHub");
+			app.EnsureLatestDatabase();
+			app.ScheduleJobs();
+
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(
 					name: "areas",
 					pattern: "{area:exists}/{controller=AdminFloor}/{action=Index}/{id?}"
 				);
+
+				endpoints.MapHangfireDashboard("/services");
 			});
 
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
 
-			app.MapHub<UpdateHub>("/updateHub");
-
-			app.EnsureLatestDatabase();
 			app.Run();
 		}
 	}
