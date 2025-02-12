@@ -118,10 +118,10 @@ namespace TempManager.Web.Code
 		/// </summary>
 		public static void ScheduleJobs(this WebApplication app)
 		{
-			// TODO: padá to na 500 - nějaký content type
 			app.UseHangfireDashboard("/services", new DashboardOptions()
 			{
 				Authorization = new[] { new AdminShibbolethAuthorizeAttribute() },
+				IgnoreAntiforgeryToken = true
 			});
 
 			// Naplánování úloh přes DI
