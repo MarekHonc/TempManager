@@ -107,7 +107,6 @@ function appModel(initData) {
 	async function start() {
 		try {
 			await connection.start();
-			await connection.invoke("Join", initData.group);
 		} catch (err) {
 			console.error(err);
 			setTimeout(start, 5000);
@@ -120,10 +119,7 @@ function appModel(initData) {
 	/**
 	 * Na zavření okna odpojím.
 	 */
-	window.addEventListener("unload", async () => await connection.invoke("Leave", initData.group));
-	//window.onbeforeunload = async () => {
-	//	await connection.invoke("Leave", initData.group);
-	//}
+	window.addEventListener("unload", async () => await connection.stop());
 
 	// Tooltip
 	toastr.options = {

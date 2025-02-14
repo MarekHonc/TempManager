@@ -53,8 +53,7 @@ namespace TempManager.Web.HostedServices
 
 				// A pošlu na web sockety.
 				// TODO: nefunguje na produkci.
-				// TODO: Teď to nebude fungovat protože groups.... možná roomy?
-				await this.hubContext.Clients.Group(value.Key.FriendlyId).SendAsync("ReceiveMessage", value.Value);
+				await this.hubContext.Clients.All.SendAsync("ReceiveMessage", value.Value);
 			}
 		}
 	}
