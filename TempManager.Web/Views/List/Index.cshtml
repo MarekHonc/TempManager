@@ -72,9 +72,15 @@
 					<!-- ko if: hasRightToEdit -->
 					<td class="numeric-value setter">
 						<span class="inner">
-							<span class="control minus" data-bind="click: function() { changeTemperature(-1); }, css: { 'disabled' : !canDecreaseTemperature() }"></span>
+							<span class="control minus" data-bind="
+								event: { mousedown: startDecrement, mouseup: stopChange, mouseleave: stopChange, click: function() { changeTemperature(-1, true); } },
+								css: { 'disabled' : !canDecreaseTemperature() }">
+							</span>
 							<span data-bind="text: desiredTemperature().inputValue, enabled: hasRightToEdit"></span>
-							<span class="control plus" data-bind="click: function() { changeTemperature(1); }, css: { 'disabled' : !canIncreaseTemperature() }"></span>
+							<span class="control plus" data-bind="
+								event: { mousedown: startIncrement, mouseup: stopChange, mouseleave: stopChange, click: function() { changeTemperature(1, true); } },
+								css: { 'disabled' : !canIncreaseTemperature() }">
+							</span>
 						</span>
 					</td>
 					<!-- /ko -->

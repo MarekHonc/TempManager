@@ -82,14 +82,11 @@ function roomModel(room, initData) {
 	 * Nastavená teplota.
 	 */
 	self.desiredTemperature = ko.observable(new valueHolder(room.desiredTemperature, room.desiredTemperature));
-	self.desiredTemperature().inputValue.subscribe(function (newValue) {
-		debouncedhandleTemperatureChange();
-	});
 
 	/**
 	 * Nastaví novou teplotu -> přidá nebo odebere krok podle předaného směru.
 	 */
-	self.changeTemperature = function (direction) {
+	self.changeTemperature = function (direction, useCallback) {
 		var odlTemperature = self.desiredTemperature().inputValue.number();
 		var newValue = odlTemperature + direction * initData.step;
 
@@ -97,6 +94,10 @@ function roomModel(room, initData) {
 			return;
 
 		self.desiredTemperature().inputValue(newValue);
+
+		if (useCallback) {
+			debouncedhandleTemperatureChange()
+		}
 	}
 
 	/**
@@ -117,9 +118,6 @@ function roomModel(room, initData) {
 	 * Zpracování změny teploty.
 	 */
 	const handleTemperatureChange = function () {
-		if (self.desiredTemperature().dsValue() == self.desiredTemperature().inputValue())
-			return;
-
 		$.ajax({
 			method: "POST",
 			url: initData.setTemperatureUrl,
@@ -157,6 +155,44 @@ function roomModel(room, initData) {
 	 * Y pozice na mapě.
 	 */
 	self.y = ko.observable(room.y);
+
+	/**
+	 * Spustí interval pro držení tlačítka přidání teploty.
+	 */
+	self.startIncrement = function () {
+		self.startChanging(1);
+	};
+
+	/**
+	 * Spustí interval pro držení tlačítka snížení teploty.
+	 */
+	self.startDecrement = function () {
+		self.startChanging(-1);
+	};
+
+	/**
+	 * Spuštění intervalu snižování.
+	 */
+	self.startChanging = function (direction) {
+		if (self.interval)
+			return;
+
+		self.interval = setInterval(function () {
+			self.changeTemperature(direction, false);
+		}, 200);
+	};
+
+	/**
+	 * Zastavení změny při uvolnění tlačítka.
+	 */
+	self.stopChange = function () {
+		if (self.interval) {
+			clearInterval(self.interval);
+			self.interval = null;
+
+			debouncedhandleTemperatureChange();
+		}
+	};
 
 	/**
 	 * Updatuje hodnoty pro zobrazení.
