@@ -10,7 +10,7 @@ namespace TempManager.BL.Services
 	public class RoomService : IRoomService
 	{
 		public const int MaxTemperature = 30;
-		public const int MinTemperature = 15;
+		public const int MinTemperature = 8;
 
 		private readonly RepositoriesFactory repositoriesFactory;
 		private readonly IUserService userService;
