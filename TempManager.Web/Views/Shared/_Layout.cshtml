@@ -12,24 +12,11 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"]</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/lib/toastr.js/toastr.min.css"/>
-	<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/bundle.css" />
 	
-	<script src="~/lib/jquery/jquery.min.js"></script>
-	<script src="~/lib/toastr.js/toastr.min.js"></script>
-	<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="~/lib/underscore.js/underscore.min.js"></script>
-	<script src="~/lib/knockout/knockout-latest.min.js"></script>
-	<script src="~/lib/microsoft-signalr/signalr.min.js"></script>
-	<script src="~/lib/numeral.js/numeral.min.js"></script>
-	<script src="~/lib/numeral.js/locales.min.js"></script>
-	<script src="~/js/observable.dictionary.js"></script>
-	<script src="~/js/knockout.custom.js"></script>
-	
-	<script src="~/js/pan.and.zoom.js"></script>
-	<script src="~/js/models/room.model.js"></script>
-	<script src="~/js/models/app.model.js"></script>
+	<script src="/js/libraries"></script>
+	<script src="/js/front-end"></script>
+
 	@await RenderSectionAsync("Scripts", required: false)
 
 	<script type="text/javascript">

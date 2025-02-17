@@ -1,15 +1,9 @@
 ﻿@using TempManager.Web.Areas.Admin.Localization
-@using TempManager.Web.Code
 @model TempManager.Web.Areas.Admin.Models.UserRightsEditorViewModel
 
 @{
 	ViewData["Title"] = string.Format(AdminResources.UserRightsTitle, Model.UserName);
 	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-}
-
-@section Scripts
-{
-	<script src="~/js/models/auto.complete.rights.model.js"></script>
 }
 
 <div class="row d-flex justify-content-center">

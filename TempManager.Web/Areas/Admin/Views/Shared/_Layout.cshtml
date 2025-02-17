@@ -6,20 +6,13 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"]</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.min.css" />
-	<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/css/admin.min.css" asp-append-version="true" />
+	<link rel="stylesheet" href="/css/bundle.css" />
+	<link rel="stylesheet" href="/css/bundle-admin.css" />
 	
-	@* TODO: bundling? *@
+	<script src="/js/libraries"></script>
+	<script src="/js/autocomplete"></script>
+	<script src="/js/front-end-admin"></script>
 
-	<script src="~/lib/jquery/jquery.min.js"></script>
-	<script src="~/lib/knockout/knockout-latest.min.js"></script>
-	<script src="~/lib/underscore.js/underscore.min.js"></script>
-	<script src="~/lib/jqueryui/jquery-ui.min.js"></script>
-	<script src="~/js/observable.dictionary.js"></script>
-	<script src="~/js/knockout.custom.js"></script>
-	<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 </head>
 <body>

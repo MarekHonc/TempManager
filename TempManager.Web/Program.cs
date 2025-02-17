@@ -26,6 +26,9 @@ namespace TempManager.Web
 			// Zaregistruji služby.
 			builder.RegisterServices();
 
+			// Zaregistrování bundlù.
+			builder.RegisterBundles();
+
 			// Registrace Shibba.
 			builder.AddShibboleth();
 
@@ -42,6 +45,7 @@ namespace TempManager.Web
 			}
 
 			app.UseForwardedHeaders();
+			app.UseWebOptimizer();
 			app.UseStaticFiles();
 			
 			app.UseRouting();

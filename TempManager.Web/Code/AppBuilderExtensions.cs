@@ -1,5 +1,4 @@
 ﻿using Hangfire;
-using Hangfire.Dashboard;
 using Hangfire.MemoryStorage;
 using Microsoft.EntityFrameworkCore;
 using TempManager.BL.Interfaces;
@@ -135,6 +134,63 @@ namespace TempManager.Web.Code
 				RecurringJob.AddOrUpdate(nameof(SyncJob), () => syncJob.Run(), "* * * * *");
 				RecurringJob.AddOrUpdate(nameof(CleanerJob), () => cleanerJob.Run(), "0 0 * * *");
 			}
+		}
+
+		/// <summary>
+		/// Zaregistruje všechny JS/CSS bundly pro aplikaci.
+		/// </summary>
+		public static void RegisterBundles(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddWebOptimizer(pipeline =>
+			{
+				pipeline.AddCssBundle(
+					"/css/bundle.css",
+					"/lib/bootstrap/css/bootstrap.min.css",
+					"/lib/toastr.js/toastr.min.css",
+					"/css/site.min.css"
+				);
+
+				pipeline.AddJavaScriptBundle(
+					"/js/libraries",
+					"/lib/jquery/jquery.min.js",
+					"/lib/toastr.js/toastr.min.js",
+					"/lib/bootstrap/js/bootstrap.bundle.min.js",
+					"/lib/underscore.js/underscore.min.js",
+					"/lib/knockout/knockout-latest.min.js",
+					"/lib/microsoft-signalr/signalr.min.js",
+					"/lib/numeral.js/numeral.min.js",
+					"/lib/numeral.js/locales.min.js",
+					"/lib/jqueryui/jquery-ui.js",
+					"/js/observable.dictionary.js",
+					"/js/knockout.custom.js"
+				);
+
+				pipeline.AddJavaScriptBundle(
+					"/js/front-end",
+					"/js/pan.and.zoom.js",
+					"/js/models/room.model.js",
+					"/js/models/app.model.js"
+				);
+
+				// Admin
+				pipeline.AddCssBundle(
+					"/css/bundle-admin.css",
+					"/css/admin.min.css"
+				);
+
+				pipeline.AddJavaScriptBundle(
+					"/js/autocomplete",
+					"/js/models/auto.complete.model.js",
+					"/js/models/auto.complete.rights.model.js"
+				);
+
+				pipeline.AddJavaScriptBundle(
+					"/js/front-end-admin",
+					"/js/models/app.feedback.model.js",
+					"/js/models/app.history.model.js",
+					"/js/models/app.room.values.model.js"
+				);
+			});
 		}
 	}
 }
