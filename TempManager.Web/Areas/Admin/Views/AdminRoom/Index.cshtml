@@ -38,7 +38,7 @@
 				</tr>
 				</thead>
 				<tbody>
-					@foreach (var item in group)
+					@foreach (var item in group.OrderBy(i => i.Name))
 					{
 						<tr>
 							<td>
