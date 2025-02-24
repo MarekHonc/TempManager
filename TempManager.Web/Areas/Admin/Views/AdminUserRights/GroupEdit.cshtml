@@ -11,7 +11,7 @@
 }
 
 <form asp-action="GroupEdit" asp-controller="AdminUserRights" asp-area="Admin" method="POST">
-	<div class="table-responsive" id="user-rights-group-edior-app">
+	<div class="table-responsive rights-table-wrapper" id="user-rights-group-edior-app">
 		<table class="table sticky rights">
 			<thead>
 				<tr>
@@ -48,7 +48,7 @@
 						<input type="hidden" data-bind="value: $parent.title(), attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.UserName))'.replace('-1', $parentContext.$index()).replace('-2', $index()) } "/>
 
 						
-						<!-- ko with: $root.cells.get($root.getKey($parent.title(), $data.title())) -->
+						<!-- ko with: $root.cells[$parentContext.$index()][$index()] -->
 						<span data-bind="visible: canView() && !canEdit()">R</span>
 						<span data-bind="visible: canView() && canEdit()">W</span>
 

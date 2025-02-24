@@ -102,3 +102,6 @@
   left: 0;
   z-index: 2;
 }
+.rights-table-wrapper {
+  max-height: 80vh;
+}

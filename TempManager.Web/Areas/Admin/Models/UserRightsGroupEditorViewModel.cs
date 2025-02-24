@@ -63,8 +63,13 @@ namespace TempManager.Web.Areas.Admin.Models
 				(await repositoriesFactory.UserToRoomRepository.FetchAll())
 				.ToDictionary(k => (k.UserId, k.RoomId));
 
-			var users = (await repositoriesFactory.UserRepository.FetchAll()).ToList();
-			var rooms = (await repositoriesFactory.RoomRepository.FetchAll()).ToList();
+			var users = (await repositoriesFactory.UserRepository.FetchAll())
+				.OrderBy(u => u.UserName)
+				.ToList();
+
+			var rooms = (await repositoriesFactory.RoomRepository.FetchAll())
+				.OrderBy(u => u.ExternalId)
+				.ToList();
 
 			this.Cells = new UserRightGroupCell[users.Count][];
 

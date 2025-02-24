@@ -5,21 +5,13 @@
 
 	self.rows = ko.observableArray(_.map(data.rows, function (r) { return new editableHeader(r); }));
 
-	self.cells = ko.observableDictionary();
-
-	self.getKey = function (userName, roomId) {
-		return userName + ";" + roomId;
-	}
+	self.cells = [];
 
 	self.selectedRow = ko.observable(0);
 	self.selectedColumn = ko.observable(0);
 
 	self.getSelectedCell = function () {
-		var userName = self.rows()[self.selectedRow()].title();
-		var room = self.columns()[self.selectedColumn()].title();
-
-		var key = self.getKey(userName, room);
-		var value = self.cells.get(key)();
+		var value = self.cells[self.selectedRow()][self.selectedColumn()];
 
 		if (!value) {
 			value = new cellModel({
@@ -106,14 +98,13 @@
 	});
 
 	for (var i = 0; i < data.cells.length; i++) {
+		self.cells.push([]);
+
 		for (var j = 0; j < data.cells[i].length; j++) {
 			var current = data.cells[i][j];
 			var currentModel = new cellModel(current);
 
-			self.cells.set(
-				self.getKey(currentModel.userName(), currentModel.externalRoomId()),
-				currentModel
-			);
+			self.cells[i].push(currentModel);
 		}
 	}
 }
