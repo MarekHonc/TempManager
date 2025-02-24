@@ -75,7 +75,7 @@
 				method: "POST",
 				url: "@Url.Action("SetVisible", "AdminRoom")",
 				data: {
-					floorId: $this.attr("data-floor"),
+					floorId: $this.attr("data-room"),
 					isVisible: $this.hasClass("hidden")
 				},
 				success: function() {
