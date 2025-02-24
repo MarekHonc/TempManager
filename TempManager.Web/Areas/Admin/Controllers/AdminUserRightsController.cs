@@ -24,7 +24,8 @@ namespace TempManager.Web.Areas.Admin.Controllers
 		/// </summary>
 		public async Task<IActionResult> Index()
 		{
-			var users = await repositoriesFactory.UserRepository.FetchAll();
+			var usersQuery = new AdminListUsersQuery();
+			var users = await repositoriesFactory.UserRepository.Fetch(usersQuery);
 			var model = await FetchModel(AdminWebLocation.UserRights, new AdminListViewModel<User>(users));
 
 			return View(model);
@@ -59,6 +60,33 @@ namespace TempManager.Web.Areas.Admin.Controllers
 
 			// Uložím změny.
 			await this.repositoriesFactory.SaveChanges();
+
+			return RedirectToAction(nameof(Index));
+		}
+
+		/// <summary>
+		/// Zobrazí hromadný editor práv uživatelů.
+		/// </summary>
+		public async Task<IActionResult> GroupEdit()
+		{
+			var model = await FetchModel(AdminWebLocation.UserRights, new UserRightsGroupEditorViewModel());
+			await model.Load(this.repositoriesFactory);
+
+			return View(model);
+		}
+
+		/// <summary>
+		/// Upraví hromadně práva všech uživatelů.
+		/// </summary>
+		[HttpPost]
+		public async Task<IActionResult> GroupEdit(UserRightsGroupEditorViewModel postedModel)
+		{
+			var model = await FetchModel(AdminWebLocation.UserRights, postedModel);
+			if (!ModelState.IsValid)
+				return View(model);
+
+			// Updatuji záznam.
+			await model.Update(this.repositoriesFactory);
 
 			return RedirectToAction(nameof(Index));
 		}

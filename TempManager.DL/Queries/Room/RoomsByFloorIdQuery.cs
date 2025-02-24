@@ -19,7 +19,7 @@ namespace TempManager.DL.Queries
 		protected override IQueryable<Room> CreateQuery(TempManagerContext dbContext)
 		{
 			var query = dbContext.Rooms
-				.Where(r => !r.Floor.IsHidden);
+				.Where(r => !r.Floor.IsHidden && !r.IsHidden);
 
 			if (this.floorId.HasValue)
 			{

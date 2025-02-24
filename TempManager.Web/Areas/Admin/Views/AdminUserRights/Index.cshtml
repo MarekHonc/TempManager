@@ -6,11 +6,12 @@
 	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@AdminResources.UserRights</h2>
-
-@* TODO:
-	Editační tabulka s oprávněními - smáznout někoho - nevidím, vidím + můžu měnit, pouze vidím, co2 nejvíc - HOTOVO, až na CO2
-*@
+<div class="d-flex justify-content-between">
+	<h2>
+		@AdminResources.UserRights
+	</h2>
+	@Html.ActionLink(AdminResources.UserGroupRights, "GroupEdit", "AdminUserRights")
+</div>
 
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">

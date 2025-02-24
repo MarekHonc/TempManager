@@ -17,8 +17,12 @@
 </head>
 <body>
 	@await Html.PartialAsync("_Navigation", Model)
+	
+	@{
+		var noContainer = (bool?)ViewData["NoContainer"] == true;
+	}
 
-	<main role="main" class="pb-3 container">
+	<main role="main" class="pb-3 @(noContainer ? "px-3" : "container")">
 		@RenderBody()
 	</main>
 

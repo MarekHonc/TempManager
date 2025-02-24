@@ -17,6 +17,7 @@ namespace TempManager.DL.Queries
 		protected override IQueryable<User> CreateQuery(TempManagerContext dbContext)
 		{
 			return dbContext.Users.Where(u =>
+				!u.IsDeleted && u.FirstName != string.Empty &&
 				(
 					u.UserName.Contains(this.search) ||
 					u.FirstName.Contains(this.search) ||

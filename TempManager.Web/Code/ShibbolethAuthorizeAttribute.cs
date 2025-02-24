@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using TempManager.BL.Interfaces;
+using TempManager.BL.Services;
 
 namespace TempManager.Web.Code
 {
@@ -16,9 +17,18 @@ namespace TempManager.Web.Code
 		{
 			var claimsUser = actionContext.HttpContext.RequestServices.GetService<IClaimsUser>();
 			var settings = actionContext.HttpContext.RequestServices.GetService<ShibbolethAuthorizeSettings>();
+			var userService = actionContext.HttpContext.RequestServices.GetService<IUserService>();
 
 			// Aktuální uživatel je null -> neřeším.
 			if (claimsUser == null)
+			{
+				actionContext.Result = new RedirectResult("NotAuthorized");
+				return;
+			}
+
+			// vytáhnu uživatele a pokud je smazaný, tak ho vykopnu.
+			var user = userService.GetCurrentUser().Result;
+			if (user.IsDeleted)
 			{
 				actionContext.Result = new RedirectResult("NotAuthorized");
 				return;

@@ -279,4 +279,10 @@
   <data name="ValveOpen" xml:space="preserve">
     <value>Ventil [%]</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>+ Přidat</value>
+  </data>
+  <data name="UserGroupRights" xml:space="preserve">
+    <value>Hromadná editace</value>
+  </data>
 </root>

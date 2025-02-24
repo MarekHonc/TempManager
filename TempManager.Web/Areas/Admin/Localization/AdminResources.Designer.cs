@@ -61,6 +61,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to + Přidat.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zpět.
         /// </summary>
         public static string Back {
@@ -462,6 +471,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         public static string User {
             get {
                 return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hromadná editace.
+        /// </summary>
+        public static string UserGroupRights {
+            get {
+                return ResourceManager.GetString("UserGroupRights", resourceCulture);
             }
         }
         

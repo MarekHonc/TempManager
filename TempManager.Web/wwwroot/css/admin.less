@@ -41,8 +41,78 @@
 	}
 }
 
-table {
+.table {
 	.w50 {
 		width: 50px;
+	}
+
+	th.vertical-header {
+		vertical-align: bottom;
+		text-align: center;
+
+		span, a, input {
+			writing-mode: vertical-rl;
+			transform: rotate(180deg);
+			white-space: nowrap;
+		}
+	}
+
+	.highlight {
+		background-color: #faeca1 !important;
+		color: black;
+
+		&.outline {
+			background-color: #ffd800;
+			outline-offset: -2px;
+			outline: 2px solid black;
+		}
+	}
+
+	&.rights {
+		thead th, tbody th, tbody td {
+			padding: 4px;
+			background-color: #f8f9fa;
+			border: 1px black solid;
+			color: black;
+			text-align: center;
+		}
+
+		thead th {
+			width: 50px;
+		}
+
+		tbody tr {
+			height: 25px;
+		}
+
+		.add {
+			border: none;
+
+			a {
+				color: @mainColor;
+				cursor: pointer;
+			}
+		}
+	}
+
+	&.sticky {
+		height: 350px;
+
+		tbody th {
+			position: sticky;
+			left: 0;
+			z-index: 1;
+		}
+
+		thead th {
+			position: sticky;
+			top: 0;
+			z-index: 1;
+
+			&:first-child {
+				left: 0;
+				z-index: 2;
+			}
+		}
 	}
 }

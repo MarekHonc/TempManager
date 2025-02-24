@@ -1,5 +1,6 @@
 ﻿using Hangfire;
 using Hangfire.MemoryStorage;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using TempManager.BL.Interfaces;
 using TempManager.BL.Services;
@@ -65,6 +66,12 @@ namespace TempManager.Web.Code
 
 			// Hub pro real time update hodnot.
 			builder.Services.AddSignalR();
+
+			// Kvůli skupinovému editoru práv musím zvýšit limit na počet prvků ve formuláři.
+			builder.Services.Configure<FormOptions>(options =>
+			{
+				options.ValueCountLimit = int.MaxValue;
+			});
 		}
 
 		/// <summary>
@@ -188,7 +195,8 @@ namespace TempManager.Web.Code
 					"/js/front-end-admin",
 					"/js/models/app.feedback.model.js",
 					"/js/models/app.history.model.js",
-					"/js/models/app.room.values.model.js"
+					"/js/models/app.room.values.model.js",
+					"/js/models/app.group.rights.editor.js"
 				);
 			});
 		}

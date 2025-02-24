@@ -31,7 +31,7 @@ namespace TempManager.Web.Areas.Admin.Code
 			var userService = httpContext.RequestServices.GetService<IUserService>();
 			var currentUser = userService.GetCurrentUser().Result;
 
-			return currentUser?.IsAdmin == true;
+			return currentUser?.IsDeleted == false && currentUser?.IsAdmin == true;
 		}
 	}
 }

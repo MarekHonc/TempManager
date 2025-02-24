@@ -76,6 +76,15 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Vrací zda-li je místnost skrytá.
+		/// </summary>
+		public bool IsHidden
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje podlaží, ve kterém se místnost nachází.
 		/// </summary>
 		public Floor Floor
@@ -111,6 +120,14 @@ namespace TempManager.DL.Entities
 
 			this.XPosition = x;
 			this.YPosition = y;
+		}
+
+		/// <summary>
+		/// Updatuje viditelnost místnosti.
+		/// </summary>
+		public void SetIsVisible(bool isVisible)
+		{
+			this.IsHidden = !isVisible;
 		}
 
 		/// <summary>

@@ -40,6 +40,65 @@
 .toggle-visibility.down h3.room-header::before {
   transform: rotate(180deg);
 }
-table .w50 {
+.table .w50 {
   width: 50px;
+}
+.table th.vertical-header {
+  vertical-align: bottom;
+  text-align: center;
+}
+.table th.vertical-header span,
+.table th.vertical-header a,
+.table th.vertical-header input {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+.table .highlight {
+  background-color: #faeca1 !important;
+  color: black;
+}
+.table .highlight.outline {
+  background-color: #ffd800;
+  outline-offset: -2px;
+  outline: 2px solid black;
+}
+.table.rights thead th,
+.table.rights tbody th,
+.table.rights tbody td {
+  padding: 4px;
+  background-color: #f8f9fa;
+  border: 1px black solid;
+  color: black;
+  text-align: center;
+}
+.table.rights thead th {
+  width: 50px;
+}
+.table.rights tbody tr {
+  height: 25px;
+}
+.table.rights .add {
+  border: none;
+}
+.table.rights .add a {
+  color: #2A6872;
+  cursor: pointer;
+}
+.table.sticky {
+  height: 350px;
+}
+.table.sticky tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+.table.sticky thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.table.sticky thead th:first-child {
+  left: 0;
+  z-index: 2;
 }

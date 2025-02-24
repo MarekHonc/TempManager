@@ -134,6 +134,9 @@ a:hover {
   color: #721c24 !important;
   background-color: #f8d7da !important;
 }
+.table {
+  margin-bottom: 2px;
+}
 .table tr {
   height: 50px;
   vertical-align: middle;

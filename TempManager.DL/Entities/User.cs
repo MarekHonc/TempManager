@@ -87,6 +87,15 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Vrací zda-li je uživatel smazaný.
+		/// </summary>
+		public bool IsDeleted
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje id aktuálně vybraného podlaží.
 		/// </summary>
 		[ForeignKey(nameof(SelectedFloor))]
@@ -136,6 +145,24 @@ namespace TempManager.DL.Entities
 		public void SetCanViewAllRooms(bool canViewAllRooms)
 		{
 			this.CanViewAllRooms = canViewAllRooms;
+		}
+
+		/// <summary>
+		/// Smaže aktuálního uživatele.
+		/// </summary>
+		public void DeleteUser()
+		{
+			this.IsDeleted = true;
+		}
+
+		/// <summary>
+		/// Doplní uživatele o data.
+		/// </summary>
+		public void SetInfo(string uid, string firstName, string lastName)
+		{
+			this.Uid = uid;
+			this.FirstName = firstName;
+			this.LastName = lastName;
 		}
 
 		/// <summary>

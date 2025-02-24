@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using TempManager.Web.Areas.Admin.Localization
+@using TempManager.Web.Areas.Admin.Models
+@using TempManager.Web.Code
+@model TempManager.Web.Areas.Admin.Models.UserRightsGroupEditorViewModel
+
+@{
+	ViewData["Title"] = AdminResources.UserRights;
+	ViewData["NoContainer"] = true;
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="GroupEdit" asp-controller="AdminUserRights" asp-area="Admin" method="POST">
+	<div class="table-responsive" id="user-rights-group-edior-app">
+		<table class="table sticky rights">
+			<thead>
+				<tr>
+					<th></th>
+					<!-- ko foreach: columns -->
+					<th class="vertical-header" data-bind="css: { 'highlight' : $root.selectedColumn() === $index() }">
+						<!-- ko if: isEdit -->
+						<input type="text" data-bind="value: title, hasfocus: isEdit" />
+						<!-- /ko -->
+						<!--  ko if not: isEdit -->
+						<span data-bind="text: title"></span>
+						<!-- /ko -->
+					</th>
+					<!-- /ko -->
+					<th class="vertical-header add"><a data-bind="click: function() { add(true); }">@AdminResources.Add</a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- ko foreach: rows -->
+				<tr>
+					<th data-bind="css: { 'highlight' : $root.selectedRow() === $index() }">
+						<!-- ko if: isEdit -->
+						<input type="text" data-bind="value: title, hasfocus: isEdit" />
+						<!-- /ko -->
+						<!--  ko if not: isEdit -->
+						<span data-bind="text: title"></span>
+						<!-- /ko -->
+					</th>
+					<!-- ko foreach: $parent.columns -->
+					<td data-bind="css: { 'highlight' : $root.selectedRow() === $parentContext.$index() || $root.selectedColumn() === $index(), 'outline' : $root.selectedRow() === $parentContext.$index() && $root.selectedColumn() === $index() },
+									click: function() { $root.selectCell($index(), $parentContext.$index()); }">
+						
+						<input type="hidden" data-bind="value: $data.title(), attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.ExternalRoomId))'.replace('-1', $parentContext.$index()).replace('-2', $index()) } "/>
+						<input type="hidden" data-bind="value: $parent.title(), attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.UserName))'.replace('-1', $parentContext.$index()).replace('-2', $index()) } "/>
+
+						
+						<!-- ko with: $root.cells.get($root.getKey($parent.title(), $data.title())) -->
+						<span data-bind="visible: canView() && !canEdit()">R</span>
+						<span data-bind="visible: canView() && canEdit()">W</span>
+
+						<input type="hidden" data-bind="value: userIsDeleted, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.UserIsDeleted))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } "/>
+						<input type="hidden" data-bind="value: canView, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.CanView))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } "/>
+						<input type="hidden" data-bind="value: canEdit, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.CanEdit))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } "/>
+						<input type="hidden" data-bind="value: isFavorite, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.IsFavorite))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } "/>
+						<!-- /ko -->
+
+					</td>
+					<!-- /ko -->
+				</tr>
+				<!-- /ko -->
+				<tr>
+					<th class="add"><a data-bind="click: function() { add(false); }">@AdminResources.Add</a></th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="form-group float-end">
+		@Html.ActionLink(AdminResources.Back, "Index", "AdminUserRights", null, new { @class = "m-2" })
+		<input type="submit" value="@AdminResources.Save" class="btn btn-primary" />
+	</div>
+</form>
+
+<script type="text/javascript">
+	var model = new userRightsGroupModel({
+		columns: @Html.Raw(Model.Columns.ToJson()),
+		rows: @Html.Raw(Model.Rows.ToJson()),
+		cells: @Html.Raw(Model.Cells.ToJson())
+	});
+
+	var element = document.getElementById("user-rights-group-edior-app");
+	ko.applyBindings(model, element);
+</script>

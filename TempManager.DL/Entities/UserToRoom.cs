@@ -109,6 +109,9 @@ namespace TempManager.DL.Entities
 		/// </summary>
 		public void SetHasRight(bool hasRightToEdit, bool hasRightToView)
 		{
+			if (hasRightToEdit && !hasRightToView)
+				throw new Exception("Cannot have right to edit without right to view!");
+
 			this.HasRightToEdit = hasRightToEdit;
 			this.HasRightToView = hasRightToView;
 		}
@@ -118,6 +121,9 @@ namespace TempManager.DL.Entities
 		/// </summary>
 		public static UserToRoom Create(int userId, int roomId, bool isFavorite, bool hasRightToEdit, bool hasRightToView)
 		{
+			if (hasRightToEdit && !hasRightToView)
+				throw new Exception("Cannot have right to edit without right to view!");
+
 			return new UserToRoom()
 			{
 				UserId = userId,

@@ -14,6 +14,7 @@
 			this.Uid = user.Uid;
 			this.IsAdmin = user.IsAdmin;
 			this.CanViewAllRooms = user.CanViewAllRooms;
+			this.IsDeleted = user.IsDeleted;
 		}
 
 		/// <summary>
@@ -68,6 +69,14 @@
 		/// Vrací zda-li uživatel vidí všechny místnosti.
 		/// </summary>
 		public bool CanViewAllRooms
+		{
+			get;
+		}
+
+		/// <summary>
+		/// Vrací zda-li je uživatel smazaný.
+		/// </summary>
+		public bool IsDeleted
 		{
 			get;
 		}

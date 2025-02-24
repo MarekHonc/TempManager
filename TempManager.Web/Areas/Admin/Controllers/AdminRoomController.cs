@@ -80,5 +80,21 @@ namespace TempManager.Web.Areas.Admin.Controllers
 				name = u.UserName
 			}));
 		}
+
+		/// <summary>
+		/// Nastaví viditelnost místnosti.
+		/// </summary>
+		[HttpPost]
+		public async Task<IActionResult> SetVisible(int roomId, bool isVisible)
+		{
+			var room = await this.repositoriesFactory.RoomRepository.FetchById(roomId);
+			if (room == null)
+				return NotFound();
+
+			room.SetIsVisible(isVisible);
+			await this.repositoriesFactory.SaveChanges();
+
+			return Content("OK");
+		}
 	}
 }

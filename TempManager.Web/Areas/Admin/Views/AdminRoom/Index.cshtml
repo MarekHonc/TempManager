@@ -30,16 +30,20 @@
 			<table class="table table-bordered table-striped">
 				<caption>@group.First().Floor.Name</caption>
 				<thead>
-					<tr>
-						<th>@AdminResources.Name</th>
-						<th>X/Y</th>
-						<th>@AdminResources.ExternalId</th>
-					</tr>
+				<tr>
+					<th class="w50"></th>
+					<th>@AdminResources.Name</th>
+					<th>X/Y</th>
+					<th>@AdminResources.ExternalId</th>
+				</tr>
 				</thead>
 				<tbody>
 					@foreach (var item in group)
 					{
 						<tr>
+							<td>
+								<span data-room="@item.Id" class="eye admin-icon @(item.IsHidden ? "hidden" : "visible")"></span>
+							</td>
 							<td>
 								@Html.ActionLink(item.Name, "Edit", new { id = item.Id })
 							</td>
@@ -61,3 +65,24 @@
 		ko.applyBindings(new slidingModel(), document.getElementById("slide-@group.Key"));
 	</script>
 }
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".eye").on("click", function() {
+			var $this = $(this);
+
+			$.ajax({
+				method: "POST",
+				url: "@Url.Action("SetVisible", "AdminRoom")",
+				data: {
+					floorId: $this.attr("data-floor"),
+					isVisible: $this.hasClass("hidden")
+				},
+				success: function() {
+					$this.toggleClass("hidden");
+					$this.toggleClass("visible");
+				}
+			});
+		});
+	});
+</script>

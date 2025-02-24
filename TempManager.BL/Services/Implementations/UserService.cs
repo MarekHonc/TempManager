@@ -10,6 +10,8 @@ namespace TempManager.BL.Services
 	/// </summary>
 	public class UserService : IUserService
 	{
+		private User userCache;
+
 		private readonly RepositoriesFactory repositoriesFactory;
 		private readonly IClaimsUser claimsUser;
 
@@ -22,6 +24,10 @@ namespace TempManager.BL.Services
 		/// <inheritdoc cref="GetCurrentUser"/>
 		public async Task<User> GetCurrentUser()
 		{
+			// Pokud mám uživatel v cache rovnou vracím.
+			if (this.userCache != null)
+				return this.userCache;
+
 			var user = this.claimsUser;
 
 			// Kontrola existujícího.
@@ -30,7 +36,21 @@ namespace TempManager.BL.Services
 
 			// Pokud již existuje, vracím existujícího.
 			if (existing != null)
-				return new User(existing);
+			{
+				if (existing.FirstName != null)
+				{
+					this.userCache = new User(existing);
+					return this.userCache;
+				}
+
+				// Updatuji hodnoty z přihlášení -> uživatel je předefinovaný.
+				existing.SetInfo(user.Uid, user.FirstName, user.LastName);
+				await this.repositoriesFactory.SaveChanges();
+
+				// A vracím.
+				this.userCache = new User(existing);
+				return this.userCache;
+			}
 
 			// Jinak zakládám nového.
 			var newUser = await DL.Entities.User.Create(
@@ -49,7 +69,8 @@ namespace TempManager.BL.Services
 			await this.repositoriesFactory.SaveChanges();
 
 			// A vracím správného uživatele.
-			return new User(newUser);
+			this.userCache = new User(newUser);
+			return this.userCache;
 		}
 	}
 }
