@@ -12,15 +12,6 @@
 
 	self.getSelectedCell = function () {
 		var value = self.cells[self.selectedRow()][self.selectedColumn()];
-
-		if (!value) {
-			value = new cellModel({
-				UserName: userName,
-				ExternalRoomId: room
-			});
-			self.cells.set(key, value);
-		}
-
 		return value;
 	}
 
@@ -41,9 +32,20 @@
 		newHeader.isEdit(true);
 
 		if (isColumn) {
+			for (var i = 0; i < self.rows().length; i++) {
+				self.cells[i].push(new cellModel({}));
+			}
+
 			self.columns.push(newHeader);
 		}
 		else {
+			var arr = [];
+
+			for (var i = 0; i < self.columns().length; i++) {
+				arr.push(new cellModel({}));
+			}
+
+			self.cells.push(arr);
 			self.rows.push(newHeader);
 		}
 	}
@@ -53,28 +55,39 @@
 		var col = self.selectedColumn();
 		var preventEvents = false;
 
+		var element = document.getElementsByClassName("outline")[0];
+		var scrollElement = document.getElementsByClassName("rights-table-wrapper")[0];
+
 		switch (event.key) {
 			case "ArrowUp":
-				if (row > 0)
+				if (row > 0) {
 					self.selectedRow(row - 1);
+					scrollElement.scrollTop -= element.clientHeight;
+				}
 
 				preventEvents = true;
 				break;
 			case "ArrowDown":
-				if (row < self.rows().length - 1)
+				if (row < self.rows().length - 1) {
 					self.selectedRow(row + 1);
+					scrollElement.scrollTop += element.clientHeight;
+				}
 
 				preventEvents = true;
 				break;
 			case "ArrowLeft":
-				if (col > 0)
+				if (col > 0) {
 					self.selectedColumn(col - 1);
+					scrollElement.scrollLeft -= element.clientHeight;
+				}
 
 				preventEvents = true;
 				break;
 			case "ArrowRight":
-				if (col < self.columns().length - 1)
+				if (col < self.columns().length - 1) {
 					self.selectedColumn(col + 1);
+					scrollElement.scrollLeft += element.clientHeight;
+				}
 
 				preventEvents = true;
 				break;
@@ -88,9 +101,6 @@
 		}
 
 		if (preventEvents) {
-			var element = document.getElementsByClassName("outline")[0];
-			element.scrollIntoView();
-
 			event.preventDefault();
 			event.stopImmediatePropagation();
 			return false;
@@ -134,6 +144,21 @@ function cellModel(data) {
 	self.canEdit = ko.observable(data.CanEdit);
 
 	self.canView = ko.observable(data.CanView);
+
+	self.description = ko.pureComputed(function () {
+		var view = self.canView();
+		var edit = self.canEdit();
+
+		if (view && edit) {
+			return "W";
+		}
+		else if (view && !edit) {
+			return "R";
+		}
+		else {
+			return "";
+		}
+	});
 
 	self.toggle = function () {
 		var canView = self.canView();

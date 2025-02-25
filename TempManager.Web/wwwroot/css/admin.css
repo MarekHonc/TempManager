@@ -54,20 +54,29 @@
   transform: rotate(180deg);
   white-space: nowrap;
 }
+.table tr {
+  background-color: #f8f9fa;
+}
 .table .highlight {
   background-color: #faeca1 !important;
   color: black;
+}
+.table .highlight th {
+  background-color: #faeca1 !important;
 }
 .table .highlight.outline {
   background-color: #ffd800;
   outline-offset: -2px;
   outline: 2px solid black;
 }
+.table.rights tr:not(.highlight) th {
+  background-color: #f8f9fa;
+}
 .table.rights thead th,
 .table.rights tbody th,
 .table.rights tbody td {
   padding: 4px;
-  background-color: #f8f9fa;
+  background-color: transparent;
   border: 1px black solid;
   color: black;
   text-align: center;

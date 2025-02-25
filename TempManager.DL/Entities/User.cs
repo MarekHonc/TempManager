@@ -178,7 +178,7 @@ namespace TempManager.DL.Entities
 			var user = new User()
 			{
 				Uid = uid,
-				UserName = userName,
+				UserName = userName.ToLower(),
 				FirstName = firstName,
 				LastName = lastName
 			};

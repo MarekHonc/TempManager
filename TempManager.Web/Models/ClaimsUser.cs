@@ -14,7 +14,7 @@ namespace TempManager.Web.Models
 			var claims = (ClaimsIdentity)httpContextAccessor.HttpContext.User.Identity;
 
 			this.Uid = claims.FindFirst(ShibbolethClaimsType.UID).Value;
-			this.UserName = claims.FindFirst(ShibbolethClaimsType.EMAIL).Value;
+			this.UserName = claims.FindFirst(ShibbolethClaimsType.EMAIL).Value.ToLower();
 			this.FirstName = claims.FindFirst(ShibbolethClaimsType.FIRSTNAME).Value;
 			this.LastName = claims.FindFirst(ShibbolethClaimsType.LASTNAME).Value;
 			this.Affiliations = claims.FindAll(ShibbolethClaimsType.AFFILIATION).Select(c => c.Value).ToArray();

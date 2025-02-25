@@ -37,7 +37,7 @@ namespace TempManager.BL.Services
 			// Pokud již existuje, vracím existujícího.
 			if (existing != null)
 			{
-				if (existing.FirstName != null)
+				if (existing.FirstName != string.Empty)
 				{
 					this.userCache = new User(existing);
 					return this.userCache;

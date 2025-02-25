@@ -11,7 +11,7 @@ namespace TempManager.DL.Queries
 
 		public UserByUserNameQuery(string userName)
 		{
-			this.userName = userName;
+			this.userName = userName.ToLower();
 		}
 		protected override IQueryable<User> CreateQuery(TempManagerContext dbContext)
 		{

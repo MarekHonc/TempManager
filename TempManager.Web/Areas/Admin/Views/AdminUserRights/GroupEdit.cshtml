@@ -31,8 +31,8 @@
 			</thead>
 			<tbody>
 				<!-- ko foreach: rows -->
-				<tr>
-					<th data-bind="css: { 'highlight' : $root.selectedRow() === $index() }">
+				<tr data-bind="css: { 'highlight' : $root.selectedRow() === $index() }">
+					<th>
 						<!-- ko if: isEdit -->
 						<input type="text" data-bind="value: title, hasfocus: isEdit" />
 						<!-- /ko -->
@@ -41,7 +41,7 @@
 						<!-- /ko -->
 					</th>
 					<!-- ko foreach: $parent.columns -->
-					<td data-bind="css: { 'highlight' : $root.selectedRow() === $parentContext.$index() || $root.selectedColumn() === $index(), 'outline' : $root.selectedRow() === $parentContext.$index() && $root.selectedColumn() === $index() },
+					<td data-bind="css: { 'highlight' : $root.selectedColumn() === $index(), 'outline' : $root.selectedRow() === $parentContext.$index() && $root.selectedColumn() === $index() },
 									click: function() { $root.selectCell($index(), $parentContext.$index()); }">
 						
 						<input type="hidden" data-bind="value: $data.title(), attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.ExternalRoomId))'.replace('-1', $parentContext.$index()).replace('-2', $index()) } "/>
@@ -49,8 +49,7 @@
 
 						
 						<!-- ko with: $root.cells[$parentContext.$index()][$index()] -->
-						<span data-bind="visible: canView() && !canEdit()">R</span>
-						<span data-bind="visible: canView() && canEdit()">W</span>
+						<span data-bind="text: description"></span>
 
 						<input type="hidden" data-bind="value: userIsDeleted, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.UserIsDeleted))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } "/>
 						<input type="hidden" data-bind="value: canView, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.CanView))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } "/>

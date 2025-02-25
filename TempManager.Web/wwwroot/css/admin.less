@@ -57,8 +57,17 @@
 		}
 	}
 
+	tr {
+		background-color: #f8f9fa;
+	}
+
 	.highlight {
 		background-color: #faeca1 !important;
+
+		th {
+			background-color: #faeca1 !important;
+		}
+
 		color: black;
 
 		&.outline {
@@ -69,9 +78,15 @@
 	}
 
 	&.rights {
+		tr:not(.highlight) {
+			th {
+				background-color: #f8f9fa;
+			}
+		}
+
 		thead th, tbody th, tbody td {
 			padding: 4px;
-			background-color: #f8f9fa;
+			background-color: transparent;
 			border: 1px black solid;
 			color: black;
 			text-align: center;
