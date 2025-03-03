@@ -19,6 +19,7 @@ namespace TempManager.Web.Areas.Admin.Models
 			this.Name = room.Name;
 			this.X = room.XPosition;
 			this.Y = room.YPosition;
+			this.NoRights = room.NoRights;
 			this.AuthorizedUsers = room.UsersToRoom.ToDictionary(
 				k => k.UserId,
 				v => new UserRightEditorViewModel(v.User.UserName, v.HasRightToEdit, v.HasRightToView)
@@ -67,6 +68,15 @@ namespace TempManager.Web.Areas.Admin.Models
 		}
 
 		/// <summary>
+		/// Vrací nebo nastavuje, zda-li na místnost nelze nastavit žádné oprávnění.
+		/// </summary>
+		public bool NoRights
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje uživatele, kteří mají oprávnění nastavovat teploty v místnosti.
 		/// </summary>
 		public Dictionary<int, UserRightEditorViewModel> AuthorizedUsers
@@ -84,6 +94,8 @@ namespace TempManager.Web.Areas.Admin.Models
 
 			room.SetName(this.Name);
 			room.SetPosition(this.X, this.Y);
+			room.SetNoRights(this.NoRights);
+
 
 			// Oprávnění vůči místnostem.
 			foreach (var userToRoom in room.UsersToRoom)

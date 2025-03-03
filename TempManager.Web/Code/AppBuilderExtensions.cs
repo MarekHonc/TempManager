@@ -182,6 +182,7 @@ namespace TempManager.Web.Code
 				// Admin
 				pipeline.AddCssBundle(
 					"/css/bundle-admin.css",
+					"/lib/jqueryui/themes/base/jquery-ui.min.css",
 					"/css/admin.min.css"
 				);
 

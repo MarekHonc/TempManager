@@ -16,7 +16,10 @@
 				<div class="text-danger">
 					@Html.ValidationSummary(excludePropertyErrors: false)
 				</div>
+				
 				<input type="hidden" asp-for="Id" />
+				<input type="hidden" asp-for="NoRights" />
+
 				<div class="form-group mb-3">
 					@Html.LabelFor(m => m.Name, new { @class = "control-label" })
 					@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })

@@ -68,6 +68,7 @@ namespace TempManager.Web.Areas.Admin.Models
 				.ToList();
 
 			var rooms = (await repositoriesFactory.RoomRepository.FetchAll())
+				.Where(r => !r.NoRights)
 				.OrderBy(u => u.ExternalId)
 				.ToList();
 

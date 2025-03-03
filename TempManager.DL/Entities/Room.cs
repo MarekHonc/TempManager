@@ -85,6 +85,15 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Vrací, zda-li na místnost nelze nastavit žádné oprávnění.
+		/// </summary>
+		public bool NoRights
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje podlaží, ve kterém se místnost nachází.
 		/// </summary>
 		public Floor Floor
@@ -128,6 +137,14 @@ namespace TempManager.DL.Entities
 		public void SetIsVisible(bool isVisible)
 		{
 			this.IsHidden = !isVisible;
+		}
+
+		/// <summary>
+		/// Updateuje příznak, zda-li se na místnosti mohou vázat oprávnění.
+		/// </summary>
+		public void SetNoRights(bool noRights)
+		{
+			this.NoRights = noRights;
 		}
 
 		/// <summary>
