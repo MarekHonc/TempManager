@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TempManager.DL;
@@ -11,9 +12,11 @@ using TempManager.DL;
 namespace TempManager.DL.Migrations
 {
     [DbContext(typeof(TempManagerContext))]
-    partial class TempManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20250316111422_AddGroupsToRoomAndUser")]
+    partial class AddGroupsToRoomAndUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

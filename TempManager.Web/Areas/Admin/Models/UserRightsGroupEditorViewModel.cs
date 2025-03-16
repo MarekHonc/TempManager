@@ -1,4 +1,5 @@
-﻿using TempManager.DL.Entities;
+﻿using TempManager.BL.Services;
+using TempManager.DL.Entities;
 using TempManager.DL.Queries;
 using TempManager.DL.Repositories;
 
@@ -57,7 +58,7 @@ namespace TempManager.Web.Areas.Admin.Models
 		/// <summary>
 		/// Načte všechny potřená data pro model.
 		/// </summary>
-		public async Task Load(RepositoriesFactory repositoriesFactory)
+		public async Task Load(RepositoriesFactory repositoriesFactory, IUserService userService)
 		{
 			var usersToRooms =
 				(await repositoriesFactory.UserToRoomRepository.FetchAll())
@@ -67,7 +68,10 @@ namespace TempManager.Web.Areas.Admin.Models
 				.OrderBy(u => u.UserName)
 				.ToList();
 
-			var rooms = (await repositoriesFactory.RoomRepository.FetchAll())
+			var currentUser = await userService.GetCurrentUser();
+			var query = new RoomsByFloorIdQuery(currentUser.Id, currentUser.Groups, currentUser.CanViewAllRooms, floorId: null);
+			
+			var rooms = (await repositoriesFactory.RoomRepository.Fetch(query))
 				.Where(r => !r.NoRights)
 				.OrderBy(u => u.ExternalId)
 				.ToList();

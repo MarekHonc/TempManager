@@ -33,7 +33,7 @@ namespace TempManager.BL.Services
 
 			// Získám místnosti.
 			// Získávám buď všechny pokud na to uživatel právo nebo jen konkrétní -> vyplněním idčka uživatele.
-			var roomsQuery = new RoomsByFloorIdQuery(floorId, user.CanViewAllRooms ? null : user.Id)
+			var roomsQuery = new RoomsByFloorIdQuery(user.Id, user.Groups, user.CanViewAllRooms, floorId)
 				.Include(nameof(DL.Entities.Room.Floor));
 
 			var rooms = (await this.repositoriesFactory.RoomRepository.Fetch(roomsQuery));

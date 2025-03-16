@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TempManager.Common;
 using TempManager.DL.Entities;
 using TempManager.Web.Areas.Admin.Localization;
 
@@ -20,6 +21,7 @@ namespace TempManager.Web.Areas.Admin.Models
 			this.FullName = $"{user.FirstName} {user.LastName}";
 			this.IsAdmin = user.IsAdmin;
 			this.CanViewAllRooms = user.CanViewAllRooms;
+			this.Groups = user.Groups;
 			this.EditableRooms = user.UserToRooms.ToDictionary(
 					k => k.RoomId,
 					v => new UserRightEditorViewModel(v.Room.Name, v.HasRightToEdit, v.HasRightToView)
@@ -74,6 +76,41 @@ namespace TempManager.Web.Areas.Admin.Models
 		}
 
 		/// <summary>
+		/// Vrací nebo nastavuje skupiny oprávnění.
+		/// </summary>
+		[Display(Name = "Groups", ResourceType = typeof(AdminResources))]
+		public Groups Groups
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Vrací nebo nastavuje oprávnění uživatele.
+		/// </summary>
+		public int[] GroupsSetter
+		{
+			get
+			{
+				var result = new List<int>();
+
+				foreach (var group in Enum.GetValues<Groups>())
+				{
+					if (this.Groups.HasFlag(group))
+					{
+						result.Add((int) group);
+					}
+				}
+
+				return result.ToArray();
+			}
+			set
+			{
+				this.Groups = (Groups) value.Sum();
+			}
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje místnosti, které mý daný uživatel právo editovat.
 		/// </summary>
 		public Dictionary<int, UserRightEditorViewModel> EditableRooms
@@ -91,6 +128,7 @@ namespace TempManager.Web.Areas.Admin.Models
 
 			user.SetIsAdmin(this.IsAdmin);
 			user.SetCanViewAllRooms(this.CanViewAllRooms);
+			user.SetGroups(this.Groups);
 
 			// Oprávnění vůči místnostem.
 			foreach (var userToRoom in user.UserToRooms)

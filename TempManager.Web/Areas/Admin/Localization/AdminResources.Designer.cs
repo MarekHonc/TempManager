@@ -196,6 +196,15 @@ namespace TempManager.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oprávnění na skupiny.
+        /// </summary>
+        public static string Groups {
+            get {
+                return ResourceManager.GetString("Groups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Domů.
         /// </summary>
         public static string Home {

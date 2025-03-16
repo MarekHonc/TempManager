@@ -285,4 +285,7 @@
   <data name="UserGroupRights" xml:space="preserve">
     <value>Hromadná editace</value>
   </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Oprávnění na skupiny</value>
+  </data>
 </root>

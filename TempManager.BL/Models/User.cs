@@ -1,4 +1,6 @@
-﻿namespace TempManager.BL.Models
+﻿using TempManager.Common;
+
+namespace TempManager.BL.Models
 {
 	/// <summary>
 	/// Model uživatele aplikace.
@@ -15,6 +17,7 @@
 			this.IsAdmin = user.IsAdmin;
 			this.CanViewAllRooms = user.CanViewAllRooms;
 			this.IsDeleted = user.IsDeleted;
+			this.Groups = user.Groups;
 		}
 
 		/// <summary>
@@ -77,6 +80,14 @@
 		/// Vrací zda-li je uživatel smazaný.
 		/// </summary>
 		public bool IsDeleted
+		{
+			get;
+		}
+
+		/// <summary>
+		/// Vrací skupiny, na které má uživatel právo.
+		/// </summary>
+		public Groups Groups
 		{
 			get;
 		}

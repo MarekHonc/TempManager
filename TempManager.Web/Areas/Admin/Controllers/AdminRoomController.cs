@@ -24,7 +24,10 @@ namespace TempManager.Web.Areas.Admin.Controllers
 		/// </summary>
 		public async Task<IActionResult> Index()
 		{
-			var rooms = await this.repositoriesFactory.RoomRepository.FetchAll();
+			var currentUser = await userService.GetCurrentUser();
+			var query = new RoomsByFloorIdQuery(currentUser.Id, currentUser.Groups, currentUser.CanViewAllRooms, floorId: null);
+			var rooms = await repositoriesFactory.RoomRepository.Fetch(query);
+
 			var model = await FetchModel(AdminWebLocation.Rooms, new AdminListViewModel<Room>(rooms));
 
 			return View(model);

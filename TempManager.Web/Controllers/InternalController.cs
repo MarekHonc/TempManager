@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using TempManager.DL.Repositories;
 using TempManager.Shibboleth;
 
 namespace TempManager.Web.Controllers
@@ -8,7 +9,14 @@ namespace TempManager.Web.Controllers
 	/// Interní kontroler pro testovací akce.
 	/// </summary>
 	public class InternalController : Controller
-	{ 
+	{
+		private readonly RepositoriesFactory repositoriesFactory;
+
+		public InternalController(RepositoriesFactory repositoriesFactory)
+		{
+			this.repositoriesFactory = repositoriesFactory;
+		}
+
 		public IActionResult TestShibboleth()
 		{
 			var ident = (ClaimsIdentity)HttpContext.User.Identity;
@@ -36,6 +44,18 @@ namespace TempManager.Web.Controllers
 			}
 
 			return Content(string.Join("<br>", list), "text/html");
+		}
+
+		public async Task<IActionResult> DetectGroups()
+		{
+			var rooms = await this.repositoriesFactory.RoomRepository.FetchAll();
+			foreach (var room in rooms)
+			{
+				room.DetectGroups();
+			}
+
+			await this.repositoriesFactory.SaveChanges();
+			return Content("OK");
 		}
 	}
 }

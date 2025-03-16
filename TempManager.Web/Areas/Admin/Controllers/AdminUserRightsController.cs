@@ -70,7 +70,7 @@ namespace TempManager.Web.Areas.Admin.Controllers
 		public async Task<IActionResult> GroupEdit()
 		{
 			var model = await FetchModel(AdminWebLocation.UserRights, new UserRightsGroupEditorViewModel());
-			await model.Load(this.repositoriesFactory);
+			await model.Load(this.repositoriesFactory, this.userService);
 
 			return View(model);
 		}

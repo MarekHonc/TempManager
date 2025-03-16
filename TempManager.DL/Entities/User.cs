@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TempManager.Common;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Interfaces;
 using TempManager.DL.Queries;
@@ -106,6 +107,15 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Vrací nebo nastavuje skupiny, na které má uživatel právo.
+		/// </summary>
+		public Groups Groups
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje aktuálně vybrané podlaží.
 		/// </summary>
 		public Floor SelectedFloor
@@ -156,6 +166,14 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Nastaví skupiny do kterých uživatel patří.
+		/// </summary>
+		public void SetGroups(Groups groups)
+		{
+			this.Groups = groups;
+		}
+
+		/// <summary>
 		/// Doplní uživatele o data.
 		/// </summary>
 		public void SetInfo(string uid, string firstName, string lastName)
@@ -194,6 +212,11 @@ namespace TempManager.DL.Entities
 			modelBuilder.Entity<User>()
 				.HasIndex(u => u.UserName)
 				.IsUnique();
+
+			modelBuilder.Entity<User>()
+				.Property(r => r.Groups)
+				.HasConversion<int>()
+				.HasDefaultValue(Groups.None);
 		}
 	}
 }

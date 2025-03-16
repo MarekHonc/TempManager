@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using TempManager.Common;
 using TempManager.DL.Entities.Base;
 using TempManager.DL.Interfaces;
 
@@ -94,6 +95,15 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Vrací nebo nastavuje skupiny, do kterých místnost spadá.
+		/// </summary>
+		public Groups Groups
+		{
+			get;
+			protected set;
+		}
+
+		/// <summary>
 		/// Vrací nebo nastavuje podlaží, ve kterém se místnost nachází.
 		/// </summary>
 		public Floor Floor
@@ -148,6 +158,14 @@ namespace TempManager.DL.Entities
 		}
 
 		/// <summary>
+		/// Detekuje skupiny na místnosti.
+		/// </summary>
+		public void DetectGroups()
+		{
+			this.Groups = this.ExternalId.DetectGroups();
+		}
+
+		/// <summary>
 		/// Vytvoří novou entitu místnosti.
 		/// </summary>
 		public static async Task<Room> Create(IExternalIdRepository<Room> repository, Floor floor, string externalId, bool ignoreExternalIdCheck = false)
@@ -160,7 +178,8 @@ namespace TempManager.DL.Entities
 			{
 				ExternalId = externalId,
 				Name = externalId,
-				Floor = floor
+				Floor = floor,
+				Groups = externalId.DetectGroups()
 			};
 
 			// Vracím novou místnost.
@@ -175,6 +194,11 @@ namespace TempManager.DL.Entities
 			modelBuilder.Entity<Room>()
 				.HasIndex(r => r.ExternalId)
 				.IsUnique();
+
+			modelBuilder.Entity<Room>()
+				.Property(r => r.Groups)
+				.HasConversion<int>()
+				.HasDefaultValue(Groups.None);
 		}
 	}
 }

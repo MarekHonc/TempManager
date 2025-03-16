@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using TempManager.BL.Models;
+using TempManager.Common;
 using TempManager.KNX.Api;
 
 namespace TempManager.BL.Services.Implementations.Direct
@@ -40,7 +41,8 @@ namespace TempManager.BL.Services.Implementations.Direct
 					room.Temp,
 					room.Rh,
 					room.DesiredTemperature,
-					room.ValveOpen
+					room.ValveOpen,
+					Groups.None
 				);
 
 				result.Add(r);

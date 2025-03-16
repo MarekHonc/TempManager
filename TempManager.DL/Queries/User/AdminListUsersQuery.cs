@@ -10,7 +10,9 @@ namespace TempManager.DL.Queries
 		/// <inheritdoc />
 		protected override IQueryable<User> CreateQuery(TempManagerContext dbContext)
 		{
-			return dbContext.Users.Where(u => !u.IsDeleted && u.FirstName != string.Empty);
+			return dbContext.Users
+				.Where(u => !u.IsDeleted && u.FirstName != string.Empty)
+				.OrderBy(u => u.UserName);
 		}
 	}
 }

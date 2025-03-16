@@ -1,4 +1,5 @@
-﻿using TempManager.DL.Entities;
+﻿using TempManager.Common;
+using TempManager.DL.Entities;
 using TempManager.DL.Entities.JsonTypes;
 
 namespace TempManager.BL.Models
@@ -11,7 +12,7 @@ namespace TempManager.BL.Models
 		internal Room(int id, string name, string floorName,
 			string externalId, bool hasRightToEdit, bool isFavorite,
 			double temperature, double rh, double desiredTemperature,
-			double valveOpen, double? x = null, double? y = null,
+			double valveOpen, Groups groups, double? x = null, double? y = null,
 			bool isError = false
 		)
 		{
@@ -25,6 +26,7 @@ namespace TempManager.BL.Models
 			this.Rh = rh;
 			this.DesiredTemperature = desiredTemperature;
 			this.ValveOpen = valveOpen;
+			this.Groups = groups;
 			this.X = x;
 			this.Y = y;
 			this.IsError = isError;
@@ -133,7 +135,14 @@ namespace TempManager.BL.Models
 		public bool IsError
 		{
 			get;
-			set;
+		}
+
+		/// <summary>
+		/// Vrací skupiny, ve kterých se místnost nachází.
+		/// </summary>
+		public Groups Groups
+		{
+			get;
 		}
 
 		/// <summary>
@@ -161,6 +170,7 @@ namespace TempManager.BL.Models
 				roomValue.Rh,
 				roomValue.DesiredTemperature,
 				roomValue.ValveOpen,
+				room.Groups,
 				room.XPosition,
 				room.YPosition
 			);
@@ -183,6 +193,7 @@ namespace TempManager.BL.Models
 				rh: 0,
 				desiredTemperature: 0,
 				valveOpen: 0,
+				room.Groups,
 				room.XPosition,
 				room.YPosition,
 				isError: true
@@ -205,7 +216,8 @@ namespace TempManager.BL.Models
 				roomValue.Temperature,
 				roomValue.Rh,
 				roomValue.DesiredTemperature,
-				roomValue.ValveOpen
+				roomValue.ValveOpen,
+				Groups.None
 			);
 		}
 	}

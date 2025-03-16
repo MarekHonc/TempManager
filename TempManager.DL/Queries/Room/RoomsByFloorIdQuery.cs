@@ -1,4 +1,5 @@
-﻿using TempManager.DL.Entities;
+﻿using TempManager.Common;
+using TempManager.DL.Entities;
 
 namespace TempManager.DL.Queries
 {
@@ -7,13 +8,17 @@ namespace TempManager.DL.Queries
 	/// </summary>
 	public class RoomsByFloorIdQuery : QueryObjectBase<Room>
 	{
+		private readonly int userId;
+		private readonly Groups groups;
+		private readonly bool canViewAll;
 		private readonly int? floorId;
-		private readonly int? userId;
 
-		public RoomsByFloorIdQuery(int? floorId, int? userId)
+		public RoomsByFloorIdQuery(int userId, Groups groups, bool canViewAll, int? floorId)
 		{
-			this.floorId = floorId;
 			this.userId = userId;
+			this.groups = groups;
+			this.canViewAll = canViewAll;
+			this.floorId = floorId;
 		}
 
 		protected override IQueryable<Room> CreateQuery(TempManagerContext dbContext)
@@ -26,10 +31,12 @@ namespace TempManager.DL.Queries
 				query = query.Where(r => r.FloorId == this.floorId);
 			}
 
-			if (this.userId.HasValue)
+			if (!this.canViewAll)
 			{
 				query = query.Where(r => 
 					r.UsersToRoom.Any(utr => utr.UserId == this.userId && utr.HasRightToView)
+					||
+					(this.groups != Groups.None && (r.Groups & this.groups) != 0)
 				);
 			}
 
