@@ -12,19 +12,31 @@ namespace TempManager.DL.Queries
 		private readonly Groups groups;
 		private readonly bool canViewAll;
 		private readonly int? floorId;
+		private readonly bool showHidden;
 
-		public RoomsByFloorIdQuery(int userId, Groups groups, bool canViewAll, int? floorId)
+		public RoomsByFloorIdQuery(int userId, Groups groups, bool canViewAll, int? floorId, bool showHidden = false)
 		{
 			this.userId = userId;
 			this.groups = groups;
 			this.canViewAll = canViewAll;
 			this.floorId = floorId;
+			this.showHidden = showHidden;
 		}
 
 		protected override IQueryable<Room> CreateQuery(TempManagerContext dbContext)
 		{
-			var query = dbContext.Rooms
-				.Where(r => !r.Floor.IsHidden && !r.IsHidden);
+			IQueryable<Room> query;
+
+			if (this.showHidden)
+			{
+				query = dbContext.Rooms.AsQueryable();
+			}
+			else
+			{
+				query = dbContext.Rooms
+					.Where(r => !r.Floor.IsHidden && !r.IsHidden);
+
+			}
 
 			if (this.floorId.HasValue)
 			{
