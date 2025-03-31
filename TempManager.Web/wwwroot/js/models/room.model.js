@@ -157,6 +157,11 @@ function roomModel(room, initData) {
 	self.y = ko.observable(room.y);
 
 	/**
+	 * CO2 hodnota v místnosti.
+	 */
+	self.co2 = ko.numericObservable(room.co2, "0");
+
+	/**
 	 * Spustí interval pro držení tlačítka přidání teploty.
 	 */
 	self.startIncrement = function () {
@@ -201,6 +206,7 @@ function roomModel(room, initData) {
 		self.temperature(room.temperature);
 		self.rh(room.rh);
 		self.valveOpen(room.valveOpen);
+		self.co2(room.co2);
 		self.isError(room.isError);
 
 		self.desiredTemperature().dsValue(room.desiredTemperature);

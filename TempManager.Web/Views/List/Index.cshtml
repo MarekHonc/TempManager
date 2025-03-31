@@ -59,6 +59,9 @@
 					<th class="numeric-value">@Html.Raw(Resources.Temperature)</th>
 					<th class="numeric-value">@Html.Raw(Resources.DesiredTempereture)</th>
 					<th class="numeric-value">@Resources.Rh</th>
+					<!-- ko if: showCo2 -->
+					<th class="numeric-value">@Resources.CO2</th>
+					<!-- /ko -->
 					<th></th>
 					<th></th>
 				</tr>
@@ -94,6 +97,9 @@
 					</td>
 					<!-- /ko -->
 					<td class="numeric-value" data-bind="text: rh"></td>
+					<!-- ko if: $root.showCo2 -->
+					<td class="numeric-value"><span data-bind="visible: co2() > 0, text: co2"></span></td>
+					<!-- /ko -->
 					<td class="center icon" data-bind="text: valveOpen"></td>
 					<td class="center icon"><span class="star" data-bind="css: { 'filled': isFavorite }, click: toggleFavorite"></span></td>
 				</tr>

@@ -29,6 +29,11 @@ function appModel(initData) {
 	self.onlyFavorites = ko.observable(false);
 
 	/**
+	 * Zobrazení sloupce s co2.
+	 */
+	self.showCo2 = ko.observable(false);
+
+	/**
 	 * Všechny místnosti v aplikaci.
 	 */
 	self.rooms = ko.observableDictionary();
@@ -60,6 +65,10 @@ function appModel(initData) {
 
 	let loadData = function (data) {
 		data.forEach(function (room) {
+			if (room.co2 > 0) {
+				self.showCo2(true);
+			}
+
 			self.rooms.set(room.externalId, new roomModel(room, initData));
 		});
 	}

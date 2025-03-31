@@ -12,7 +12,7 @@ namespace TempManager.BL.Models
 		internal Room(int id, string name, string floorName,
 			string externalId, bool hasRightToEdit, bool isFavorite,
 			double temperature, double rh, double desiredTemperature,
-			double valveOpen, Groups groups, double? x = null, double? y = null,
+			double valveOpen, double co2, Groups groups, double? x = null, double? y = null,
 			bool isError = false
 		)
 		{
@@ -27,6 +27,7 @@ namespace TempManager.BL.Models
 			this.DesiredTemperature = desiredTemperature;
 			this.ValveOpen = valveOpen;
 			this.Groups = groups;
+			this.Co2 = co2;
 			this.X = x;
 			this.Y = y;
 			this.IsError = isError;
@@ -114,6 +115,14 @@ namespace TempManager.BL.Models
 		}
 
 		/// <summary>
+		/// Vrací hodnotu CO2 v místnosti.
+		/// </summary>
+		public double Co2
+		{
+			get;
+		}
+
+		/// <summary>
 		/// Vrací X pozici na mapě.
 		/// </summary>
 		public double? X
@@ -170,6 +179,7 @@ namespace TempManager.BL.Models
 				roomValue.Rh,
 				roomValue.DesiredTemperature,
 				roomValue.ValveOpen,
+				room.Groups.HasFlag(Groups.Room) ? roomValue.CO2 : 0,
 				room.Groups,
 				room.XPosition,
 				room.YPosition
@@ -193,6 +203,7 @@ namespace TempManager.BL.Models
 				rh: 0,
 				desiredTemperature: 0,
 				valveOpen: 0,
+				co2: 0,
 				room.Groups,
 				room.XPosition,
 				room.YPosition,
@@ -217,6 +228,7 @@ namespace TempManager.BL.Models
 				roomValue.Rh,
 				roomValue.DesiredTemperature,
 				roomValue.ValveOpen,
+				co2: 0,
 				Groups.None
 			);
 		}

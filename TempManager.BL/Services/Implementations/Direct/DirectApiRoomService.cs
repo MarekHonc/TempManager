@@ -42,6 +42,7 @@ namespace TempManager.BL.Services.Implementations.Direct
 					room.Rh,
 					room.DesiredTemperature,
 					room.ValveOpen,
+					0,
 					Groups.None
 				);
 
