@@ -295,7 +295,7 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vlhkost [%].
+        ///   Looks up a localized string similar to RH [%].
         /// </summary>
         public static string Rh {
             get {

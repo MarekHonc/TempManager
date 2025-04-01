@@ -17,7 +17,18 @@ namespace TempManager.BL.Models
 		)
 		{
 			this.Id = id;
-			this.Name = name;
+
+			var parts = name.Split([' '], 2);
+			if (parts.Length > 1)
+			{
+				this.Name = parts[0];
+				this.Description = parts[1];
+			}
+			else
+			{
+				this.Name = name;
+			}
+
 			this.FloorName = floorName;
 			this.ExternalId = externalId;
 			this.HasRightToEdit = hasRightToEdit;
@@ -45,6 +56,14 @@ namespace TempManager.BL.Models
 		/// Vrací název místnosti.
 		/// </summary>
 		public string Name
+		{
+			get;
+		}
+
+		/// <summary>
+		/// Vrací kód místnosti.
+		/// </summary>
+		public string Description
 		{
 			get;
 		}

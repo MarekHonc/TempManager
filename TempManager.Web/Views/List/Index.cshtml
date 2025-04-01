@@ -58,18 +58,23 @@
 					<th class="hidden-md">@Resources.Floor</th>
 					<th class="numeric-value">@Html.Raw(Resources.Temperature)</th>
 					<th class="numeric-value">@Html.Raw(Resources.DesiredTempereture)</th>
-					<th class="numeric-value">@Resources.Rh</th>
+					<th class="numeric-value hidden-xxs">@Resources.Rh</th>
 					<!-- ko if: showCo2 -->
 					<th class="numeric-value">@Resources.CO2</th>
 					<!-- /ko -->
-					<th></th>
-					<th></th>
+					<th class="hidden-xs"></th>
+					<th class="hidden-xs"></th>
 				</tr>
 			</thead>
 			<tbody>
 				<!-- ko foreach: filteredRooms -->
 				<tr data-bind="css: { 'error' : isError }">
-					<td data-bind="text: name"></td>
+					<td>
+						<span class="name">
+							<span data-bind="text: name"></span>
+							<span data-bind="text: description"></span>
+						</span>
+					</td>
 					<td class="hidden-md" data-bind="text: floorName"></td>
 					<td class="numeric-value" data-bind="text: temperature"></td>
 					<!-- ko if: hasRightToEdit -->
@@ -96,12 +101,34 @@
 						</span>
 					</td>
 					<!-- /ko -->
-					<td class="numeric-value" data-bind="text: rh"></td>
+					<td class="icon gauge hidden-xxs">
+						<span>
+							<span class="gauge-container" data-bind="gauge: rh">
+								@await Html.PartialAsync("_Gauge")
+							</span>
+						</span>
+					</td>
 					<!-- ko if: $root.showCo2 -->
-					<td class="numeric-value"><span data-bind="visible: co2() > 0, text: co2"></span></td>
+					<td class="icon gauge">
+						<span data-bind="visible: co2.current() > 0">
+							<span class="gauge-container" data-bind="gauge: co2">
+								@await Html.PartialAsync("_Gauge")
+							</span>
+						</span>
+					</td>
 					<!-- /ko -->
-					<td class="center icon" data-bind="text: valveOpen"></td>
-					<td class="center icon"><span class="star" data-bind="css: { 'filled': isFavorite }, click: toggleFavorite"></span></td>
+					<td class="icon gauge hidden-xs">
+						<span>
+							<span class="gauge-container" data-bind="gauge: valveOpen">
+								@await Html.PartialAsync("_Gauge")
+							</span>
+						</span>
+					</td>
+					<td class="icon hidden-xs">
+						<span class="center">
+							<span class="star" data-bind="css: { 'filled': isFavorite }, click: toggleFavorite"></span>
+						</span>
+					</td>
 				</tr>
 				<!-- /ko -->
 			</tbody>

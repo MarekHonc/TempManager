@@ -80,3 +80,59 @@ ko.numericObservable = function (initValue, format) {
 
 	return result;
 }
+
+ko.bindingHandlers.gauge = {
+	init: function (element, valueAccessor) {
+		var radius = 20;
+		var circumference = 2 * Math.PI * radius;
+		var gaugeCircle = element.querySelector('.progress-circle');
+		gaugeCircle.style.strokeDasharray = circumference;
+		return { controlsDescendantBindings: true };
+	},
+	update: function (element, valueAccessor) {
+		// Očekáváme objekt s { current: ..., min: ..., max: ..., staticColor: (volitelně), enableGlow: (volitelně) }
+		var data = ko.unwrap(valueAccessor());
+		var current = ko.unwrap(data.current.number());
+
+		var min = data.min;
+		var max = data.max;
+
+		if (current > max) {
+			current = max;
+		}
+		if (current < min) {
+			current = min;
+		}
+
+		// Přepočet aktuální hodnoty na procenta
+		var percentage = ((current - min) / (max - min)) * 100;
+
+		var gaugeCircle = element.querySelector('.progress-circle');
+		var gaugeText = element.querySelector('.gauge-text');
+		var gaugeSvg = element.querySelector('.gauge-svg');
+
+		var radius = 20;
+		var circumference = 2 * Math.PI * radius;
+		var offset = circumference * (1 - percentage / 100);
+		gaugeCircle.style.strokeDashoffset = offset;
+
+		// Volba barvy: pokud je definována statická barva, použije se; jinak se interpoluje od zelené k červené
+		if (data.staticColor) {
+			gaugeCircle.style.stroke = data.staticColor;
+		} else {
+			var r = Math.round(255 * (percentage / 100));
+			var g = Math.round(255 * (1 - percentage / 100));
+			gaugeCircle.style.stroke = 'rgb(' + r + ',' + g + ',0)';
+		}
+
+		// Aktualizace textu – zobrazuje aktuální hodnotu
+		gaugeText.textContent = ko.unwrap(data.current);
+
+		// Glow efekt: pokud je povolen (enableGlow) a aktuální hodnota dosáhla či překročila max, přidá se glow
+		if (data.enableGlow && current >= max) {
+			gaugeSvg.classList.add('glow');
+		} else {
+			gaugeSvg.classList.remove('glow');
+		}
+	}
+};

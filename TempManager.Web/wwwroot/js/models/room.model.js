@@ -15,6 +15,11 @@ function roomModel(room, initData) {
 	self.name = ko.observable(room.name);
 
 	/**
+	 * Název místnosti.
+	 */
+	self.description = ko.observable(room.description);
+
+	/**
 	 * Název podlaží.
 	 */
 	self.floorName = ko.observable(room.floorName);
@@ -76,7 +81,13 @@ function roomModel(room, initData) {
 	/**
 	 * Hodnota RH.
 	 */
-	self.rh = ko.observable(room.rh);
+	self.rh = {
+		current: ko.numericObservable(room.rh, "0"),
+		min: 0,
+		max: 100,
+		staticColor: "#2A6872",
+		enableGlow: false
+	}
 
 	/**
 	 * Nastavená teplota.
@@ -144,7 +155,13 @@ function roomModel(room, initData) {
 	/**
 	 * Příznak - vytápí se nebo ne.
 	 */
-	self.valveOpen = ko.numericObservable(room.valveOpen, "0");
+	self.valveOpen = {
+		current: ko.numericObservable(room.valveOpen, "0"),
+		min: 0,
+		max: 100,
+		staticColor: "#2A6872",
+		enableGlow: false
+	}
 
 	/**
 	 * X pozice na mapě.
@@ -159,7 +176,12 @@ function roomModel(room, initData) {
 	/**
 	 * CO2 hodnota v místnosti.
 	 */
-	self.co2 = ko.numericObservable(room.co2, "0");
+	self.co2 = {
+		current: ko.numericObservable(room.co2, "0"),
+		min: 0,
+		max: 1500,
+		enableGlow: true
+	}
 
 	/**
 	 * Spustí interval pro držení tlačítka přidání teploty.
@@ -204,9 +226,9 @@ function roomModel(room, initData) {
 	 */
 	self.update = function (room) {
 		self.temperature(room.temperature);
-		self.rh(room.rh);
-		self.valveOpen(room.valveOpen);
-		self.co2(room.co2);
+		self.rh.current(room.rh);
+		self.valveOpen.current(room.valveOpen);
+		self.co2.current(room.co2);
 		self.isError(room.isError);
 
 		self.desiredTemperature().dsValue(room.desiredTemperature);

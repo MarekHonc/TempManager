@@ -196,7 +196,7 @@
     <value>Hodnota {0} je povinná</value>
   </data>
   <data name="Rh" xml:space="preserve">
-    <value>Vlhkost [%]</value>
+    <value>RH [%]</value>
   </data>
   <data name="Room" xml:space="preserve">
     <value>Místnost</value>

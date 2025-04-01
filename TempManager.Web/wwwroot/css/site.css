@@ -150,8 +150,22 @@ a:hover {
 .table td {
   padding: 1em;
 }
+.table th .name,
+.table td .name {
+  display: flex;
+  gap: 4px;
+}
+.table th.gauge,
+.table td.gauge {
+  padding: 0;
+}
+.table th.gauge > span,
+.table td.gauge > span {
+  display: flex;
+}
 .table .numeric-value {
   text-align: right;
+  padding-left: 0;
 }
 .table .numeric-value.setter .inner {
   display: flex;
@@ -173,11 +187,12 @@ a:hover {
   cursor: not-allowed;
   opacity: 0.5;
 }
-.table .center {
-  text-align: center;
+.table .icon {
+  width: 80px;
 }
-.table .center.icon {
-  width: 45px;
+.table .center {
+  display: flex;
+  justify-content: center;
 }
 #map-app {
   width: 100vw;
@@ -209,16 +224,62 @@ a:hover {
 #toast-container > div {
   opacity: 1;
 }
+.gauge-container {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  margin: 0 auto;
+}
+.gauge-container .background-circle {
+  fill: none;
+  stroke: #acacac;
+  stroke-width: 5;
+}
+.gauge-container .progress-circle {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke 0.5s ease, stroke-dashoffset 0.5s ease;
+}
+.gauge-container .glow {
+  filter: drop-shadow(0 0 10px red);
+}
+.gauge-container .gauge-text {
+  font-size: 0.8em;
+  text-anchor: middle;
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+  .container {
+    max-width: 98%;
+  }
+}
+@media (max-width: 845px) {
   .hidden-md {
     display: none;
   }
   .container {
-    max-width: 95%;
+    max-width: 100%;
+  }
+  #list-app .table th,
+  td {
+    padding: 0.5em !important;
+  }
+  td .name {
+    flex-direction: column;
+  }
+}
+@media (max-width: 640px) {
+  .hidden-xs {
+    display: none;
+  }
+}
+@media (max-width: 520px) {
+  .hidden-xxs {
+    display: none;
   }
 }
