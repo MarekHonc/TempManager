@@ -365,5 +365,14 @@ namespace TempManager.Web.Localization {
                 return ResourceManager.GetString("Temperature", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ventil.
+        /// </summary>
+        public static string ValveOpen {
+            get {
+                return ResourceManager.GetString("ValveOpen", resourceCulture);
+            }
+        }
     }
 }
