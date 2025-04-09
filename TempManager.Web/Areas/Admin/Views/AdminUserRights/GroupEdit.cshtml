@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using TempManager.Web.Localization
 @using TempManager.Web.Areas.Admin.Localization
 @using TempManager.Web.Areas.Admin.Models
 @using TempManager.Web.Code
@@ -10,70 +11,85 @@
 	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<form asp-action="GroupEdit" asp-controller="AdminUserRights" asp-area="Admin" method="POST">
-	<div class="table-responsive rights-table-wrapper" id="user-rights-group-edior-app">
-		<table class="table sticky rights">
-			<thead>
-				<tr>
-					<th></th>
-					<!-- ko foreach: columns -->
-					<th class="vertical-header" data-bind="css: { 'highlight' : $root.selectedColumn() === $index() }">
-						<!-- ko if: isEdit -->
-						<input type="text" data-bind="value: title, hasfocus: isEdit" />
+<div id="user-rights-group-edior-app">
+	<div class="row justify-content-between">
+		<h3 class="col-auto"></h3>
+		<div class="col-auto">
+			<div class="row align-items-center">
+				<div class="col-auto">
+					<input data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="form-control" type="search" placeholder="@Resources.Search" aria-label="@Resources.Search">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<form asp-action="GroupEdit" asp-controller="AdminUserRights" asp-area="Admin" method="POST">
+		<div class="table-responsive rights-table-wrapper">
+			<table class="table sticky rights">
+				<thead>
+					<tr>
+						<th></th>
+						<!-- ko foreach: columns -->
+						<th class="vertical-header" data-bind="css: { 'highlight' : $root.selectedColumn() === $index(), 'hidden' : (!!$root.searchTerm() ? !title().includes($root.searchTerm()) : false) }">
+							<!-- ko if: isEdit -->
+							<input type="text" data-bind="value: title, hasfocus: isEdit" />
+							<!-- /ko -->
+							<!--  ko if not: isEdit -->
+							<span data-bind="text: title"></span>
+							<!-- /ko -->
+						</th>
 						<!-- /ko -->
-						<!--  ko if not: isEdit -->
-						<span data-bind="text: title"></span>
-						<!-- /ko -->
-					</th>
-					<!-- /ko -->
-					<th class="vertical-header add"><a data-bind="click: function() { add(true); }">@AdminResources.Add</a></th>
-				</tr>
-			</thead>
-			<tbody>
-				<!-- ko foreach: rows -->
-				<tr data-bind="css: { 'highlight' : $root.selectedRow() === $index() }">
-					<th>
-						<!-- ko if: isEdit -->
-						<input type="text" data-bind="value: title, hasfocus: isEdit" />
-						<!-- /ko -->
-						<!--  ko if not: isEdit -->
-						<span data-bind="text: title"></span>
-						<!-- /ko -->
-					</th>
-					<!-- ko foreach: $parent.columns -->
-					<td data-bind="css: { 'highlight' : $root.selectedColumn() === $index(), 'outline' : $root.selectedRow() === $parentContext.$index() && $root.selectedColumn() === $index() },
+						<th class="vertical-header add"><a data-bind="click: function() { add(true); }">@AdminResources.Add</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- ko foreach: rows -->
+					<tr data-bind="css: { 'highlight' : $root.selectedRow() === $index() }">
+						<th>
+							<!-- ko if: isEdit -->
+							<input type="text" data-bind="value: title, hasfocus: isEdit" />
+							<!-- /ko -->
+							<!--  ko if not: isEdit -->
+							<span data-bind="text: title"></span>
+							<!-- /ko -->
+						</th>
+						<!-- ko foreach: $parent.columns -->
+						<td data-bind="css: { 'highlight' : $root.selectedColumn() === $index(), 'outline' : $root.selectedRow() === $parentContext.$index() && $root.selectedColumn() === $index(), 'hidden' : (!!$root.searchTerm() ? !$data.title().includes($root.searchTerm()) : false) },
 									click: function() { $root.selectCell($index(), $parentContext.$index()); }">
-						
-						<input type="hidden" data-bind="value: $data.title(), attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.ExternalRoomId))'.replace('-1', $parentContext.$index()).replace('-2', $index()) } "/>
-						<input type="hidden" data-bind="value: $parent.title(), attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.UserName))'.replace('-1', $parentContext.$index()).replace('-2', $index()) } "/>
 
-						
-						<!-- ko with: $root.cells[$parentContext.$index()][$index()] -->
-						<span data-bind="text: description"></span>
+							<input type="hidden" data-bind="value: $data.title(), attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.ExternalRoomId))'.replace('-1', $parentContext.$index()).replace('-2', $index()) } " />
+							<input type="hidden" data-bind="value: $parent.title(), attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.UserName))'.replace('-1', $parentContext.$index()).replace('-2', $index()) } " />
 
-						<input type="hidden" data-bind="value: userIsDeleted, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.UserIsDeleted))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } "/>
-						<input type="hidden" data-bind="value: canView, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.CanView))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } "/>
-						<input type="hidden" data-bind="value: canEdit, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.CanEdit))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } "/>
-						<input type="hidden" data-bind="value: isFavorite, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.IsFavorite))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } "/>
+
+							<!-- ko with: $root.cells[$parentContext.$index()][$index()] -->
+							<span data-bind="text: description"></span>
+
+							<input type="hidden" data-bind="value: userIsDeleted, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.UserIsDeleted))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } " />
+							<input type="hidden" data-bind="value: canView, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.CanView))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } " />
+							<input type="hidden" data-bind="value: canEdit, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.CanEdit))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } " />
+							<input type="hidden" data-bind="value: isFavorite, attr: { name: '@(Html.NameFor(m => m.Cells))[-1][-2].@(nameof(UserRightGroupCell.IsFavorite))'.replace('-1', $parentContext.$parentContext.$index()).replace('-2', $parentContext.$index()) } " />
+							<!-- /ko -->
+
+						</td>
 						<!-- /ko -->
-
-					</td>
+					</tr>
 					<!-- /ko -->
-				</tr>
-				<!-- /ko -->
-				<tr>
-					<th class="add"><a data-bind="click: function() { add(false); }">@AdminResources.Add</a></th>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="form-group float-end">
-		@Html.ActionLink(AdminResources.Back, "Index", "AdminUserRights", null, new { @class = "m-2" })
-		<input type="submit" value="@AdminResources.Save" class="btn btn-primary" />
-	</div>
-</form>
+					<tr>
+						<th class="add"><a data-bind="click: function() { add(false); }">@AdminResources.Add</a></th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="form-group float-end">
+			@Html.ActionLink(AdminResources.Back, "Index", "AdminUserRights", null, new { @class = "m-2" })
+			<input type="submit" value="@AdminResources.Save" class="btn btn-primary" />
+		</div>
+	</form>
+</div>
 
 <script type="text/javascript">
+	ko.options.deferUpdates = true;
+
 	var model = new userRightsGroupModel({
 		columns: @Html.Raw(Model.Columns.ToJson()),
 		rows: @Html.Raw(Model.Rows.ToJson()),

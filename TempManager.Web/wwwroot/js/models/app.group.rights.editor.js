@@ -7,6 +7,7 @@
 
 	self.cells = [];
 
+	self.searchTerm = ko.observable();
 	self.selectedRow = ko.observable(0);
 	self.selectedColumn = ko.observable(0);
 

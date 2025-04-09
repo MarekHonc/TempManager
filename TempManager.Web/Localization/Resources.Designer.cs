@@ -367,6 +367,15 @@ namespace TempManager.Web.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;deg;C.
+        /// </summary>
+        public static string TemperatureSymbol {
+            get {
+                return ResourceManager.GetString("TemperatureSymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ventil.
         /// </summary>
         public static string ValveOpen {

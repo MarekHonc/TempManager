@@ -219,6 +219,9 @@
   <data name="Temperature" xml:space="preserve">
     <value>Teplota [&amp;deg;C]</value>
   </data>
+  <data name="TemperatureSymbol" xml:space="preserve">
+    <value>&amp;deg;C</value>
+  </data>
   <data name="ValveOpen" xml:space="preserve">
     <value>Ventil</value>
   </data>
