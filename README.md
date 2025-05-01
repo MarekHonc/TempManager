@@ -1,6 +1,6 @@
 # Webová aplikace pro řízení vytápění
 
-TempManager je webová aplikace vyvinutá pro **Technickou univerzitu v Liberci**, konkrétně pro **řízení vytápění budovy A Fakulty mechatroniky**. Umožňuje zaměstnancům monitorovat a upravovat teplotu v jednotlivých místnostech v reálném čase. Aplikace využívá existující infrastrukturu **KNX** a **PLC Tecomat Foxtrot** a nabízí moderní, bezpečné a responzivní uživatelské rozhraní.
+TempManager je webová aplikace vyvinutá pro **Technickou univerzitu v Liberci**, konkrétně pro **řízení vytápění budovy A Fakulty mechatroniky**. Umožňuje zaměstnancům monitorovat a upravovat teplotu v jednotlivých místnostech v reálném čase. Aplikace využívá existující infrastrukturu **KNX** a **PLC Tecomat Foxtrot**, která nabízí moderní, bezpečné a responzivní uživatelské rozhraní.
 
 ## ✨ Funkce
 
