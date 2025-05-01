@@ -1,0 +1,27 @@
+Musím stáhnout VMware Remote console a připojit jí skrze proklik v https://vmvc.is.tul.cz
+
+Následně v menu VMRC vyberu Removable devices, CD/ROM a tam připojím ISO s net inslatací debianu viz https://www.debian.org/distrib/
+
+Nainstalován debian bez UI
+- Language English
+- Location: Czechia
+- Keyboard: Czech
+- HostName: vytapeni
+- DomainName: tul.cz
+- Password: {heslo}
+- Full name for new user: {user}
+- User name for your accoung: {user}
+- Password for new user: {user-heslo}
+- Partioning: Guided - use entire disk -> Vyberu dostupný disk kam to chci
+- Partioning scheme: all files in one partition
+- Finish partiionning and write changes to disk
+- YES!
+- Teď proběhne instalace
+- Scan extra - nope
+- Mirror pro packages - chceme český, deb.debian.org
+- Proxy - není třeba
+- Anynomous statistics - nope
+- Software to install: jenom standard system utilities
+
+Musím ještě doinstalovat VMware tool
+- vypadá to že jsou součástí distribuce

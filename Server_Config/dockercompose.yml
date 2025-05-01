@@ -1,0 +1,45 @@
+services:
+  tempmanager.db:
+    image: postgres:latest
+    hostname: db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: {db-heslo}
+    networks:
+      - tempmanager-nat
+        # ipv4_address: "192.168.80.11"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  tempmanager.web:
+    image: {docker-acc}/tempmanagerweb:latest
+    hostname: web
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_HTTP_PORTS=8080
+      - "ConnectionStrings__TempManagerContext=Host=db;Database=temp.manager;Username=postgres;Password={db-heslo}"
+      - TZ=Europe/Prague
+      - LANG=cs_CZ.UTF-8
+      - LC_ALL=cs_CZ.UTF-8
+    networks:
+      - tempmanager-nat
+        # ipv4_address: "192.168.80.12"
+    depends_on:
+     - "tempmanager.db"
+    ports:
+      - "8080:8080"
+    volumes:
+      - /srv/vytapeni/usersecrets:/home/app/.microsoft/usersecrets:ro
+
+networks:
+  tempmanager-nat:
+    # driver: bridge
+    # ipam:
+    #   config:
+    #     - subnet: 192.168.80.0/24
+
+volumes:
+  postgres:

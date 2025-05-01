@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata">
+ 
+  <md:SPSSODescriptor>
+ 
+    <md:Extensions>
+      <mdui:UIInfo xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+        <mdui:DisplayName xml:lang="en">vytapeni.tul.cz</mdui:DisplayName>
+        <mdui:DisplayName xml:lang="cs">vytapeni.tul.cz</mdui:DisplayName>
+        <mdui:Description xml:lang="en">Vytapeni TUL</mdui:Description>
+        <mdui:Description xml:lang="cs">Vytápění TUL</mdui:Description>
+        <mdui:InformationURL xml:lang="en">https://www.tul.cz/en/info</mdui:InformationURL>
+        <mdui:InformationURL xml:lang="cs">https://www.tul.cz/info</mdui:InformationURL>
+      </mdui:UIInfo>
+    </md:Extensions>
+ 
+    <md:AttributeConsumingService index="0">
+      <md:ServiceName xml:lang="en">vytapeni.tul.cz</md:ServiceName>
+      <md:ServiceName xml:lang="cs">vytapeni.tul.cz</md:ServiceName>
+      <md:ServiceDescription xml:lang="en">Vytapeni TUL</md:ServiceDescription>
+      <md:ServiceDescription xml:lang="cs">Vytápění TUL</md:ServiceDescription>
+      <md:RequestedAttribute FriendlyName="eppn" Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.6" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/>
+      <md:RequestedAttribute FriendlyName="givenName" Name="urn:oid:2.5.4.42" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/>
+      <md:RequestedAttribute FriendlyName="mail" Name="urn:oid:0.9.2342.19200300.100.1.3" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/>
+      <md:RequestedAttribute FriendlyName="sn" Name="urn:oid:2.5.4.4" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/>
+      <md:RequestedAttribute FriendlyName="uid" Name="urn:oid:0.9.2342.19200300.100.1.1" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/>
+      <md:RequestedAttribute FriendlyName="eduPersonScopedAffiliation" Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.9" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true"/>
+    </md:AttributeConsumingService>
+ 
+  </md:SPSSODescriptor>
+ 
+  <md:Organization>
+    <md:OrganizationName xml:lang="en">Technical University of Liberec</md:OrganizationName>
+    <md:OrganizationName xml:lang="cs">Technická univerzita v Liberci</md:OrganizationName>
+    <md:OrganizationDisplayName xml:lang="en">Technical University of Liberec</md:OrganizationDisplayName>
+    <md:OrganizationDisplayName xml:lang="cs">Technická univerzita v Liberci</md:OrganizationDisplayName>
+    <md:OrganizationURL xml:lang="en">https://www.tul.cz/en/</md:OrganizationURL>
+    <md:OrganizationURL xml:lang="cs">https://www.tul.cz/</md:OrganizationURL>
+  </md:Organization>
+ 
+  <md:ContactPerson contactType="technical">
+    <md:GivenName>Marek</md:GivenName>
+    <md:SurName>Honc</md:SurName>
+    <md:EmailAddress>mailto:marek.honc@tul.cz</md:EmailAddress>
+  </md:ContactPerson>
+ 
+</md:EntityDescriptor>

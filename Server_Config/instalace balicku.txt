@@ -1,0 +1,81 @@
+apt install libapache2-mod-shib
+apt install apache2
+
+
+apt install openssh-server
+systemctl enable ssh
+
+apt install vim
+apt install ufw
+
+/usr/sbin/ufw default deny incoming
+/usr/sbin/ufw default allow outgoing
+/usr/sbin/ufw allow 'WWW Full'
+/usr/sbin/ufw allow OpenSSH
+/usr/sbin/ufw enable
+
+mkdir /var/www/html/$(hostname -f)
+sudo chown -R www-data: /var/www/html/$(hostname -f)
+echo '<h1>Test</h1>' > /var/www/html/$(hostname -f)/index.html
+
+vim /etc/apache2/sites-available/$(hostname -f).conf
+
+/usr/sbin/a2dissite 000-default.conf default-ssl
+/usr/sbin/a2ensite $(hostname -f).conf
+
+systemctl restart apache2.service
+
+
+SSL------
+
+apt install snapd
+snap install core
+snap refresh core
+snap install --classic certbot
+ln -s /snap/bin/certbot /usr/bin/certbot
+
+certbot --apache -d vytapeni.tul.cz
+
+vim /etc/apache2/sites-available/$(hostname -f)-le-ssl.conf
+
+vim /etc/shibboleth/shibboleth2.xml
+vim /etc/shibboleth/metadata-template.xml
+
+/usr/sbin/shib-keygen -h vytapeni.tul.cz -y 10 -e https://vytapeni.tul.cz/shibboleth
+
+systemctl restart shibd
+
+https://vytapeni.tul.cz/Shibboleth.sso/Metadata - stáhnu metadata a ty pošlu Melzerovi
+
+/usr/sbin/a2enmod proxy
+/usr/sbin/a2enmod proxy_http
+/usr/sbin/a2enmod proxy_wstunnel
+/usr/sbin/a2enmod proxy_balancer
+/usr/sbin/a2enmod lbmethod_byrequests
+/usr/sbin/a2enmod headers
+systemctl restart apache2
+
+DOCKER-------
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+docker login -u {uzivatel}
+{token}
+
+Vytvoření image------
+
+mkdir /srv/vytapeni/
+mkdir /srv/vytapeni/usersecrets
+
+vim /srv/vytapeni/docker-compose.yml
+
+docker-compose up -d
